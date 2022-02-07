@@ -9,8 +9,10 @@
   
 </script>
 
-This passes the custom codeblock element defined [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/_CodeBlock.svelte)
-on the markdown [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/demo_data/code.md)
+This passes the custom codeblock element defined
+<a href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/_CodeBlock.svelte">here</a>
+on the markdown
+<a href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/demo_data/code.md">here</a>
 
 <Document ast={ast} settings={{elements: {CodeBlock}}}/>
 
