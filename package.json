@@ -1,6 +1,6 @@
 {
   "name": "pandoc-svelte-components",
-  "version": "0.1",
+  "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev -p 2999",
     "build": "svelte-kit build && touch docs/.nojekyll # for GitHub Pages",
