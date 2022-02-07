@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-static": "^1.0.0-next.26",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
@@ -21,6 +22,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
     "highlight.js": "^11.4.0",
+    "node-pandoc-filter": "file:../node-pandoc-filter",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
     "svelte": "^3.44.0",
@@ -28,8 +30,7 @@
     "svelte-preprocess": "^4.9.4",
     "svelte2tsx": "^0.5.2",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.3",
-    "node-pandoc-filter": "file:../node-pandoc-filter"
+    "typescript": "^4.4.3"
   },
   "type": "module"
 }
