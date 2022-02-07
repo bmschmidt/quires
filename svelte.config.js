@@ -8,6 +8,9 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
+		paths: {
+			base: '/pandoc-svelte-components'
+		},
 		adapter: adapter({
 			pages: 'docs',
 		})
