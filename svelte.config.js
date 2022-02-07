@@ -9,7 +9,7 @@ const config = {
 
 	kit: {
 		paths: {
-			base: '/pandoc-svelte-components'
+			base: '/pandoc-svelte-components',
 		},
 		adapter: adapter({
 			pages: 'docs',
