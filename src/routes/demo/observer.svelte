@@ -39,5 +39,7 @@
   <div>Paragraphs read so far.</div>
 </div>
 <div style="margin-left:15%;margin-right:15%;">
+   This uses the custom Para component [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/_ObservedParagraph.svelte) on the Markdown defined [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/demo_data/history.md).
+   The IntersectionObserver is created externally to the svelte components, [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/observer.svelte).
   <Document {settings} {ast} />
 </div>
