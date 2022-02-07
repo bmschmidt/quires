@@ -10,11 +10,11 @@
     Ben Schmidt<h1 data-svelte="svelte-1dh2ssa">title</h1>
     passing state
 	<link rel="stylesheet" href="/pandoc-svelte-components/_app/assets/pages/demo/observer.svelte-c9f4b581.css">
-	<link rel="modulepreload" href="/pandoc-svelte-components/_app/start-9b0a282f.js">
+	<link rel="modulepreload" href="/pandoc-svelte-components/_app/start-fd242607.js">
 	<link rel="modulepreload" href="/pandoc-svelte-components/_app/chunks/vendor-2d7df068.js">
 	<link rel="modulepreload" href="/pandoc-svelte-components/_app/chunks/paths-4b3c6e7e.js">
 	<link rel="modulepreload" href="/pandoc-svelte-components/_app/layout.svelte-4bb9523d.js">
-	<link rel="modulepreload" href="/pandoc-svelte-components/_app/pages/demo/observer.svelte-7ffa4519.js">
+	<link rel="modulepreload" href="/pandoc-svelte-components/_app/pages/demo/observer.svelte-cb20c614.js">
 	<link rel="modulepreload" href="/pandoc-svelte-components/_app/chunks/Document-0c6ac3ed.js">
 	</head>
 	<body>
@@ -23,7 +23,9 @@
 
 <div style="position:fixed;font-family:sans-serif;"><div style="font-size:64px;">0</div>
   <div>Paragraphs read so far.</div></div>
-<div style="margin-left:15%;margin-right:15%;">
+<div style="margin-left:15%;margin-right:15%;">This uses the custom Para component [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/_ObservedParagraph.svelte) on the Markdown defined [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/demo_data/history.md).
+   The IntersectionObserver is created externally to the svelte components, [here](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/observer.svelte).
+  
 
 <p class="svelte-1i0rocm">Every component takes two arguments: <code id="" class="">data</code>, which is the de-serialized pandoc json, and <code id="" class="">settings</code>, which is an array containing state passed to all child components.
 </p><p class="svelte-1i0rocm">One component in <code id="" class="">settings</code> is reserved: <code id="" class="">elements</code> allows you to override any pandoc element with a custom element. To redefine “CodeBlock”’s behavior, for example, you pass an element through.
@@ -90,10 +92,10 @@
 </p></div>
 
 
-		<script type="module" data-hydrate="uri6nl">
-		import { start } from "/pandoc-svelte-components/_app/start-9b0a282f.js";
+		<script type="module" data-hydrate="1h6d8h3">
+		import { start } from "/pandoc-svelte-components/_app/start-fd242607.js";
 		start({
-			target: document.querySelector('[data-hydrate="uri6nl"]').parentNode,
+			target: document.querySelector('[data-hydrate="1h6d8h3"]').parentNode,
 			paths: {"base":"/pandoc-svelte-components","assets":"/pandoc-svelte-components"},
 			session: {},
 			route: true,
@@ -104,7 +106,7 @@
 				error: null,
 				nodes: [
 					import("/pandoc-svelte-components/_app/layout.svelte-4bb9523d.js"),
-						import("/pandoc-svelte-components/_app/pages/demo/observer.svelte-7ffa4519.js")
+						import("/pandoc-svelte-components/_app/pages/demo/observer.svelte-cb20c614.js")
 				],
 				url: new URL("http://sveltekit-prerender/pandoc-svelte-components/demo/observer"),
 				params: {}

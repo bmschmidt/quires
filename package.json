@@ -3,7 +3,7 @@
   "version": "0.1",
   "scripts": {
     "dev": "svelte-kit dev -p 2999",
-    "build": "svelte-kit build",
+    "build": "svelte-kit build && touch docs/.nojekyll # for GitHub Pages",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
