@@ -2,10 +2,10 @@
 
 This module provides a set of Svelte components that implement (most of) the basic Pandoc document types defined in pandoc's abstract syntax tree. The purpose is to generate rich javascript-enabled applications from pandoc documents in cases where the static-document approach of pandoc is insufficient. Some of my primary use cases for working on this include:
 
-1. Creating an IntersectionObserver instance at the top level of a document,
-   and then configuring each instance of `<div>` to do something when they scroll into view.
-2. Looking at the classes on code blocks to do different things with 
-   them depending on the language, such as adding copy buttons that add R-markdown brackets to just R code.
+1. [Creating an IntersectionObserver instance at the top level of a document,
+   and then configuring each instance of `<div>` to do something when they scroll into view.](https://bmschmidt.github.io/pandoc-svelte-components/demo/observer/)
+2. [Looking at the classes on code blocks to do different things with 
+   them depending on the language, such as adding copy buttons that add R-markdown brackets to just R code while js code gets executed in browser.](https://bmschmidt.github.io/pandoc-svelte-components/demo/code/)
 3. If the URL for a link in a markdown file ends with 'json',
    like `![](https://iiif.archivelab.org/iiif/1985-05-compute-magazine$72/info.json)`,
    check if the JSON is a IIIF manifest. If it is, generate an OpenSeadragon viewer around the json manifest rather than a simple `<img>` tag.
