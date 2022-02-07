@@ -58,9 +58,12 @@ import Header from 'pandoc-svelte/Header.svelte'
 <Header data={[level + 1, meta, elems]} {settings} />
 ```
 
-Simple, static redefinitions like changing header levels are better handled
+You probably don't this just for simple, static redefinitions like changing header levels are better handled
 through pandoc filters--I tend to write them in lua because it's fastest and 
 cleanest, but ES monoglots can use [https://github.com/mathematic-inc/node-pandoc-filter].
+
+It's more suited for cases where you need to execute javascript code in the browser in a way
+that depends on the structure or content of markdown blocks.
 
 # Borrowed code.
 
