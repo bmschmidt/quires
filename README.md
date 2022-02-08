@@ -1,8 +1,8 @@
 # pandoc-svelte-components
 
-This module provides a set of Svelte components that implement (most of) the basic Pandoc document types defined in pandoc's abstract syntax tree. The purpose is to generate rich javascript-enabled applications from pandoc documents in cases where the static-document approach of pandoc is insufficient. Some of my primary use cases for working on this include:
+This module provides a set of Svelte components that implement (most of) the basic Pandoc document types defined in pandoc's abstract syntax tree. The purpose is to generate rich javascript-enabled applications from pandoc documents in cases where the static-document approach of pandoc is insufficient. Some of my primary use cases for working on are when I'm a number of similar documents in Markdown, but want to:
 
-1. [Creating an IntersectionObserver instance at the top level of a document,
+1. [Create an IntersectionObserver instance at the top level of a document,
    and then configuring each instance of `<div>` to do something when they scroll into view.](https://bmschmidt.github.io/pandoc-svelte-components/demo/observer/)
 2. [Looking at the classes on code blocks to do different things with 
    them depending on the language, such as adding copy buttons that add R-markdown brackets to just R code while js code gets executed in browser.](https://bmschmidt.github.io/pandoc-svelte-components/demo/code/)
@@ -21,6 +21,8 @@ It is possible to use pandoc to render straight to flat HTML. But that gives you
 
 Pandoc offers an abstracted, rich vocabulary for defining document elements that captures almost all the different levels of documents that tend to be authored nowadays. By adopting the pandoc AST as a document definition, it's possible to add custom behavior at any level of a document while leaving the rest of the HTML rendering the same.
 
+In the examples here, I have files saved that hold pandoc native JSON. You'd almost never want to do this. Instead, it's likely that you'd have an endpoint that invokes pandoc from the command line on a file and outputs it (perhaps with a lua filter or two) as JSON, which you then parse in svelte. I'll post an example from my own workflow soon-ish.
+
 ### What does svelte offer for pandoc documents?
 
 Usually, nothing. But sometimes, interactivity without bloat.
@@ -31,10 +33,11 @@ but then the resulting code wouldn't have access to any modules you've imported 
 
 This project is intended to work in much the same way as conventional pandoc filters, written in Haskell or
 Lua, with interventions into normal rendering created by inserting custom definitions of components. But while
-pandoc filters put out more pandoc JSON, this program is a dead end: the svelte components rendering each pandoc block and inline elements
-as DOM elements.
+pandoc filters put out more pandoc JSON, this program is a dead end because the kind of interactivity it creates
+are highly browser-specific: while I call it 'HTML', really the svelte components here are rendering each pandoc block and inline elements
+as DOM elements with attached event listeners.
 
-Svelte is better suited for this than React or another web framework because svelte is more of a compiler than a conventional framework.
+Svelte--to my limited understanding--is better suited for this than React or another web framework because svelte is more of a compiler than a conventional framework.
 It reads `.svelte` files--which are basically like HTML files with reactive templating--and outputs compiled HTML with event listeners, 
 styles, etc. So while conceptually every `<li>` and even `Space` is a separate component, at actual render-time all that complexity has 
 been stripped away.
