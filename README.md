@@ -9,27 +9,35 @@ This module provides a set of Svelte components that implement (most of) the bas
 3. If the URL for a link in a markdown file ends with 'json',
    like `![](https://iiif.archivelab.org/iiif/1985-05-compute-magazine$72/info.json)`,
    check if the JSON is a IIIF manifest. If it is, generate an OpenSeadragon viewer around the json manifest rather than a simple `<img>` tag.
-  
 
-## Status
+## Why? 
 
-### Unimplemented classes.
+### What does pandoc offer for svelte projects?
 
-This is early stage: I need this for a few projects but it is incomplete in its implementation. I do not yet have a list of fundamental pandoc types that are not implemented.
+Pandoc is a program that, at its core, defines an abstracted vocabulary for representing the structure of documents intended for display.
+It is by far the most powerful markdown processor out there: it also can directly consume a variety of non-markdown formats, from ipynb notebooks to epub books to docx files. Unless you write files directly as svelte components, it can be hard to use the most powerful elements of svelte--you have to muck around with `document.QuerySelector` and the like, and you lose the isolation of parts that is one of svelte's greatest charms. (This is true if you're importing HTML as well as Markdown.)
 
-### Unsafe types.
+It is possible to use pandoc to render straight to flat HTML. But that gives you a static document, without the ability to manipulate individual elements. And what an 'element' is might vary for person to person; some might be adding interactivity to divs based on their classes, while others might want to add event listeners onto each individual word. (Yes, I've done this!).
 
-In addition, it does not full for example, it does not reliably assign all attributes and classes on tables, images, etc from pandoc; instead, it silent drops them.
+Pandoc offers an abstracted, rich vocabulary for defining document elements that captures almost all the different levels of documents that tend to be authored nowadays. By adopting the pandoc AST as a document definition, it's possible to add custom behavior at any level of a document while leaving the rest of the HTML rendering the same.
 
-I'm slowly filling it out as I need things unless I hear that other people need them, too.
+### What does svelte offer for pandoc documents?
 
-## Why?
+Usually, nothing. But sometimes, interactivity without bloat.
 
-Pandoc is a program that, at its core, creates an abstracted vocabulary for representing the structure of documents intended for display. It is by far the most powerful markdown processor out there: it also can directly consume a variety of non-markdown formats.
+Say you want to add a button next to every `pre` block in a document that copies the code.
+Using pandoc, you could manually write some HTML and event listeners inside inside a lua filter,
+but then the resulting code wouldn't have access to any modules you've imported in `node`... etc.
 
-It is possible to use pandoc to render straight to HTML that you put into a web page. But that gives you a static document. Say you want to add a "copy code" button next to every `pre` block in a document. Using pandoc, you could manually write some HTML inside a lua filter, but then the resulting code wouldn't have access to any modules you've imported in `node`...
+This project is intended to work in much the same way as conventional pandoc filters, written in Haskell or
+Lua, with interventions into normal rendering created by inserting custom definitions of components. But while
+pandoc filters put out more pandoc JSON, this program is a dead end: the svelte components rendering each pandoc block and inline elements
+as DOM elements.
 
-This project is intended to work in much the same way as conventional pandoc filters, but with svelte components rendering each pandoc block and inline elements.
+Svelte is better suited for this than React or another web framework because svelte is more of a compiler than a conventional framework.
+It reads `.svelte` files--which are basically like HTML files with reactive templating--and outputs compiled HTML with event listeners, 
+styles, etc. So while conceptually every `<li>` and even `Space` is a separate component, at actual render-time all that complexity has 
+been stripped away.
 
 ## Overriding components
 
@@ -65,7 +73,19 @@ cleanest, but ES monoglots can use [https://github.com/mathematic-inc/node-pando
 It's more suited for cases where you need to execute javascript code in the browser in a way
 that depends on the structure or content of markdown blocks.
 
-# Borrowed code.
+# Caveats
+
+## Unimplemented classes.
+
+This is early stage: I need this for a few projects but it is incomplete in its implementation. I do not yet have a list of fundamental pandoc types that are not implemented.
+
+## Unsafe types.
+
+In addition, it does not full for example, it does not reliably assign all attributes and classes on tables, images, etc from pandoc; instead, it silent drops them.
+
+I'm slowly filling it out as I need things unless I hear that other people need them, too.
+
+## Borrowed code.
 
 For the time this includes type definitions from
-[https://github.com/mathematic-inc/node-pandoc-filter] in `src/types`. Once those have been fully updated to pandoc 1.22, the changes will be pushed back upstream and I may add it as a dependency.
+[https://github.com/mathematic-inc/node-pandoc-filter] in `src/types`. Once those have been fully updated to pandoc 1.22, the changes will be pushed back upstream and I may add it as a dependency, or just keep the folder separately.
