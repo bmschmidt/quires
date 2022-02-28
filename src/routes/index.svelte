@@ -14,5 +14,5 @@
 </h3>
 
 <h3>
-  <a href="{base}/demo/complex">Demo of using markdown image tags for IIIF manifests. (<code>![alt-text](https://demo.edu/demo_iiif_id/info.json)</code>)</a>
+  <a href="{base}/demo/iiif">Demo of using markdown image tags for IIIF manifests. (<code>![alt-text](https://demo.edu/demo_iiif_id/info.json)</code>)</a>
 </h3>
