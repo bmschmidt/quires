@@ -12,3 +12,7 @@
 <h3>
   <a href="{base}/demo/complex">Demo of a complicated markdown test suite passed through this module.</a>
 </h3>
+
+<h3>
+  <a href="{base}/demo/complex">Demo of using markdown image tags for IIIF manifests. (<code>![alt-text](https://demo.edu/demo_iiif_id/info.json)</code>)</a>
+</h3>
