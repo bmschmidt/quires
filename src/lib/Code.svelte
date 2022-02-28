@@ -1,8 +1,11 @@
-<script>
-  export let data
+<script lang="ts">
+  import type { n } from 'src/global';
+  export let data : NodeType.Code
   export let settings
-  const [[id, classes, kv], text] = data
+
   import Elements from '$lib/Elements.svelte'
+
+  const [[id, classes, kv], text] = data
   const attrs = Object.fromEntries(kv)
 </script>
 

@@ -1,8 +1,8 @@
-<script>
-  export let data
+<script lang="ts">
+  import type { NodeType } from 'src/types';
+  export let data : NodeType.Span
   export let settings
-  const [[id, classes, kv], elems] = data
-  const attrs = Object.fromEntries(kv)
+  const [[id, classes, attrs], elems] = data
   import { page } from '$app/stores'
   import Elements from './Elements.svelte'
 </script>
