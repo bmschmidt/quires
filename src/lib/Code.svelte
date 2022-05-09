@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { n } from 'src/global';
   export let data : NodeType.Code
   export let settings
 

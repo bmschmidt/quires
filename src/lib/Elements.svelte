@@ -46,11 +46,14 @@
       <svelte:component this={elements[data['t']]} data={data['c']} {settings}/>
     {:else if data['t'] == 'Space'}
       {" "}
+    {:else if data['t'] == 'LineBreak'}
+      <br>
     {:else if data['t'] == 'HorizontalRule'}
       <hr>
     {:else if data['t'] == 'Plain'}
       <svelte:self elems={data['c']} {settings}/>
     {:else}
+      {console.error("Unknown element type:", data['t'])}
       <p>
         XXX--UNIMPLEMENTED--{data['t']} {JSON.stringify(data['c'])}XXX
       </p>

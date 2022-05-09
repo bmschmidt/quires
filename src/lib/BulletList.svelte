@@ -1,9 +1,8 @@
 <script lang="ts">
-  export let data : n.NodeType.BulletList
+  import type { n } from 'src/global';
+  export let data : n.NodeType.BulletList;
   export let settings;
   import Elements from '$lib/Elements.svelte';
-  import type { n } from 'src/global';
-
 </script>
 
 <ul>
