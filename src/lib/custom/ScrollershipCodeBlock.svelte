@@ -35,16 +35,47 @@
       div.dispatchEvent(event);
     }
   }
-
+  $: editmode = false;
+  $: editcode = '';
+  function enter_editmode() {
+    editcode = code;
+    editmode = true;
+  }
 </script>
 
 <details bind:this={div}>
   <summary style="user-select:none;">
-    Customize
+    Edit Code
   </summary>
 
-  <pre {id} class="{classes?.join(" ")}" {...attrs}><code>
-    {code}
-  </code></pre>
+
+  <pre on:click={enter_editmode} class:hidden={editmode} {id} class="{classes?.join(" ")}" {...attrs}
+  ><code>{code}</code></pre>
+
+
+  <textarea bind:value={editcode} class:hidden={!editmode} />
+  <button class:hidden={!editmode} on:click={() => {
+    code = editcode;
+    editmode = false;
+    data._scrollerly_apparatus.run();
+  }}>Save and Apply Edits</button>
+
 </details>
+
+<style>
+  textarea {
+    width: 100%;
+    height: 250px;
+  }
+  pre, code {
+    white-space: pre-wrap;
+  }
+  pre:hover {
+    background-color: bisque;
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+
 
