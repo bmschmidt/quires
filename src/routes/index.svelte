@@ -16,3 +16,7 @@
 <h3>
   <a href="{base}/demo/iiif">Demo of using markdown image tags for IIIF manifests. (<code>![alt-text](https://demo.edu/demo_iiif_id/info.json)</code>)</a>
 </h3>
+
+<h3>
+  <a href="{base}/scrollership/apple/">Scrollership through a IIIF image</a>
+</h3>

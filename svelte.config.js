@@ -14,7 +14,10 @@ const config = {
 		},
 		adapter: adapter({
 			pages: 'docs',
-		})
+		}),
+		prerender: {
+			default: true
+		}
 	}
 };
 
