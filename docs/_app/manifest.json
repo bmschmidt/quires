@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-549c0ec1.js",
+    "file": "start-99eaf1a5.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -102,7 +102,7 @@
     ]
   },
   "src/routes/scrollership/[slug].svelte": {
-    "file": "pages/scrollership/_slug_.svelte-c6324cd3.js",
+    "file": "pages/scrollership/_slug_.svelte-a43f8574.js",
     "src": "src/routes/scrollership/[slug].svelte",
     "isEntry": true,
     "isDynamicEntry": true,

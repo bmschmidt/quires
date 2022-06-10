@@ -6,6 +6,8 @@
   }
 
   type Scroller = () => scrollingship;
+
+  export let query;
   export let ast;
   export let settings = {};
   export let API : (() => Promise<Scroller>) | Scroller;
@@ -58,6 +60,7 @@
       for (let [code, call] of settings['code_nodes'].entries()) {
         // Plot just the first call on load
         plot.plotAPI(call)
+        query = call;
         last_plotted_code = code;
         break
       }
