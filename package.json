@@ -1,11 +1,12 @@
 {
   "name": "pandoc-svelte-components",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "scripts": {
     "dev": "svelte-kit dev -p 2999 --https",
     "build": "svelte-kit build && touch docs/.nojekyll # for GitHub Pages",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
+    "publish": "svelte-kit package && npm publish ./package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",

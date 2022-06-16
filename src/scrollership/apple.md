@@ -1,18 +1,18 @@
-:::{.scrollership scroller-type="nori"}
+:::{.scrollership scroller-type="api"}
 
 :::chunk
 
 # The Vermeer of the Computer Ads
 
 In 1977, Apple Computers released the Apple II. This ad introduced it.
-While this ad--created by XXX--is not quite as famous as the 1984 commercial for the Macintosh directed by
+While this ad is not quite as famous as the 1984 commercial for the Macintosh directed by
 Ridley Scott, it is among the best known magazine advertisements for computer 
 products from the twentieth century.
 
 Like a painting in a gallery, it's the sort of work the rewards close attention.
 If \"1984\" is a Rembrandt, stormy, dark, and energetic,
 this ad is the Vermeer of the history of personal computing; a
-meticulously arranged, light-filled domestic setting.
+meticulously arranged, light-filled domestic setting, dusted throughout with gently hidden meanings.
 
 ```api
 source_url: "https://iiif.archivelab.org/iiif/Byte_1977-The_Apple_II_System_Description_by_Stephen_Wozniak$8/info.json"
@@ -37,7 +37,7 @@ kit for hobbyists. The Apple II, this ad goes out of its way to say, was
 different.
 [![Apple1innards](https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Apple1innards.jpg/512px-Apple1innards.jpg){width="512"}](https://commons.wikimedia.org/wiki/File:Apple1innards.jpg "geni, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons")
 
-```nori
+```api
 zoom:
   - 0.7527567297974297
   - 0.05800433953901465
@@ -56,7 +56,7 @@ The Apple II, by contrast, was beautiful; the keyboard was embedded in a
 box that was well-made and small enough that the fiction someone would
 lug it to their kitchen table to work is just barely believable.
 
-```nori
+```api
 zoom:
   - 0.00005619082591928892
   - 0.7479158640510013
@@ -75,7 +75,7 @@ prices. (Perhaps they are up to the minute?) All the cords and
 peripherals that power and link these things together are carefully
 obscured.
 
-```nori
+```api
 zoom:
   - 0.2945412156557371
   - 0.7763897554967175
@@ -86,6 +86,12 @@ callouts:
     'y': 0.9728012084960938
     size: 0.25
 ```
+
+```resizer
+min: .1
+max: .9
+```
+
 :::
 
 ::: chunk
@@ -94,7 +100,7 @@ the man\'s hands is on the computer; the other holds a pen, because this
 not a machine that will change your life; it will supplement it. The
 stock prices align to the paper Wall Street Journal;
 
-```nori
+```api
 zoom:
   - 0.40961890006639456
   - 0.9371892713232901
@@ -122,7 +128,7 @@ vests.](https://www.scpr.org/blogs/newmedia/2011/08/25/3318/fashion-steve-jobs-n
 You shouldn\'t be threatened by him; you *are* him. Or he is the person
 living your best life.
 
-```nori
+```api
 zoom:
   - 0.7181123104021604
   - 0.5939021170011107
@@ -140,7 +146,7 @@ And your best life includes a computer in your comfortable home. That
 this is a home computer is central to the point\--the kitchen setting is
 fantastically unrealistic.
 
-```nori
+```api
 zoom:
   - 0.49693623007778864
   - 0.7771838696550133
@@ -158,7 +164,7 @@ admiration? Or is more amusement at the follies of men? She\'s happier
 than the Mona Lisa, but I couldn\'t tell you much more. Except that you,
 too, will be happy if you find a partner who looks at you this way.
 
-```nori
+```api
 zoom:
   - 0.45007594390241246
   - 0.3996377114141252
@@ -178,7 +184,7 @@ callouts:
 Especially if they cook as you work. And especially especially, if it\'s
 apples on the menu.
 
-```nori
+```api
 zoom:
   - 0.20214894118973176
   - 0.5939464808902943
@@ -195,7 +201,7 @@ callouts:
 ::: chunk
 Another apple hangs on the wall.
 
-```nori
+```api
 zoom:
   - 0.00021939175043056425
   - 0.3196924422439164

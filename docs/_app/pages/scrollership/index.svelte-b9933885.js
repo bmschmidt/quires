@@ -1,4 +1,4 @@
-import{S as p,i as d,s as m,e as f,t as l,c as u,a as S,h as o,d as i,g as c,J as _,n}from"../../chunks/index-7b689e73.js";function g(h){let e,a,s;return{c(){e=f("h1"),a=l("Scrollership"),s=l(`
+import{S as p,i as d,s as m,e as f,t as l,c as u,a as S,h as o,d as i,g as c,J as _,n}from"../../chunks/index-b24b99d2.js";function g(h){let e,a,s;return{c(){e=f("h1"),a=l("Scrollership"),s=l(`
 
 Scrollership is a model for writing stories where interaction is triggered
 by a subject-area DSL.`)},l(t){e=u(t,"H1",{});var r=S(e);a=o(r,"Scrollership"),r.forEach(i),s=o(t,`

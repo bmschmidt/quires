@@ -1,15 +1,21 @@
 <script lang="ts">
 
   interface scrollingship {
-    bind:(node: HTMLElement) => void;
+    bind: (node: HTMLElement) => void;
     plotAPI: (call : Record<string, any>) => void;
   }
-
+ 
   type Scroller = () => scrollingship;
 
-  export let query;
+  import Slider from './Slider.svelte'
+  // For listening;
+  export let query = null;
   export let ast;
+  export let title="Scrollership"
+  export let controls = {};
   export let settings = {};
+  // The type of the scroller can be a promise for instances that 
+  // require a browser mount first. This may be deprecated in the future.
   export let API : (() => Promise<Scroller>) | Scroller;
   export let observer_options = {
     // from https://webdesign.tutsplus.com/tutorials/how-to-intersection-observer--cms-30250
@@ -18,6 +24,15 @@
     threshold: 0.01 // visible amount of item shown in relation to root
   };
 
+  const default_controls = {
+    slider: Slider
+  }
+
+  for (let [key, value] of Object.entries(default_controls)) {
+    if (controls[key] === undefined)
+    controls[key] = value;
+  }
+  console.log({controls})
   import { browser } from '$app/env'
   import ScrollershipDiv from './ScrollershipDiv.svelte';
   import Document from '../Document.svelte';
@@ -26,7 +41,7 @@
   settings['elements'] = settings['elements'] || {}
   settings['elements']['Div'] = ScrollershipDiv
   settings['code_nodes'] = new Map()
-  
+  settings['controls'] = controls;
   if (browser) {
     settings['observer'] = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -42,7 +57,6 @@
   }
   let backdrop = undefined;
   let plot : scrollingship | undefined = undefined;
-
   let scrolling_div = undefined;
   $: queued_plots = []
   let last_plotted_code = undefined;
@@ -55,8 +69,10 @@
       } else {
         api = API;
       }
-      plot = new api()  
+      plot = new api()
       plot.bind(backdrop)
+      window.plot = plot
+      settings.controls['_plot'] = plot
       for (let [code, call] of settings['code_nodes'].entries()) {
         // Plot just the first call on load
         plot.plotAPI(call)
@@ -85,15 +101,24 @@
     }
   })
   $: {
-    while (queued_plots.length > 0) {
+    // plonk the plots off one at a time.
+    if (queued_plots.length > 0) {
       // Plot every possibility in order,
       // but not necessarily waiting for the asynchronous calls
       // to complete.
-      plot.plotAPI(queued_plots.shift())
+      const call = queued_plots.shift()
+      plot.plotAPI(call).then(() => {
+        // Once the call is made, reassign the queue to 
+        // trigger re-evaluation of this block.
+        queued_plots = queued_plots
+      })
     }
   }
 </script>
 
+<div class="navbar">
+  {title}
+</div>
 <div class="scrollership">
   <div class="vizpanel">
     <div bind:this={backdrop} id="panel">
@@ -104,8 +129,19 @@
       <Document {ast} {settings}></Document>
   </div>
 </div>
+
 <style>
-  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 15;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  }
   .vizpanel {
     position: fixed;
     top: 0;
@@ -130,8 +166,11 @@
     width: 60vw;
     margin-left: 20vw;
     margin-right: 20vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
     margin-bottom: 90vh;
     position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .narrative::before {
