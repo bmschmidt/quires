@@ -9,6 +9,8 @@ This module provides a set of Svelte components that implement (most of) the bas
 3. If the URL for a link in a markdown file ends with 'json',
    like `![](https://iiif.archivelab.org/iiif/1985-05-compute-magazine$72/info.json)`,
    check if the JSON is a IIIF manifest. If it is, generate an OpenSeadragon viewer around the json manifest rather than a simple `<img>` tag.
+4. **Scrollership**: interactive narratives driven by code. E.g., the scrolly page [here](https://bmschmidt.github.io/pandoc-svelte-components/scrollership/apple) generated directly from [this markdown file](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/scrollership/apple.md) with code blocks implementing an API that drives Open SeaDragon.
+
 
 ## Why? 
 
