@@ -92,3 +92,21 @@ I'm slowly filling it out as I need things unless I hear that other people need 
 
 For the time this includes type definitions from
 [https://github.com/mathematic-inc/node-pandoc-filter] in `src/types`. Once those have been fully updated to pandoc 1.22, the changes will be pushed back upstream and I may add it as a dependency, or just keep the folder separately.
+
+# Scrollership
+
+Included in this repo for the time being are a particular set of components designed to support what I call "Scrollership"; linear narration driven by an API.
+
+All special code blocks must consist of well formatted [*yaml*](https://yaml.org/). (Note that JSON is a subset is a subset of yaml, so you can always just use JSON in these cases.)
+
+* Blocks that are classed as 'api' immediately trigger an update to the underlying plot state when they scroll into view. They also present themselves as editable blocks.
+* For `slider` and other input methods, a shorthand notation is allowed in which nested API changes can be declared using dot notation implemented using `lodash.set`. For instance, if a slider is bound to `encoding.filter.a[0]` and updated with the value `3.14` each update will emit a request for an API call of the form `{encoding: {filter: {a: [3.14]}}}`.
+* Code blocks classed as 'slider' present as an 
+  `<input type="range" />` element in the HTML. The yaml keys to control this slider include:
+  * `target`: The element in the API call that the slider directly controls. 
+  * `transform`: 'linear', 'sqrt', or 'log' transforms to apply to the value.
+  * `label`: Text to display in front of the slider.
+
+* Code blocks classed as `button` can have two keys:
+   * `label`: The text to appear on the button
+   * `api`: An API call that is dispatched when you click on the associated button.

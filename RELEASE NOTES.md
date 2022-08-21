@@ -1,3 +1,8 @@
+# 0.0.3
+
+* Multiple scrollership components, including buttons, buttonsets, etc.
+* Header bar with controls for toggling.
+
 # 0.0.2
 
 * Add fully integrated integrated example of 'scrollership' to library under scrollership elements.

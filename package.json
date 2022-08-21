@@ -27,6 +27,7 @@
     "eslint-plugin-svelte3": "^3.2.1",
     "highlight.js": "^11.4.0",
     "js-yaml": "^4.1.0",
+    "lodash-es": "^4.17.21",
     "node-pandoc-filter": "file:../node-pandoc-filter",
     "openseadragon": "^3.0.0",
     "prettier": "^2.4.1",

@@ -1,12 +1,13 @@
 <script lang="ts">
   export let settings;
   export let target;
+  export let api = {};
   export let min = 0;
   export let max = 1;
   export let step = .01;
-  export let trans = 'linear'
+  export let trans : "linear" | "log" | "sqrt" = 'linear'
   export let label = null;
-  
+  import { set } from 'lodash-es'
   let value = 0.5;
   let number = min / 2 + max / 2;
   $: {
@@ -20,12 +21,15 @@
     }
     number = min + (max - min) * ratio
   }
-   function update() {
+
+  function update() {
     const plot = settings.controls['_plot']
     if (plot) {
       const call = {}
-
-      call[target] = number
+      for (let [key, value] of Object.entries(api)) {
+        set(call, key, value)
+      }
+      set(call, target, number)
       plot.plotAPI(call)
     }
   }

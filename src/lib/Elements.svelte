@@ -55,7 +55,7 @@
     {:else}
       {console.error("Unknown element type:", data['t'])}
       <p>
-        XXX--UNIMPLEMENTED--{data['t']} {JSON.stringify(data['c'])}XXX
+        XXX--UNIMPLEMENTED PANDOC TYPE--{data['t']} {JSON.stringify(data['c'])}XXX
       </p>
     {/if}
   {/each}

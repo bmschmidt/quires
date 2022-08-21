@@ -48,7 +48,7 @@
   .chunk {
     outline: 1px solid grey;
     padding: 10px 30px;
-    margin-top: 40vh;
+    margin-top: 60vh;
     background-color: #f0f0f0;
     opacity: 0.5;
   }

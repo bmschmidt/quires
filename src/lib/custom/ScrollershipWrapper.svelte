@@ -3,17 +3,24 @@
   interface scrollingship {
     bind: (node: HTMLElement) => void;
     plotAPI: (call : Record<string, any>) => void;
+    query: Record<string, any>;
   }
  
   type Scroller = () => scrollingship;
 
   import Slider from './Slider.svelte'
+  import Button from './Button.svelte'
+  import Buttonset from './Buttonset.svelte'
   // For listening;
   export let query = null;
   export let ast;
   export let title="Scrollership"
   export let controls = {};
   export let settings = {};
+  export let position : "left" | "right" | undefined = undefined;
+
+  export let title_features = [];
+  
   // The type of the scroller can be a promise for instances that 
   // require a browser mount first. This may be deprecated in the future.
   export let API : (() => Promise<Scroller>) | Scroller;
@@ -25,7 +32,9 @@
   };
 
   const default_controls = {
-    slider: Slider
+    slider: Slider,
+    buttonset: Buttonset,
+    button: Button,
   }
 
   for (let [key, value] of Object.entries(default_controls)) {
@@ -37,7 +46,7 @@
   import ScrollershipDiv from './ScrollershipDiv.svelte';
   import Document from '../Document.svelte';
   import { onMount } from 'svelte';
-
+  import yaml from 'js-yaml'
   settings['elements'] = settings['elements'] || {}
   settings['elements']['Div'] = ScrollershipDiv
   settings['code_nodes'] = new Map()
@@ -73,6 +82,7 @@
       plot.bind(backdrop)
       window.plot = plot
       settings.controls['_plot'] = plot
+
       for (let [code, call] of settings['code_nodes'].entries()) {
         // Plot just the first call on load
         plot.plotAPI(call)
@@ -80,6 +90,7 @@
         last_plotted_code = code;
         break
       }
+
       scrolling_div.addEventListener('plotAPI', ({detail}) => {
         if (detail['node_code']) {
           // If there are a number of them, 
@@ -114,18 +125,52 @@
       })
     }
   }
-</script>
+  function get_api() {
+    const api = yaml.dump(plot.query)
+    navigator.clipboard.writeText(api).then(function() {
+      /* clipboard successfully set */
+    }, function() {
+      alert("Couldn't write to clipboard")
+    });
+  }
 
+  $: hidden = false;
+
+
+
+</script>
 <div class="navbar">
-  {title}
+  <slot name="navbar">
+    <div class="flex-navbar">
+    {#if title_features.indexOf('title_features') > -1}
+    <div class="action" on:click={get_api}>
+      Copy API
+    </div>
+    {/if}
+    <div>
+      <div class="action" on:click={() => {
+        hidden = !hidden
+      }}>
+        {hidden ? 'Show narrative' : 'Hide narrative'}
+      </div>
+    </div>
+    <div style="margin-left: 100px">
+      {title}
+    </div>
+    </div>
+  </slot>
 </div>
+
 <div class="scrollership">
   <div class="vizpanel">
     <div bind:this={backdrop} id="panel">
 
     </div>
   </div>
-  <div bind:this={scrolling_div} class="narrative">
+  <div bind:this={scrolling_div} 
+       class="narrative {position ? position : ''}"
+       class:slidden={hidden} 
+       >
       <Document {ast} {settings}></Document>
   </div>
 </div>
@@ -142,6 +187,7 @@
     padding: 10px;
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
   }
+
   .vizpanel {
     position: fixed;
     top: 0;
@@ -161,17 +207,35 @@
   }
 
   .narrative {
+    align-items: center;
+    width: 100vw;
+    margin-left: 0vw;
+    margin-right: 0vw;
+    padding-left: 25vw;
+    padding-right: 25vw;
+    margin-bottom: 90vh;
+    left: 0vw;
+    top: 0vw;
+    position: relative;
+    transition: all 1s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.025);
+  }
+
+  .narrative.slidden {
+    left: -100vw;
+  }
+
+  .narrative.left {
     z-index: 10;
     align-items: center;
     width: 60vw;
-    margin-left: 20vw;
-    margin-right: 20vw;
-    padding-left: 5vw;
-    padding-right: 5vw;
+    margin-left: 0vw;
+    margin-right: 60vw;
     margin-bottom: 90vh;
     position: relative;
     background-color: rgba(255, 255, 255, 0.1);
   }
+
 
   .narrative::before {
     content: "";
@@ -188,11 +252,24 @@
     width: 30%;
     min-height: 100%;
   }
+
   .center-column {
     width: 40%;
 
   }
   .right-column {
     width: 30%;
+  }
+  .action:hover {
+    cursor: pointer;
+    background-color:rgba(255, 255, 255, 0.5);
+    text-decoration: underline;
+  }
+  .flex-navbar {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
   }
     </style>
