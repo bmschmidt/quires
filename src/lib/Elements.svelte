@@ -25,14 +25,17 @@
   import Table from '$lib/Table.svelte'
   import BlockQuote from '$lib/BlockQuote.svelte'
   import Image from '$lib/Image.svelte'
+  import RawBlock from '$lib/RawBlock.svelte'
+  import RawInline from '$lib/RawInline.svelte'
+  import Underline from '$lib/Underline.svelte'
   
   // The base types.
   const types = {
     Header, Str, Para, Quoted, Note, Link, Strong,
     Emph, OrderedList, BulletList, Cite, Div, Code,
     CodeBlock, Span, Superscript, Table, BlockQuote,
-    Image
-  }
+    Image, RawBlock, RawInline, Underline
+  };
   
   // Any user-passed overrisdes.
   const elements = {...types, ...(settings.elements || {})};

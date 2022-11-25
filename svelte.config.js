@@ -10,14 +10,17 @@ const config = {
 	kit: {
 		paths: {
 			base: '/pandoc-svelte-components',
-			
 		},
 		adapter: adapter({
 			pages: 'docs',
 		}),
 		prerender: {
-			default: true
-		}
+      concurrency: 1,
+      crawl: true,
+      entries: ['*'],
+      handleHttpError: 'fail',
+      handleMissingId: 'warn',
+    },
 	}
 };
 

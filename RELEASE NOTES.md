@@ -1,3 +1,13 @@
+# 0.0.6
+
+* Update to most recent svelte-kit for builds
+* Add preliminary scaffolding for built-in wasm version.
+
+# 0.0.5
+
+* Add RawInline and RawBlock examples
+* Change export settings.
+
 # 0.0.3
 
 * Multiple scrollership components, including buttons, buttonsets, etc.

@@ -41,8 +41,7 @@
     if (controls[key] === undefined)
     controls[key] = value;
   }
-  console.log({controls})
-  import { browser } from '$app/env'
+  import { browser } from '$app/environment'
   import ScrollershipDiv from './ScrollershipDiv.svelte';
   import Document from '../Document.svelte';
   import { onMount } from 'svelte';
