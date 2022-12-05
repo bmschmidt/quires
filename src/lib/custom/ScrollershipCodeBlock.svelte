@@ -22,12 +22,13 @@
 
   const node_code = '' + Math.random();
   // keep call up-to-date with the code
-  $: settings['code_nodes'].set(node_code, call);
+  $: settings['code_nodes'].set(node_code, call || {});
 
   const is_scroll_block = classes.includes('api') || classes.length === 0
   $: if (is_scroll_block) {
     data._scrollerly_apparatus = {
       run: function() {
+
         const event = new CustomEvent('plotAPI', {
           bubbles: true,
           detail: {
@@ -35,7 +36,9 @@
             node_code,
           }
         });
-        div.dispatchEvent(event);
+        if (call !== null) {
+          div.dispatchEvent(event);
+        }
       }
     }
   }

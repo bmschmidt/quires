@@ -1,3 +1,8 @@
+# 0.0.7
+
+* Allow custom passed instances to be class specific, so that you can override just (say) `Div.slide` instead of 
+  overriding every case of `Div`. This is really useful!
+
 # 0.0.6
 
 * Update to most recent svelte-kit for builds

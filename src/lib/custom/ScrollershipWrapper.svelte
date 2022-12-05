@@ -37,6 +37,7 @@
     button: Button,
   }
 
+  // Add on any user defined controls.
   for (let [key, value] of Object.entries(default_controls)) {
     if (controls[key] === undefined)
     controls[key] = value;
@@ -46,6 +47,7 @@
   import Document from '../Document.svelte';
   import { onMount } from 'svelte';
   import yaml from 'js-yaml'
+  console.log({settings})
   settings['elements'] = settings['elements'] || {}
   settings['elements']['Div'] = ScrollershipDiv
   settings['code_nodes'] = new Map()
@@ -118,6 +120,7 @@
       // to complete.
       const call = queued_plots.shift()
       plot.plotAPI(call).then(() => {
+        console.log({call})
         // Once the call is made, reassign the queue to 
         // trigger re-evaluation of this block.
         queued_plots = queued_plots

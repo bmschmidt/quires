@@ -1,9 +1,9 @@
 {
   "name": "pandoc-svelte-components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "dev": "vite dev --port 2999",
-    "build": "vite build && touch docs/.nojekyll # for GitHub Pages",
+    "build": "svelte-package && vite build && touch docs/.nojekyll # for GitHub Pages",
     "package": "svelte-package",
     "preview": "svelte-kit preview",
     "publish": "svelte-package && npm publish ./package",
