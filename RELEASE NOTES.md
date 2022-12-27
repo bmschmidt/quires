@@ -1,6 +1,7 @@
 # 0.1.0
 
-- Started adding some additional
+- Sveltekit 1.0 compatibility!
+- Started adding some additional code to silence warnings.
 
 # 0.0.7
 
