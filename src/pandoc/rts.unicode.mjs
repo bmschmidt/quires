@@ -16,72 +16,72 @@ const _tolower = Int32Array.of(0,0,0,0,0,0,0,0,0,32,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
 const _totitle = Int32Array.of(0,0,0,0,0,0,0,0,0,0,0,0,-32,0,0,0,0,0,743,0,0,121,0,-1,0,-232,0,-300,195,0,0,0,0,0,0,0,97,0,0,163,0,130,0,0,0,0,56,1,0,-1,-79,0,0,0,0,0,0,10815,0,0,0,10783,10780,10782,-210,-206,-205,-202,-203,42319,42315,-207,42280,42308,-209,-211,10743,42305,10749,-213,-214,10727,-218,42307,42282,-69,-217,-71,-219,42261,42258,0,0,84,0,0,0,0,0,-38,-37,-31,-64,-63,0,-62,-57,0,-47,-54,-8,-86,-80,7,-116,0,-96,0,0,0,0,-15,0,-48,0,0,0,0,0,-6254,-6253,-6244,-6242,-6243,-6236,-6181,35266,0,35332,3814,35384,-59,0,8,0,74,86,100,128,112,126,0,9,0,0,-7205,0,0,0,0,0,0,0,0,0,0,0,-28,0,-16,0,-26,0,0,0,-10795,-10792,0,0,0,0,0,-7264,0,0,48,0,0,0,0,0,0,0,0,0,0,0,-928,-38864,0,-40,0,-34);
 
 function _bbsearch(key, start, end) {
-  const isBaseCase = start + 1 == end;
-  const pivot = ~~((start + end) / 2);
-  if (key < _first[pivot]) {
-    return isBaseCase ? -1 : _bbsearch(key, start, pivot);
-  } else if (key <= _last[pivot]) {
-    return pivot;
-  } else {
-    return isBaseCase ? -1 : _bbsearch(key, pivot, end);
-  }
+	const isBaseCase = start + 1 == end;
+	const pivot = ~~((start + end) / 2);
+	if (key < _first[pivot]) {
+		return isBaseCase ? -1 : _bbsearch(key, start, pivot);
+	} else if (key <= _last[pivot]) {
+		return pivot;
+	} else {
+		return isBaseCase ? -1 : _bbsearch(key, pivot, end);
+	}
 }
 
 function _property(table, c) {
-  const idx = _bbsearch(c, 0, c + 1);
-  return idx == -1 ? 0 : table[_idx[idx]];
+	const idx = _bbsearch(c, 0, c + 1);
+	return idx == -1 ? 0 : table[_idx[idx]];
 }
 
 export class Unicode {
-  constructor(logger) {
-    Object.seal(this);
-  }
+	constructor(logger) {
+		Object.seal(this);
+	}
 
-  u_gencat(c) {
-    return _property(_gencat, c);
-  }
+	u_gencat(c) {
+		return _property(_gencat, c);
+	}
 
-  u_iswupper(c) {
-    return !!((1 << this.u_gencat(c)) & 5);
-  }
+	u_iswupper(c) {
+		return !!((1 << this.u_gencat(c)) & 5);
+	}
 
-  u_iswlower(c) {
-    return !!((1 << this.u_gencat(c)) & 2);
-  }
+	u_iswlower(c) {
+		return !!((1 << this.u_gencat(c)) & 2);
+	}
 
-  u_iswspace(c) {
-    return !!((1 << this.u_gencat(c)) & 4194304);
-  }
+	u_iswspace(c) {
+		return !!((1 << this.u_gencat(c)) & 4194304);
+	}
 
-  u_iswalpha(c) {
-    return !!((1 << this.u_gencat(c)) & 31);
-  }
+	u_iswalpha(c) {
+		return !!((1 << this.u_gencat(c)) & 31);
+	}
 
-  u_iswdigit(c) {
-    return !!((1 << this.u_gencat(c)) & 256);
-  }
+	u_iswdigit(c) {
+		return !!((1 << this.u_gencat(c)) & 256);
+	}
 
-  u_iswalnum(c) {
-    return !!((1 << this.u_gencat(c)) & 1823);
-  }
+	u_iswalnum(c) {
+		return !!((1 << this.u_gencat(c)) & 1823);
+	}
 
-  u_iswprint(c) {
-    return !!((1 << this.u_gencat(c)) & 8388607);
-  }
+	u_iswprint(c) {
+		return !!((1 << this.u_gencat(c)) & 8388607);
+	}
 
-  u_iswcntrl(c) {
-    return !!((1 << this.u_gencat(c)) & 33554432);
-  }
+	u_iswcntrl(c) {
+		return !!((1 << this.u_gencat(c)) & 33554432);
+	}
 
-  u_towlower(c) {
-    return c + _property(_tolower, c);
-  }
+	u_towlower(c) {
+		return c + _property(_tolower, c);
+	}
 
-  u_towupper(c) {
-    return c + _property(_toupper, c);
-  }
+	u_towupper(c) {
+		return c + _property(_toupper, c);
+	}
 
-  u_towtitle(c) {
-    return c + _property(_totitle, c);
-  }
+	u_towtitle(c) {
+		return c + _property(_totitle, c);
+	}
 }

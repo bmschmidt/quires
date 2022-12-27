@@ -1,14 +1,14 @@
 <script lang="ts">
-  export let data : NodeType.Code
-  export let settings
-  const _ = settings;
+	export let data: NodeType.Code;
+	export let settings;
+	const _ = settings;
 
-  import Elements from '$lib/Elements.svelte'
+	import Elements from '$lib/Elements.svelte';
 
-  const [[id, classes, kv], text] = data
-  const attrs = Object.fromEntries(kv)
+	const [[id, classes, kv], text] = data;
+	const attrs = Object.fromEntries(kv);
 </script>
 
-<code id={id} class={classes.join(" ")} {...attrs}>
-  {text}
+<code {id} class={classes.join(' ')} {...attrs}>
+	{text}
 </code>

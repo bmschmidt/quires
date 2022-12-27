@@ -1,1 +1,210 @@
-{"pandoc-api-version":[1,22,1],"meta":{"author":{"t":"MetaInlines","c":[{"t":"Str","c":"Ben"},{"t":"Space"},{"t":"Str","c":"Schmidt"}]},"title":{"t":"MetaInlines","c":[{"t":"Str","c":"example"},{"t":"Space"},{"t":"Str","c":"code"}]}},"blocks":[{"t":"Header","c":[1,["custom-behavior-for-classes.",[],[]],[{"t":"Str","c":"Custom"},{"t":"Space"},{"t":"Str","c":"behavior"},{"t":"Space"},{"t":"Str","c":"for"},{"t":"Space"},{"t":"Str","c":"classes."}]]},{"t":"Para","c":[{"t":"Str","c":"Different"},{"t":"Space"},{"t":"Str","c":"document."},{"t":"Space"},{"t":"Str","c":"The"},{"t":"Space"},{"t":"Str","c":"example"},{"t":"Space"},{"t":"Str","c":"file"},{"t":"Space"},{"t":"Str","c":"here"},{"t":"Space"},{"t":"Str","c":"applies"},{"t":"Space"},{"t":"Str","c":"highlight.js"},{"t":"Space"},{"t":"Str","c":"classes"},{"t":"Space"},{"t":"Str","c":"to"},{"t":"Space"},{"t":"Str","c":"elements,"},{"t":"SoftBreak"},{"t":"Str","c":"and"},{"t":"Space"},{"t":"Str","c":"then"},{"t":"Space"},{"t":"Str","c":"looks"},{"t":"Space"},{"t":"Str","c":"at"},{"t":"Space"},{"t":"Str","c":"the"},{"t":"Space"},{"t":"Str","c":"codeblock"},{"t":"Space"},{"t":"Str","c":"class"},{"t":"Space"},{"t":"Str","c":"for"},{"t":"Space"},{"t":"Str","c":"custom"},{"t":"Space"},{"t":"Str","c":"actions."}]},{"t":"Para","c":[{"t":"Str","c":"R"},{"t":"Space"},{"t":"Str","c":"code"},{"t":"Space"},{"t":"Str","c":"may"},{"t":"Space"},{"t":"Str","c":"be"},{"t":"Space"},{"t":"Str","c":"destined"},{"t":"Space"},{"t":"Str","c":"for"},{"t":"Space"},{"t":"Str","c":"R"},{"t":"Space"},{"t":"Str","c":"Markdown,"},{"t":"Space"},{"t":"Str","c":"so"},{"t":"Space"},{"t":"Str","c":"we’ll"},{"t":"Space"},{"t":"Str","c":"make"},{"t":"Space"},{"t":"Str","c":"all"},{"t":"Space"},{"t":"Str","c":"R"},{"t":"Space"},{"t":"Str","c":"code"},{"t":"Space"},{"t":"Str","c":"copy"},{"t":"Space"},{"t":"Str","c":"to"},{"t":"Space"},{"t":"Str","c":"R"},{"t":"Space"},{"t":"Str","c":"markdown"},{"t":"Space"},{"t":"Str","c":"blocks."}]},{"t":"CodeBlock","c":[["",["r"],[]],"\nr_code %>%\n   is_made %>%\n   of_pipes %>%\n   that_can %>%\n   wrap_around %>%\n   endlessly\n"]},{"t":"Para","c":[{"t":"Str","c":"Indentation"},{"t":"Space"},{"t":"Str","c":"is"},{"t":"Space"},{"t":"Str","c":"important"},{"t":"Space"},{"t":"Str","c":"to"},{"t":"Space"},{"t":"Str","c":"python,"},{"t":"Space"},{"t":"Str","c":"so"},{"t":"Space"},{"t":"Str","c":"every"},{"t":"Space"},{"t":"Str","c":"python"},{"t":"Space"},{"t":"Str","c":"block"},{"t":"Space"},{"t":"Str","c":"gets"},{"t":"Space"},{"t":"Str","c":"buttons"},{"t":"Space"},{"t":"Str","c":"to"},{"t":"Space"},{"t":"Str","c":"change"},{"t":"Space"},{"t":"Str","c":"the"},{"t":"Space"},{"t":"Str","c":"indenting."}]},{"t":"CodeBlock","c":[["",["python"],[]],"\npython = \"a language_where\"\n  \"indentation really matters\"\n  \"for copying.\"\n"]},{"t":"Para","c":[{"t":"Str","c":"Javascript"},{"t":"Space"},{"t":"Str","c":"code"},{"t":"Space"},{"t":"Str","c":"can"},{"t":"Space"},{"t":"Str","c":"be"},{"t":"Space"},{"t":"Str","c":"executed"},{"t":"Space"},{"t":"Str","c":"straight"},{"t":"Space"},{"t":"Str","c":"in"},{"t":"Space"},{"t":"Str","c":"the"},{"t":"Space"},{"t":"Str","c":"browser:"},{"t":"Space"},{"t":"Str","c":"I"},{"t":"Space"},{"t":"Str","c":"can’t"},{"t":"Space"},{"t":"Str","c":"think"},{"t":"SoftBreak"},{"t":"Str","c":"of"},{"t":"Space"},{"t":"Str","c":"any"},{"t":"Space"},{"t":"Str","c":"reason"},{"t":"Space"},{"t":"Str","c":"not"},{"t":"Space"},{"t":"Str","c":"to"},{"t":"Space"},{"t":"Str","c":"do"},{"t":"Space"},{"t":"Str","c":"that!"}]},{"t":"CodeBlock","c":[["",["js"],[]],"\nalert(\"Usage of eval is a bad idea!\")\n"]}]}
+{
+	"pandoc-api-version": [1, 22, 1],
+	"meta": {
+		"author": {
+			"t": "MetaInlines",
+			"c": [{ "t": "Str", "c": "Ben" }, { "t": "Space" }, { "t": "Str", "c": "Schmidt" }]
+		},
+		"title": {
+			"t": "MetaInlines",
+			"c": [{ "t": "Str", "c": "example" }, { "t": "Space" }, { "t": "Str", "c": "code" }]
+		}
+	},
+	"blocks": [
+		{
+			"t": "Header",
+			"c": [
+				1,
+				["custom-behavior-for-classes.", [], []],
+				[
+					{ "t": "Str", "c": "Custom" },
+					{ "t": "Space" },
+					{ "t": "Str", "c": "behavior" },
+					{ "t": "Space" },
+					{ "t": "Str", "c": "for" },
+					{ "t": "Space" },
+					{ "t": "Str", "c": "classes." }
+				]
+			]
+		},
+		{
+			"t": "Para",
+			"c": [
+				{ "t": "Str", "c": "Different" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "document." },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "The" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "example" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "file" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "here" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "applies" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "highlight.js" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "classes" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "to" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "elements," },
+				{ "t": "SoftBreak" },
+				{ "t": "Str", "c": "and" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "then" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "looks" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "at" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "the" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "codeblock" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "class" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "for" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "custom" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "actions." }
+			]
+		},
+		{
+			"t": "Para",
+			"c": [
+				{ "t": "Str", "c": "R" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "code" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "may" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "be" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "destined" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "for" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "R" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "Markdown," },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "so" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "we’ll" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "make" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "all" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "R" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "code" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "copy" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "to" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "R" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "markdown" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "blocks." }
+			]
+		},
+		{
+			"t": "CodeBlock",
+			"c": [
+				["", ["r"], []],
+				"\nr_code %>%\n   is_made %>%\n   of_pipes %>%\n   that_can %>%\n   wrap_around %>%\n   endlessly\n"
+			]
+		},
+		{
+			"t": "Para",
+			"c": [
+				{ "t": "Str", "c": "Indentation" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "is" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "important" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "to" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "python," },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "so" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "every" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "python" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "block" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "gets" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "buttons" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "to" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "change" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "the" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "indenting." }
+			]
+		},
+		{
+			"t": "CodeBlock",
+			"c": [
+				["", ["python"], []],
+				"\npython = \"a language_where\"\n  \"indentation really matters\"\n  \"for copying.\"\n"
+			]
+		},
+		{
+			"t": "Para",
+			"c": [
+				{ "t": "Str", "c": "Javascript" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "code" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "can" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "be" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "executed" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "straight" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "in" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "the" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "browser:" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "I" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "can’t" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "think" },
+				{ "t": "SoftBreak" },
+				{ "t": "Str", "c": "of" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "any" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "reason" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "not" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "to" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "do" },
+				{ "t": "Space" },
+				{ "t": "Str", "c": "that!" }
+			]
+		},
+		{ "t": "CodeBlock", "c": [["", ["js"], []], "\nalert(\"Usage of eval is a bad idea!\")\n"] }
+	]
+}

@@ -6,7 +6,7 @@
 
 In 1977, Apple Computers released the Apple II. This ad introduced it.
 While this ad is not quite as famous as the 1984 commercial for the Macintosh directed by
-Ridley Scott, it is among the best known magazine advertisements for computer 
+Ridley Scott, it is among the best known magazine advertisements for computer
 products from the twentieth century.
 
 Like a painting in a gallery, it's the sort of work the rewards close attention.
@@ -27,6 +27,7 @@ callouts:
     'y': 0.5309100091457367
     size: 2.03199090485438904
 ```
+
 :::
 
 ::: chunk
@@ -35,7 +36,7 @@ Apple barely existed. For practical purposes, the Apple I was a
 prototype that never experienced mass production; it was a built-at-home
 kit for hobbyists. The Apple II, this ad goes out of its way to say, was
 different.
-[![Apple1innards](https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Apple1innards.jpg/512px-Apple1innards.jpg){width="512"}](https://commons.wikimedia.org/wiki/File:Apple1innards.jpg "geni, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons")
+[![Apple1innards](https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Apple1innards.jpg/512px-Apple1innards.jpg){width="512"}](https://commons.wikimedia.org/wiki/File:Apple1innards.jpg 'geni, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons')
 
 ```api
 zoom:
@@ -49,6 +50,7 @@ callouts:
     'y': 0.1309100091457367
     size: 0.03199090485438904
 ```
+
 :::
 
 ::: chunk
@@ -65,8 +67,9 @@ zoom:
 callouts:
   - x: 0.2782790958881378
     'y': 1.1476868391036987
-    size: 0.33199090485438904  
+    size: 0.33199090485438904
 ```
+
 :::
 
 ::: chunk
@@ -114,6 +117,7 @@ callouts:
     'y': 1.095496269342243
     size: 0.15830754598097233
 ```
+
 :::
 
 ::: chunk
@@ -125,7 +129,7 @@ But although Steve Jobs had occasionally worn a turtleneck in the 1970s,
 they didn\'t become his trademark until 25 years after this ad, in 2002.
 In the 1970s, [he was wearing suits, ties, and
 vests.](https://www.scpr.org/blogs/newmedia/2011/08/25/3318/fashion-steve-jobs-not-just-black-turtlenecks)\
-You shouldn\'t be threatened by him; you *are* him. Or he is the person
+You shouldn\'t be threatened by him; you _are_ him. Or he is the person
 living your best life.
 
 ```api
@@ -139,6 +143,7 @@ callouts:
     'y': 0.8060498237609863
     size: 0.1
 ```
+
 :::
 
 ::: chunk
@@ -154,6 +159,7 @@ zoom:
   - 0.5415700070063455
 callouts: null
 ```
+
 :::
 
 ::: chunk
@@ -178,6 +184,7 @@ callouts:
     'y': 0.7
     size: 0.2
 ```
+
 :::
 
 ::: chunk
@@ -191,11 +198,12 @@ zoom:
   - 0.281851630922731
   - 0.31661582412672834
 callouts:
-  - 
+  -
     x: 0.29861465096473694
     'y': 0.7653787732124329
     size: 0.1
 ```
+
 :::
 
 ::: chunk
@@ -215,6 +223,7 @@ callouts:
     y: 0.7653787732124329
     size: 0.1
 ```
+
 :::
 :::
 :::

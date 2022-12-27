@@ -1,16 +1,16 @@
 <script>
-  export let data;
-  export let settings;
-  settings;
-  const [lang, code] = data;
+	export let data;
+	export let settings;
+	settings;
+	const [lang, code] = data;
 </script>
 
 {#if lang === 'html'}
-  <div>
-    {@html code}
-  </div>
+	<div>
+		{@html code}
+	</div>
 {:else}
-  <div class="{lang}">
-    {lang}
-  </div>
+	<div class={lang}>
+		{lang}
+	</div>
 {/if}

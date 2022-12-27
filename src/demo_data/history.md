@@ -3,13 +3,12 @@ title: passing state
 author: Ben Schmidt
 ...
 
-
 Every component takes two arguments: `data`, which is the de-serialized pandoc json,
 and `settings`, which is an object containing state that is passed to all child components.
-Most of settings is just a blank slate for to use for letting elements communicate with 
+Most of settings is just a blank slate for to use for letting elements communicate with
 each other.
 
-One component in `settings` is reserved: `elements` allows you to override any pandoc 
+One component in `settings` is reserved: `elements` allows you to override any pandoc
 element with a custom element. To redefine the behavior for `CodeBlock`'s, for example,
 you import a custom svelte component called 'MyCodeBlock' pass it into elements;
 any codeblocks in the document wll be rendered in that style.
@@ -20,13 +19,13 @@ settings: {
     CodeBlock: MyCodeBlock
   }
 }
-``` 
+```
 
 But you can pass anything else that you want through.
 
 It can be mutated, altered, and changed by any component. As a rule it's probably
 wide to not create changes in state that are passed to siblings, but there's
-nothing *stopping* you. (Yet?)
+nothing _stopping_ you. (Yet?)
 
 Any javascript variable can be passed through settings. It can be something simple like
 a boolean--for instance, you might assign the variable `show_code` as true or false
@@ -37,7 +36,7 @@ On this page the passed state includes an IntersectionObserver instance. The `Pa
 is reclassed to register every `Para` in the observer so thatas they scroll into view,
 it changes their color and updates the counter in the upper left hand corner with their word count.
 
-This specific use creates a few conundrums. Although we could register a different observer for 
+This specific use creates a few conundrums. Although we could register a different observer for
 every `<p>`, that seems wasteful. Instead, the top level observerer function needs to have
 some way of knowing what to do with a DOM element once it encounters it. Instead, I define a function
 inside the `Para` component that has access to all variables at that scope, and then call from
@@ -48,7 +47,7 @@ I may rewrite the base image image component to make use of an intersection obse
 loading.
 
 If you want to use this to do something like update location within a table of contents,
-it can be useful to run pandoc with the `--section-divs` flag, which creates wrapping `<div>`s 
+it can be useful to run pandoc with the `--section-divs` flag, which creates wrapping `<div>`s
 for each section.
 
 I'd also welcome any thoughts on a terser syntax for working with Intersection Observer
@@ -163,4 +162,3 @@ Today there is war and rumor of war. We want none of it. But while we guard our 
 We have need of that devotion today. It is that which makes it possible for government to persuade those who are mentally prepared to fight each other to go on instead, to work for and to sacrifice for each other. That is why we need to say with the Prophet: “What doth the Lord require of thee—but to do justly, to love mercy and to walk humbly with thy God.” That is why the recovery we seek, the recovery we are winning, is more than economic. In it are included justice and love and humility, not for ourselves as individuals alone, but for our Nation.
 
 That is the road to peace.
-

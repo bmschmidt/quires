@@ -8,7 +8,7 @@ author: Ben Schmidt
 Different document. The example file here applies highlight.js classes to elements,
 and then looks at the codeblock class for custom actions.
 
-R code may be destined for R Markdown, so we'll make all R code copy to R markdown blocks. 
+R code may be destined for R Markdown, so we'll make all R code copy to R markdown blocks.
 
 ```R
 
@@ -31,12 +31,9 @@ python = "a language_where"
 
 ```
 
-Javascript code can be executed straight in the browser: I can't think 
+Javascript code can be executed straight in the browser: I can't think
 of any reason not to do that!
 
 ```js
-
-alert("Usage of eval is a bad idea!")
-
+alert('Usage of eval is a bad idea!');
 ```
-

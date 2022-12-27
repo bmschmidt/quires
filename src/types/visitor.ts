@@ -1,29 +1,29 @@
-import { AnyNode, NodeContent, NodeType } from "./node";
-import { Promisable } from "./utility";
+import { AnyNode, NodeContent, NodeType } from './node';
+import { Promisable } from './utility';
 
 export interface VisitorFunction {
-  (node: AnyNode, format: string, meta: NodeContent[NodeType.MetaMap]): Promisable<
-    void | AnyNode | AnyNode[]
-  >;
+	(node: AnyNode, format: string, meta: NodeContent[NodeType.MetaMap]): Promisable<
+		void | AnyNode | AnyNode[]
+	>;
 }
 
 export interface ArrayVisitorFunction {
-  (node: AnyNode[], format: string, meta: NodeContent[NodeType.MetaMap]): Promisable<
-    void | AnyNode[]
-  >;
+	(node: AnyNode[], format: string, meta: NodeContent[NodeType.MetaMap]): Promisable<
+		void | AnyNode[]
+	>;
 }
 
 export type VisitorMap = {
-  [K in NodeType]?: (
-    node: K extends keyof NodeContent ? NodeContent[K] : undefined,
-    format: string,
-    meta: NodeContent[NodeType.MetaMap]
-  ) => Promisable<void | AnyNode | AnyNode[]>;
+	[K in NodeType]?: (
+		node: K extends keyof NodeContent ? NodeContent[K] : undefined,
+		format: string,
+		meta: NodeContent[NodeType.MetaMap]
+	) => Promisable<void | AnyNode | AnyNode[]>;
 };
 
 export interface VisitorObject {
-  single?: VisitorFunction;
-  array?: ArrayVisitorFunction;
+	single?: VisitorFunction;
+	array?: ArrayVisitorFunction;
 }
 
 /**

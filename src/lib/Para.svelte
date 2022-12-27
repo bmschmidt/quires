@@ -1,9 +1,9 @@
 <script>
-  export let data
-  export let settings
-  import Elements from '$lib/Elements.svelte'
+	export let data;
+	export let settings;
+	import Elements from '$lib/Elements.svelte';
 </script>
-<p>
-  <Elements {settings} elems={data} />
-</p>
 
+<p>
+	<Elements {settings} elems={data} />
+</p>

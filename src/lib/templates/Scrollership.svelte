@@ -1,6 +1,1 @@
-<lib lang="ts">
-  
-  const observer = new IntersectionObserver()
-  
-</lib>
-
+<lib lang="ts"> const observer = new IntersectionObserver() </lib>

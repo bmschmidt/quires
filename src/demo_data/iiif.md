@@ -4,10 +4,9 @@ date: 2022-02-08
 author: Ben Schmidt
 ---
 
-
 This is an example of overriding the behavior of an image tag.
 
-Here is a standalone image tag where the url is to a json file. 
+Here is a standalone image tag where the url is to a json file.
 If the screen width is greater than 480px, it will render as
 a IIIF viewer using OpenSeaDragon.
 

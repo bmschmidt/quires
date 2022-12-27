@@ -1,1 +1,11 @@
-p.svelte-1i0rocm{margin:100px;transition:opacity background-color;width:14em;opacity:.33;background-color:#e0e0e0}p.observed.svelte-1i0rocm{opacity:1;background-color:#f0f0f0}
+p.svelte-1i0rocm {
+	margin: 100px;
+	transition: opacity background-color;
+	width: 14em;
+	opacity: 0.33;
+	background-color: #e0e0e0;
+}
+p.observed.svelte-1i0rocm {
+	opacity: 1;
+	background-color: #f0f0f0;
+}
