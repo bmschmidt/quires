@@ -4,8 +4,10 @@
   // Existing properties of the API call to keep.
   export let clone : string | string[] = [];
   export let hover = null;
+  hover;
   export let label = null;
   export let labels = [];
+  labels;
   import { set, get } from 'lodash-es'
 
 

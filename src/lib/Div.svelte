@@ -6,7 +6,7 @@
 
   const [[id, classes, kv], elems] = data
   const attrs = Object.fromEntries(kv)
-  const custom_els = settings['elements']
+  const custom_els = settings['elements'] || {};
   let component = null;
   for (let classname of classes) {
     if (custom_els[`div.${classname}`]) {
@@ -18,7 +18,7 @@
 {#if component}
   <svelte:component this={component} {data} {settings} />
 {:else}
-  <div id="{id}" class="scroll-mt-36 {classes.join(" ")}" {...attrs}>
+  <div id="{id}" class="{classes.join(" ")}" {...attrs}>
     <Elements {settings} {elems} />
   </div>
 {/if}

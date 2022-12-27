@@ -1,6 +1,7 @@
 <script lang="ts">
   export let data : NodeType.Code
   export let settings
+  const _ = settings;
 
   import Elements from '$lib/Elements.svelte'
 

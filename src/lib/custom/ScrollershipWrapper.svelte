@@ -145,7 +145,7 @@
   <slot name="navbar">
     <div class="flex-navbar">
     {#if title_features.indexOf('title_features') > -1}
-    <div class="action" on:click={get_api}>
+    <div class="action" on:click={get_api} on:keyup={get_api}>
       Copy API
     </div>
     {/if}

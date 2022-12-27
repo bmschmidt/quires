@@ -1,6 +1,7 @@
-<script>
+<script lang='ts'>
   export let data;
   export let settings;
+  const _ = settings;
   const [lang, code] = data;
 </script>
 
