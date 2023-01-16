@@ -1,3 +1,9 @@
+# 0.1.1
+
+- Start using the new class-examination strategy on codeblocks as well. This usually
+  avoids the need to override a default class, instead letting it be a special case based
+  on the class type.
+
 # 0.1.0
 
 - Sveltekit 1.0 compatibility!
