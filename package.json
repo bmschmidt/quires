@@ -22,19 +22,18 @@
 		"@sveltejs/adapter-static": "^1.0.0",
 		"@sveltejs/kit": "^1.0.1",
 		"@sveltejs/package": "^1.0.1",
-		"@typescript-eslint/eslint-plugin": "^5.47.0",
-		"@typescript-eslint/parser": "^5.47.0",
+		"@typescript-eslint/eslint-plugin": "^5.48.0",
+		"@typescript-eslint/parser": "^5.48.0",
 		"carbon-icons-svelte": "^11.4.0",
 		"d3-ease": "^3.0.1",
 		"d3-selection": "^3.0.0",
 		"d3-transition": "^3.0.1",
-		"eslint": "^8.30.0",
-		"eslint-config-prettier": "^8.5.0",
+		"eslint": "^8.31.0",
+		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"highlight.js": "^11.7.0",
 		"js-yaml": "^4.1.0",
 		"lodash-es": "^4.17.21",
-		"node-pandoc-filter": "file:../node-pandoc-filter",
 		"openseadragon": "^4.0.0",
 		"prettier": "^2.8.1",
 		"prettier-plugin-svelte": "^2.9.0",
@@ -44,7 +43,10 @@
 		"svelte2tsx": "^0.6.0",
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.4",
-		"vite": "^4.0.3"
+		"vite": "^4.0.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"node-pandoc-filter": "^1.0.3"
+	}
 }

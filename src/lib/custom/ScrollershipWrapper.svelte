@@ -1,4 +1,5 @@
 <script lang="ts">
+
 	interface scrollingship {
 		bind: (node: HTMLElement) => void;
 		plotAPI: (call: Record<string, any>) => void;
@@ -7,16 +8,14 @@
 
 	type Scroller = () => scrollingship;
 
-	import Slider from './Slider.svelte';
-	import Button from './Button.svelte';
-	import Buttonset from './Buttonset.svelte';
 	// For listening;
 	export let query = null;
+	// Really record string, pandocComponent.
+	export let controls : Record<string, any> = {};
 	export let ast;
 	export let title = 'Scrollership';
-	export let controls = {};
 	export let settings = {};
-	export let position: 'left' | 'right' | undefined = undefined;
+	export let position: 'left' | 'right' | 'center' = 'center';
 
 	export let title_features = [];
 
@@ -30,26 +29,29 @@
 		threshold: 0.01 // visible amount of item shown in relation to root
 	};
 
-	const default_controls = {
-		slider: Slider,
-		buttonset: Buttonset,
-		button: Button
-	};
-
-	// Add on any user defined controls.
-	for (let [key, value] of Object.entries(default_controls)) {
-		if (controls[key] === undefined) controls[key] = value;
-	}
 	import { browser } from '$app/environment';
+
+	import Slider from './Slider.svelte';
+	import Button from './Button.svelte';
+	import Buttonset from './Buttonset.svelte';
 	import ScrollershipDiv from './ScrollershipDiv.svelte';
+	import ScrollershipChunk from './ScrollershipChunk.svelte';
+	import ScrollershipCodeBlock from './ScrollershipCodeBlock.svelte';
 	import Document from '../Document.svelte';
 	import { onMount } from 'svelte';
 	import yaml from 'js-yaml';
-	console.log({ settings });
-	settings['elements'] = settings['elements'] || {};
-	settings['elements']['Div'] = ScrollershipDiv;
+
+	settings['elements'] = {};
+//	settings['elements']['div.scrollership'] = ScrollershipDiv;
+	settings['elements']['codeblock.slider'] = Slider;
+	settings['elements']['codeblock.button'] = Button;
+	settings['elements']['codeblock.buttonset'] = Buttonset;
+	settings['elements']['div.chunk'] = ScrollershipChunk;
+	settings['elements']['div.scrollership'] = ScrollershipDiv;
+	settings['elements']['codeblock.api'] = ScrollershipCodeBlock;
+	settings['elements'] = {...settings['elements'], ...controls}
 	settings['code_nodes'] = new Map();
-	settings['controls'] = controls;
+	settings['controls'] = {};
 	if (browser) {
 		settings['observer'] = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
@@ -140,27 +142,32 @@
 	$: hidden = false;
 </script>
 
-<div class="navbar">
-	<slot name="navbar">
-		<div class="flex-navbar">
-			{#if title_features.indexOf('title_features') > -1}
-				<div class="action" on:click={get_api} on:keyup={get_api}>Copy API</div>
-			{/if}
-			<div>
-				<div
-					class="action"
-					on:click={() => {
-						hidden = !hidden;
-					}}
-				>
-					{hidden ? 'Show narrative' : 'Hide narrative'}
+<div class="bignavbar">
+	<div
+		class="action"
+		on:click={() => {
+			hidden = !hidden;
+		}}
+		on:keyup={() => {
+			hidden = !hidden;
+		}}
+	>	{hidden ? 'Show narrative' : 'Hide narrative'}
+	</div>
+
+	<div style="flex-grow: 4;">
+		<slot name="custom-navbar">
+			<div class="flex-navbar">
+				{#if title_features.indexOf('title_features') > -1}
+					<div class="action" on:click={get_api} on:keyup={get_api}>Copy API</div>
+				{/if}
+				<div>
+
+				<div style="margin-left: 100px">
+					title {title}
 				</div>
 			</div>
-			<div style="margin-left: 100px">
-				{title}
-			</div>
-		</div>
-	</slot>
+		</slot>
+	</div>
 </div>
 
 <div class="scrollership">
@@ -169,15 +176,16 @@
 	</div>
 	<div
 		bind:this={scrolling_div}
-		class="narrative {position ? position : ''}"
+		class="narrative {position}"
 		class:slidden={hidden}
 	>
+	<slot />
 		<Document {ast} {settings} />
 	</div>
 </div>
 
 <style>
-	.navbar {
+	.bignavbar {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -187,6 +195,8 @@
 		border-bottom: 1px solid #ddd;
 		padding: 10px;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		display: flex;
+		flex-direction: row;
 	}
 
 	.vizpanel {
@@ -210,17 +220,22 @@
 
 	.narrative {
 		align-items: center;
-		width: 100vw;
-		margin-left: 0vw;
-		margin-right: 0vw;
-		padding-left: 25vw;
-		padding-right: 25vw;
-		margin-bottom: 90vh;
 		left: 0vw;
 		top: 0vw;
 		position: relative;
 		transition: all 1s ease-in-out;
 		background-color: rgba(255, 255, 255, 0.025);
+	}
+
+	.narrative.center {
+		width: 50vw;
+		margin-left: 0vw;
+		margin-right: 0vw;
+		padding-left: 25vw;
+		padding-right: 25vw;
+		margin-bottom: 90vh;
+		background-color: rgba(255, 0, 255, 0.525);
+
 	}
 
 	.narrative.slidden {
@@ -230,9 +245,9 @@
 	.narrative.left {
 		z-index: 10;
 		align-items: center;
-		width: 60vw;
-		margin-left: 0vw;
-		margin-right: 60vw;
+		width: 50vw;
+		padding-left: 5vw;
+		padding-right: 0vw;
 		margin-bottom: 90vh;
 		position: relative;
 		background-color: rgba(255, 255, 255, 0.1);
