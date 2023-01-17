@@ -1,20 +1,14 @@
 <script lang="ts">
 	export let data;
 	export let settings;
-	import Div from '../Div.svelte';
-	import ScrollershipChunk from './ScrollershipChunk.svelte';
-	import ScrollershipCodeBlock from './ScrollershipCodeBlock.svelte';
 
-	// Overwrite any code blocks below here with the custom element.
-	const new_els = { ...settings['elements'] };
-	new_els['CodeBlock'] = ScrollershipCodeBlock;
-	const new_settings = { ...settings, elements: new_els };
+	import Elements from '$lib/Elements.svelte';
 
 	const [[id, classes, kv], elems] = data;
+	const attrs = Object.fromEntries(kv);
+
 </script>
 
-{#if classes.includes('chunk')}
-	<ScrollershipChunk {data} settings={new_settings} />
-{:else}
-	<Div {data} {settings} />
-{/if}
+<div {id} class={classes.join(' ')} {...attrs}>
+	<Elements {settings} {elems} />
+</div>
