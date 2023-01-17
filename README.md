@@ -45,14 +45,12 @@ been stripped away.
 
 ## Overriding components
 
-Although you could use this library to render static HTML from the pandoc AST,
-that would be a pretty silly thing to do, since you could just use pandoc's HTML instead.
+Although you could use this library to render static HTML from the pandoc AST, that would be a pretty silly thing to do, since you could just use pandoc's HTML instead.
 
-The core uses lie in overwriting. select elements.
+The core uses lie in _overwriting_ select elements.
 For most elements, the assumption is that you'll just want a basic behavior.
 `# Title`, for example, will become
-`<h1>Title</h1>`. But you can wrap or override any individual component
-to add more complicated behavior.
+`<h1>Title</h1>`. But you can wrap or override any individual component to add more complicated behavior.
 
 As an extremely simple example, you can increase the level of
 of each header in a document by wrapping the existing pandoc
@@ -60,22 +58,68 @@ AST definition like so.
 
 ```js
 <script>
-export let settings
-export let data
-const [level, meta, elems] = data;
-
-import Header from 'pandoc-svelte/Header.svelte'
+  export let settings;
+  export let data;
+  const [level, meta, elems] = data;
+  settings; // silence warning for unused var.
+  import Header from 'pandoc-svelte-components/Header.svelte';
 </script>
 
 <Header data={[level + 1, meta, elems]} {settings} />
 ```
 
-You probably don't this just for simple, static redefinitions like changing header levels are better handled
-through pandoc filters--I tend to write them in lua because it's fastest and
+---
+
+```html
+<script>
+	import { Document } from 'pandoc-svelte-components';
+	import MyHeader from '$lib/components/Header.svelte';
+
+	import document from '$lib/pandoc-filtered-text.json?raw';
+
+	const settings = {
+		Header: MyHeader // Override the default header.
+	};
+</script>
+
+<Document ast="{document}" settings="{settings}"> </Document>
+```
+
+You probably don't this just for simple, static redefinitions like changing header levels are better handledthrough pandoc filters--I tend to write them in lua because it's fastest and
 cleanest, but ES monoglots can use [https://github.com/mathematic-inc/node-pandoc-filter].
 
-It's more suited for cases where you need to execute javascript code in the browser in a way
-that depends on the structure or content of markdown blocks.
+It's more suited for cases where you need to execute javascript code in the browser in a way that depends on the structure or content of markdown blocks.
+
+In these cases you can override the entire behavior for an element, _or_ define
+
+In
+
+```js
+<script>
+  export let settings;
+  export let data;
+  const
+  settings; // silence warning for unused var.
+
+</script>
+
+<div on:mouseover={runalert}> </div>
+```
+
+```html
+<script>
+	import { Document } from 'pandoc-svelte-components';
+	import AlertBox from '$lib/components/AlertBox.svelte';
+
+	import document from '$lib/pandoc-filtered-text.json?raw';
+
+	const settings = {
+		Header: MyHeader // Override the default header.
+	};
+</script>
+
+<Document ast="{document}" settings="{settings}"> </Document>
+```
 
 # Caveats
 

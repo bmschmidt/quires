@@ -13,7 +13,7 @@
 	<Elements elems={ast['blocks']} {settings} />
 {:else}
 	<span>
-		SOMETHINGS WRONG.
+		ERROR: Passed a pandoc document without 'blocks.'
 		{JSON.stringify(ast)}
 	</span>
 {/if}

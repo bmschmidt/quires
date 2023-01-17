@@ -152,6 +152,9 @@
 					on:click={() => {
 						hidden = !hidden;
 					}}
+					on:keyup={() => {
+						hidden = !hidden;
+					}}
 				>
 					{hidden ? 'Show narrative' : 'Hide narrative'}
 				</div>
@@ -169,7 +172,7 @@
 	</div>
 	<div
 		bind:this={scrolling_div}
-		class="narrative {position ? position : ''}"
+		class="narrative {position}"
 		class:slidden={hidden}
 	>
 		<Document {ast} {settings} />
@@ -206,16 +209,10 @@
 	.narrative {
 		font-family: 'Minion Pro', 'Libre Baskerville', Baskerville, 'Baskerville Old Face',
 			'Hoefler Text', Garamond, 'Times New Roman', serif;
-	}
-
-	.narrative {
 		align-items: center;
-		width: 100vw;
-		margin-left: 0vw;
-		margin-right: 0vw;
-		padding-left: 25vw;
-		padding-right: 25vw;
-		margin-bottom: 90vh;
+		max-width: 100vw;
+		padding-top: 30vh;
+		padding-bottom: 90vh;
 		left: 0vw;
 		top: 0vw;
 		position: relative;
@@ -227,13 +224,19 @@
 		left: -100vw;
 	}
 
+	.narrative.center {
+		max-width: 100vw;
+		padding-left: 25vw;
+		padding-right: 25vw;
+	}
+
 	.narrative.left {
 		z-index: 10;
 		align-items: center;
-		width: 60vw;
-		margin-left: 0vw;
-		margin-right: 60vw;
-		margin-bottom: 90vh;
+		max-width: 45vw;
+		padding-left: 2.5vw;
+		padding-right: 2.5vw;
+		margin-bottom: 0pt;
 		position: relative;
 		background-color: rgba(255, 255, 255, 0.1);
 	}
