@@ -3,12 +3,12 @@
 This module provides a set of Svelte components that implement (most of) the basic Pandoc document types defined in pandoc's abstract syntax tree. The purpose is to generate rich javascript-enabled applications from pandoc documents in cases where the static-document approach of pandoc is insufficient. Some of my primary use cases for working on are when I'm a number of similar documents in Markdown, but want to:
 
 1. [Create an IntersectionObserver instance at the top level of a document,
-   and then configuring each instance of `<div>` to do something when they scroll into view.](https://bmschmidt.github.io/pandoc-svelte-components/demo/observer/)
+   and then configuring each instance of `<div>` to do something when they scroll into view.](https://bmschmidt.github.io/pandoc-svelte-components/demo/observer)
 2. [Looking at the classes on code blocks to do different things with
-   them depending on the language, such as adding copy buttons that add R-markdown brackets to just R code while js code gets executed in browser.](https://bmschmidt.github.io/pandoc-svelte-components/demo/code/)
+   them depending on the language, such as adding copy buttons that add R-markdown brackets to just R code while js code gets executed in browser.](https://bmschmidt.github.io/pandoc-svelte-components/demo/code)
 3. If the URL for a link in a markdown file ends with 'json',
    like `![](https://iiif.archivelab.org/iiif/1985-05-compute-magazine$72/info.json)`,
-   check if the JSON is a IIIF manifest. If it is, generate an OpenSeadragon viewer around the json manifest rather than a simple `<img>` tag.
+   check if the JSON is a IIIF manifest. If it is, generate an OpenSeadragon viewer around the json manifest rather than a simple `<img>` tag. ([Demo page](https://bmschmidt.github.io/pandoc-svelte-components/demo/iiif))
 4. **Scrollership**: interactive narratives driven by code. E.g., the scrolly page [here](https://bmschmidt.github.io/pandoc-svelte-components/scrollership/apple) generated directly from [this markdown file](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/scrollership/apple.md) with code blocks implementing an API that drives Open SeaDragon.
 
 ## Why?
