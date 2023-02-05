@@ -1,11 +1,10 @@
 <script>
-	import ast_text from '/src/demo_data/code.json?raw';
+	import doc from './code.md';
 	import Document from '$lib/Document.svelte';
 	import 'highlight.js/styles/atom-one-light.css';
 	// Overwrite the default CodeBlock with a custom element that wraps it.
-
+	const ast = doc.document;
 	import CodeBlock from './CodeBlock.svelte';
-	const ast = JSON.parse(ast_text);
 </script>
 
 This passes the custom codeblock element defined
@@ -14,7 +13,7 @@ This passes the custom codeblock element defined
 	>here</a
 >
 on the markdown
-<a href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/demo_data/code.md"
+<a href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/code.md"
 	>here</a
 >
 

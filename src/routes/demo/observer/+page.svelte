@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Get the AST JSON.
-	import raw_doc from '/src/demo_data/observe.json?raw';
+	import raw_doc from './observe.json?raw';
 	const ast = JSON.parse(raw_doc);
 
 	import { browser } from '$app/environment';

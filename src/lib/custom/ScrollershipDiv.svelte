@@ -6,7 +6,6 @@
 
 	const [[id, classes, kv], elems] = data;
 	const attrs = Object.fromEntries(kv);
-
 </script>
 
 <div {id} class={classes.join(' ')} {...attrs}>

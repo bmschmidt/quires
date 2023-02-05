@@ -2,6 +2,7 @@
 	/* component boilerplate */
 	export let data;
 	export let settings;
+	settings;
 	/* end component boilerplate */
 
 	import hljs from 'highlight.js/lib/core';

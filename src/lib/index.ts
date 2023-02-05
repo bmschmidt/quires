@@ -21,3 +21,4 @@ export { default as Meta } from './Meta.svelte';
 export { default as Table } from './Table.svelte';
 export { default as Div } from './Div.svelte';
 export { default as CodeBlock } from './CodeBlock.svelte';
+export { default as pandoc_plugin } from './rollup-plugins/pandoc';

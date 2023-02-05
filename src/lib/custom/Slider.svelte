@@ -37,6 +37,6 @@
 
 <div>
 	{#if label}{label}: {/if}
-		<input type="range" bind:value min="0" max="1" step=".001" on:input={update} />
+	<input type="range" bind:value min="0" max="1" step=".001" on:input={update} />
 	{Math.floor(number)}
 </div>

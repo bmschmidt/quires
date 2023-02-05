@@ -1,8 +1,8 @@
 <script lang="ts">
-	import raw from '/src/demo_data/iiif.json?raw';
+	import doc from './iiif.md';
 	import Document from '$lib/Document.svelte';
 	// The overwritten image class.
-	import Image from '../_Image.svelte';
+	import Image from './_Image.svelte';
 </script>
 
-<Document ast={JSON.parse(raw)} settings={{ elements: { Image } }} />
+<Document ast={doc.document} settings={{ elements: { Image } }} />

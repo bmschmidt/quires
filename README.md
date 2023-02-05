@@ -38,10 +38,9 @@ pandoc filters put out more pandoc JSON, this program is a dead end because the 
 are highly browser-specific: while I call it 'HTML', really the svelte components here are rendering each pandoc block and inline elements
 as DOM elements with attached event listeners.
 
-Svelte--to my limited understanding--is better suited for this than React or another web framework because svelte is more of a compiler than a conventional framework.
+Svelte--to my fairly limited understanding--is better suited for this than React or another web framework because svelte is more of a compiler than a conventional framework.
 It reads `.svelte` files--which are basically like HTML files with reactive templating--and outputs compiled HTML with event listeners,
-styles, etc. So while conceptually every `<li>` and even `Space` is a separate component, at actual render-time all that complexity has
-been stripped away.
+styles, etc. So while conceptually every `<li>` and even `Space` is a separate component, at actual render-time all that complexity has been stripped away.
 
 ## Overriding components
 
@@ -125,7 +124,7 @@ In
 
 ## Unimplemented classes.
 
-This is early stage: I need this for a few projects but it is incomplete in its implementation. I do not yet have a list of fundamental pandoc types that are not implemented.
+This is early stage: I need this for a few projects but it is incomplete in its implementation. I do not yet have a list of fundamental pandoc types that are not implemented. So far I am awar that `Math` needs a safe implementation.
 
 ## Unsafe types.
 

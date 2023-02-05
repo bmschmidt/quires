@@ -11,4 +11,4 @@
 	const API = async () => import('$lib/../scrollership/nori.js');
 </script>
 
-<Scrollership position='left' {controls} {API} ast={data.document} />
+<Scrollership position="left" {controls} {API} ast={data.document} />

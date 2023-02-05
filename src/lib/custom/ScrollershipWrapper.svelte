@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	interface scrollingship {
 		bind: (node: HTMLElement) => void;
 		plotAPI: (call: Record<string, any>) => void;
@@ -11,7 +10,7 @@
 	// For listening;
 	export let query = null;
 	// Really record string, pandocComponent.
-	export let controls : Record<string, any> = {};
+	export let controls: Record<string, any> = {};
 	export let ast;
 	export let title = 'Scrollership';
 	export let settings = {};
@@ -42,14 +41,14 @@
 	import yaml from 'js-yaml';
 
 	settings['elements'] = {};
-//	settings['elements']['div.scrollership'] = ScrollershipDiv;
+	//	settings['elements']['div.scrollership'] = ScrollershipDiv;
 	settings['elements']['codeblock.slider'] = Slider;
 	settings['elements']['codeblock.button'] = Button;
 	settings['elements']['codeblock.buttonset'] = Buttonset;
 	settings['elements']['div.chunk'] = ScrollershipChunk;
 	settings['elements']['div.scrollership'] = ScrollershipDiv;
 	settings['elements']['codeblock.api'] = ScrollershipCodeBlock;
-	settings['elements'] = {...settings['elements'], ...controls}
+	settings['elements'] = { ...settings['elements'], ...controls };
 	settings['code_nodes'] = new Map();
 	settings['controls'] = {};
 	if (browser) {
@@ -151,7 +150,8 @@
 		on:keyup={() => {
 			hidden = !hidden;
 		}}
-	>	{hidden ? 'Show narrative' : 'Hide narrative'}
+	>
+		{hidden ? 'Show narrative' : 'Hide narrative'}
 	</div>
 
 	<div style="flex-grow: 4;">
@@ -161,12 +161,12 @@
 					<div class="action" on:click={get_api} on:keyup={get_api}>Copy API</div>
 				{/if}
 				<div>
-
-				<div style="margin-left: 100px">
-					title {title}
+					<div style="margin-left: 100px">
+						title {title}
+					</div>
 				</div>
-			</div>
-		</slot>
+			</div></slot
+		>
 	</div>
 </div>
 
@@ -174,12 +174,8 @@
 	<div class="vizpanel">
 		<div bind:this={backdrop} id="panel" />
 	</div>
-	<div
-		bind:this={scrolling_div}
-		class="narrative {position}"
-		class:slidden={hidden}
-	>
-	<slot />
+	<div bind:this={scrolling_div} class="narrative {position}" class:slidden={hidden}>
+		<slot />
 		<Document {ast} {settings} />
 	</div>
 </div>
@@ -235,7 +231,6 @@
 		padding-right: 25vw;
 		margin-bottom: 90vh;
 		background-color: rgba(255, 0, 255, 0.525);
-
 	}
 
 	.narrative.slidden {
