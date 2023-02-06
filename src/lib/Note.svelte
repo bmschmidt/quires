@@ -6,7 +6,6 @@
 	} else {
 		settings._note_number += 1
 	}
-	console.log({data, settings})
 	import Elements from '$lib/Elements.svelte';
 </script>
 

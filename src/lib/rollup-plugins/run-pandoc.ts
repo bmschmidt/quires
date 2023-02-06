@@ -67,7 +67,6 @@ function collapse_spaces(ast) {
 		return fold_spaces(ast);
 	}
 	if (typeof ast !== 'object') {
-		console.log('halting');
 		return ast;
 	}
 
@@ -113,8 +112,6 @@ async function yaml_metadata(path): Promise<Record<string, any>> {
 	} else {
 		candidate = candidate1;
 	}
-	console.log('FOOOOO');
-	console.log({ candidate: candidate.length, r: raw.length });
 	if (candidate === undefined || candidate.length >= raw.length - 5) {
 		return {};
 	}

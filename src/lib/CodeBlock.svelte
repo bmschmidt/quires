@@ -12,7 +12,6 @@
 			component = custom_els[`codeblock.${classname}`];
 		}
 	}
-	console.log({ custom_els });
 </script>
 
 {#if component}

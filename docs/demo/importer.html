@@ -6,7 +6,8 @@
 		<link rel="icon" href="/pandoc-svelte-components/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="content-security-policy" content="">
-		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/start-aab26fca.js">
+		<link href="/pandoc-svelte-components/_app/immutable/assets/Document-a4c0a9bf.css" rel="stylesheet">
+		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/start-873cf8d4.js">
 		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/chunks/index-812dd51a.js">
 		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/chunks/singletons-f942496f.js">
 		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/chunks/shared-23917130.js">
@@ -14,8 +15,8 @@
 		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/components/layout.svelte-cbaab6c1.js">
 		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/modules/pages/_layout.ts-9cbb603b.js">
 		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/chunks/_layout-da46b06b.js">
-		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/components/pages/demo/importer/_page.svelte-8aa0a320.js">
-		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/chunks/Document-fec63b96.js"><title>Importer   demo.</title><!-- HEAD_svelte-kyjbv2_START --><!-- HEAD_svelte-kyjbv2_END -->
+		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/components/pages/demo/importer/_page.svelte-7a4ed409.js">
+		<link rel="modulepreload" href="/pandoc-svelte-components/_app/immutable/chunks/Document-6344cf9b.js"><title>Importer   demo.</title><!-- HEAD_svelte-kyjbv2_START --><!-- HEAD_svelte-kyjbv2_END -->
 	</head>
 	<body>
 		<div>
@@ -26,11 +27,11 @@
 <p>Markdown documents have different parts that we want to load into pandoc. For this, I’ve implemented a custom rollup loader that runs system pandoc to load the JSON representation that <code id="" class="">pandoc-svelte-components</code> consumes.</p><p>Pandoc parsing is kind of expensive (with, e.g., a blog with hundreds of posts, we don’t want to spin it up and parse each time.) So I use a cache (located by default at <code id="" class="">cache</code> in the project root) to hold the JSON formatted data.</p><p>Pandoc’s internal syntax is also extremely wasteful with regard to spaces. It has a special element called <code id="" class="">Space</code> so that the paragraph <code id="" class="">"This too shall pass."</code> is rendered internally as <code id="" class="">{"t":"Para","c":[{"t":"Str","c":"This"},{"t":"Space"},{"t":"Str","c":"too"},{"t":"Space"},{"t":"Str","c":"shall"},{"t":"Space"},{"t":"Str","c":"pass."}]}</code> instead of just <code id="" class="">{"t":"Para","c":[{"t":"Str","c":"This too shall pass."}</code>. The benefits of this to downstream renderers are slim.</p>
 
 <hr>
-This is a representation of the markdown document at `page.md` which has the title &quot;Importer demo.&quot;
+This is a representation of the markdown document at `page.md` which has the title &quot;undefined&quot;
 
 <h2>The metadata loaded directly from the import is:</h2>
 
-<pre>{"title":"Importer demo.","author":"Ben Schmidt","date":"2023-02-05T00:00:00.000Z"}</pre>
+<pre>{}</pre>
 <h2>The JSON representation of the metadata *internal* to pandoc is:</h2>
 <pre>  {"author":{"t":"MetaInlines","c":[{"t":"Str","c":"Ben"},{"t":"Space"},{"t":"Str","c":"Schmidt"}]},"date":{"t":"MetaInlines","c":[{"t":"Str","c":"2023-02-05"}]},"title":{"t":"MetaInlines","c":[{"t":"Str","c":"Importer"},{"t":"Space"},{"t":"Str","c":"demo."}]}}
 </pre>
@@ -969,16 +970,16 @@ This is a representation of the markdown document at `page.md` which has the tit
 </pre>
 
 
-		<script type="module" data-sveltekit-hydrate="6ley">
-			import { start } from "/pandoc-svelte-components/_app/immutable/start-aab26fca.js";
+		<script type="module" data-sveltekit-hydrate="1i27396">
+			import { start } from "/pandoc-svelte-components/_app/immutable/start-873cf8d4.js";
 
 			start({
 				env: {},
 				paths: {"assets":"/pandoc-svelte-components","base":"/pandoc-svelte-components"},
-				target: document.querySelector('[data-sveltekit-hydrate="6ley"]').parentNode,
-				version: "1675641406896",
+				target: document.querySelector('[data-sveltekit-hydrate="1i27396"]').parentNode,
+				version: "1675656384061",
 				hydrate: {
-					node_ids: [0, 6],
+					node_ids: [0, 7],
 					data: [null,null],
 					form: null,
 					error: null

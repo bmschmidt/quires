@@ -1,4 +1,4 @@
-import{S as r,i as a,s as p,w as i,x as o,y as s,B as l,f as d,t as u,z as k}from"../../../../chunks/index-812dd51a.js";import{D as h}from"../../../../chunks/Document-fec63b96.js";const m=`{
+import{S as r,i as a,s as p,w as i,x as o,y as s,B as l,f as d,t as u,z as k}from"../../../../chunks/index-812dd51a.js";import{D as h}from"../../../../chunks/Document-6344cf9b.js";const m=`{
 	"pandoc-api-version": [1, 22, 1],
 	"meta": {},
 	"blocks": [

@@ -9,3 +9,5 @@
 4. [Demo of using markdown image tags for IIIF manifests. (`![alt-text](https://demo.edu/demo_iiif_id/info.json)`)](demo/iiif)
 
 5. [Scrollership through a IIIF image](scrollership/apple)
+
+6. [Chapter from Gibbon's _Decline and Fall_ to show footnotes.](demo/footnotes)

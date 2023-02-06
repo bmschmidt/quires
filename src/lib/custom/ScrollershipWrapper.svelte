@@ -119,7 +119,6 @@
 			// to complete.
 			const call = queued_plots.shift();
 			plot.plotAPI(call).then(() => {
-				console.log({ call });
 				// Once the call is made, reassign the queue to
 				// trigger re-evaluation of this block.
 				queued_plots = queued_plots;
