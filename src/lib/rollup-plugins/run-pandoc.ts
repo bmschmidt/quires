@@ -87,7 +87,7 @@ function collapse_spaces(ast) {
 }
 
 async function parse_path(path) {
-	const command = `pandoc -t json ${path}`;
+	const command = `pandoc -t json ${path} -f markdown+footnotes`;
 	const { stdout } = await exec(command);
 	return collapse_spaces(JSON.parse(stdout));
 }
@@ -101,6 +101,9 @@ async function get_html(path) {
 async function yaml_metadata(path): Promise<Record<string, any>> {
 	const raw = await fs.readFile(path, 'utf-8');
 	const has_metadata = raw.slice(0, 4) === '---\n';
+	if (!has_metadata) {
+		return {};
+	}
 	const candidate1 = raw.slice(4).split('---')[0];
 	// Rarely, three dots are used as an end delimiter.
 	const candidate2 = raw.slice(4).split('...')[0];
@@ -110,9 +113,12 @@ async function yaml_metadata(path): Promise<Record<string, any>> {
 	} else {
 		candidate = candidate1;
 	}
-	if (candidate === undefined) {
+	console.log('FOOOOO');
+	console.log({ candidate: candidate.length, r: raw.length });
+	if (candidate === undefined || candidate.length >= raw.length - 5) {
 		return {};
 	}
+	return {};
 	const attributes = yaml.load(candidate);
 	return attributes || {};
 }
@@ -145,7 +151,9 @@ export async function json_with_meta(path: string, cache_loc = './cache') {
 	let cache_path;
 	if (cache_loc) {
 		await fs.mkdir(cache_loc).catch((err) => {
-			console.log(err);
+			if (err.code !== 'EEXIST') {
+				throw err;
+			}
 		});
 		cache_path = `${cache_loc}/${path.replaceAll('/', '--')}.json`;
 		let mtime = new Date(0);

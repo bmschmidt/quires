@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { NodeContent } from '../../types/node';
+	import type { NodeContent } from '../../../types/node';
 	import { setup_osd } from './_iiif';
 
 	export let data: NodeContent['Image'];

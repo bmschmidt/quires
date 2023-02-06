@@ -1,12 +1,15 @@
 # 0.2.0
 
 - Added a rollup bundler using the system pandoc, so that `import README.md` allows you to directly import markdown files as JSON into svelte components.
+- Support import of YAML metadata blocks that include `...` delimiter at end.
+- Revamp note element to use `<details>`/`<summary>` interface by default.
+- Add Gibbon text as example
+- Use the new importer for this web site.
 
 # 0.1.1
 
 - Start using the new class-examination strategy on codeblocks as well. This usually
-  avoids the need to override a default class, instead letting it be a special case based
-  on the class type.
+  avoids the need to override a default class, instead letting it be a special case based on the class type.
 
 # 0.1.0
 
