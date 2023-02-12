@@ -1,3 +1,8 @@
+---
+title: pandoc-svelte-components demonstrations.
+date: 2023-02-02
+---
+
 # Demos
 
 1. [Demo of code block behavior customized by class](/pandoc-svelte-components/demo/code)

@@ -115,7 +115,6 @@ async function yaml_metadata(path): Promise<Record<string, any>> {
 	if (candidate === undefined || candidate.length >= raw.length - 5) {
 		return {};
 	}
-	return {};
 	const attributes = yaml.load(candidate);
 	return attributes || {};
 }

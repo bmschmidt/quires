@@ -23,10 +23,8 @@ Language: English
 Character set encoding: UTF-8
 Produced by: David Widger
 
-\*\*\* START OF THE PROJECT GUTENBERG EBOOK THE DECLINE AND FALL OF THE
-ROMAN EMPIRE \*\*\*
-
-::: chapter
+**START OF THE PROJECT GUTENBERG EBOOK THE DECLINE AND FALL OF THE
+ROMAN EMPIRE**
 
 ## []{#chap30.1} Chapter XXX: Revolt Of The Goths.---Part I.
 

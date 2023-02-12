@@ -3,7 +3,7 @@
 - Added a rollup bundler using the system pandoc, so that `import README.md` allows you to directly import markdown files as JSON into svelte components.
 - Support import of YAML metadata blocks that include `...` delimiter at end.
 - Revamp note element to use `<details>`/`<summary>` interface by default.
-- Add Gibbon text as example
+- Add Gibbon text as example of footnotes-as-detail elements.
 - Use the new importer for this web site.
 
 # 0.1.1
