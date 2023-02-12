@@ -1,3 +1,7 @@
+# 0.2.1
+
+- Attempt to correct `Blockquote` to `BlockQuote`
+
 # 0.2.0
 
 - Added a rollup bundler using the system pandoc, so that `import README.md` allows you to directly import markdown files as JSON into svelte components.
