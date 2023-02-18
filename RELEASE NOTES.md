@@ -1,3 +1,7 @@
+# 0.3.1
+
+- sidenote clicking in small window modes shows/hides appropriate note.
+
 # 0.3.0
 
 - Add "Sidenote" component that can be a drop-in replacement for Note, with demo.
