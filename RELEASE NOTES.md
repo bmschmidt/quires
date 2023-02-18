@@ -1,3 +1,7 @@
+# 0.3.0
+
+- Add "Sidenote" component that can be a drop-in replacement for Note, with demo.
+
 # 0.2.1
 
 - Attempt to correct `Blockquote` to `BlockQuote`

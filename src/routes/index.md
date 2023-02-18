@@ -15,4 +15,7 @@ date: 2023-02-02
 
 5. [Scrollership through a IIIF image](/pandoc-svelte-components/scrollership/apple)
 
-6. [Chapter from Gibbon's _Decline and Fall_ to show footnotes.](/pandoc-svelte-components/demo/footnotes)
+6. [Chapter from Gibbon's _Decline and Fall_ to show inline footnotes as toggleable details.](/pandoc-svelte-components/demo/footnotes)
+
+7. [Chapter from Gibbon's _Decline and Fall_ to show inline footnotes as sidenotes.](/pandoc-svelte-components/demo/sidenotes)
+
