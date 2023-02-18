@@ -7,6 +7,7 @@
 		settings._note_number += 1;
 	}
 	import Elements from './Elements.svelte';
+	const id = ('' + Math.random()).slice(0, 10);
 	$: over_element = false;
 	$: over_note = false;
 </script>
@@ -21,16 +22,11 @@
 		on:mouseleave={() => {
 			over_note = false;
 		}}
-		for="fn-{settings._note_number}"
+		for="fn{id}"
 	/>
 </sup>
 
-<input
-	type="checkbox"
-	class="note-toggle"
-	id="fn-{settings._note_number}"
-	name="fn-{settings._note_number}"
-/>
+<input type="checkbox" class="note-toggle" id="fn{id}" name="fn_{id}" />
 
 <aside
 	class="note"
@@ -50,6 +46,10 @@
 		content: counter(note);
 		counter-increment: note; /* Increment the value of section counter by 1 */
 		font-size: 75%;
+		cursor: pointer;
+	}
+	.fn::after:hover {
+		text-decoration: underline;
 	}
 	.fn.focused::after {
 		content: counter(note);
