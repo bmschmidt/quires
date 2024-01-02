@@ -1,3 +1,7 @@
+# 0.4.0
+
+Complete rewrite and rename around package name "quires" using djot AST.
+
 # 0.3.1
 
 - sidenote clicking in small window modes shows/hides appropriate note.

@@ -1,34 +1,39 @@
-<script>
-	// This one is pretty messy still.
+<script lang="ts">
+	import type { Table } from 'src/types/ast';
+	export let quire: Quire<Table>;
+	import Inline from '$lib/Inline.svelte';
+	const { attributes, children, pos } = quire.content;
+	const [caption, ...rows] = children;
 
-	export let data;
-	export let settings;
-	import Elements from '$lib/Elements.svelte';
-
-	import { page } from '$app/stores';
-	const [[id, classes, kv], caption, colSpecs, [headattr, headrows], bodies, footer] = data;
-	const attrs = Object.fromEntries(kv);
+	//TODO: table alignment.
 </script>
 
-<table {id} class="table-auto {classes.join(' ')}" {...attrs}>
-	<thead>
-		{#each headrows as [attr, rows]}
-			<tr>
-				{#each rows as [Attr, Alignment, RowSpan, ColSpan, elems]}
-					<th><Elements {elems} {settings} /></th>
-				{/each}
-			</tr>
+{#if caption}
+	<caption>
+		{#each caption.children as child}
+			<Inline quire={{ ...quire, content: child }} />
 		{/each}
-	</thead>
-	<tbody>
-		{#each bodies as [Attr, RowHeadColumns, a_s, rows]}
-			{#each rows as [rowattr, cells]}
-				<tr>
-					{#each cells as [Attr, Alignment, RowSpan, ColSpan, elems]}
-						<td><Elements {elems} {settings} /></td>
-					{/each}
-				</tr>
+	</caption>
+{/if}
+
+<table {...attributes}>
+	{#each rows as row}
+		<tr>
+			{#each row.children as cell}
+				{#if cell.head}
+					<th align={cell.align === 'default' ? 'left' : cell.align}>
+						{#each cell.children as child}
+							<Inline quire={{ ...quire, content: child }} />
+						{/each}
+					</th>
+				{:else}
+					<td align={cell.align === 'default' ? 'left' : cell.align}>
+						{#each cell.children as child}
+							<Inline quire={{ ...quire, content: child }} />
+						{/each}
+					</td>
+				{/if}
 			{/each}
-		{/each}
-	</tbody>
+		</tr>
+	{/each}
 </table>

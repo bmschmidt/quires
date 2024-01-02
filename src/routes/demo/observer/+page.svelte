@@ -1,26 +1,12 @@
 <script lang="ts">
 	// Get the AST JSON.
-	import raw_doc from './observe.json?raw';
-	const ast = JSON.parse(raw_doc);
-
+	import quire from './history.md';
 	import { browser } from '$app/environment';
-	import Document from '$lib/Document.svelte';
-	import Para from '../_ObservedParagraph.svelte';
+	import Document from '$lib/Doc.svelte';
+	import Para from './ParaObserver.svelte';
+	quire.quireComponents = [['para', Para]];
 
 	$: observed_paragraphs = 0;
-
-	let observe = (entries, observer) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				observed_paragraphs++;
-				entry.target.__svandoc.visible();
-			} else {
-				entry.target.__svandoc.hidden();
-			}
-		});
-	};
-
-	const settings = { elements: { Para }, observer: undefined };
 
 	if (browser) {
 		let options = {
@@ -28,7 +14,20 @@
 			rootMargin: '0px',
 			threshold: 1.0
 		};
-		settings.observer = new IntersectionObserver(observe, options);
+		// This will be handled by runs, eventually.
+		const observe: IntersectionObserverCallback = (entries, observer) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					observed_paragraphs += 1;
+				}
+				entry.target.dispatchEvent(
+					new CustomEvent('intersection', {
+						detail: entry
+					})
+				);
+			});
+		};
+		quire.custom.observer = new IntersectionObserver(observe, options);
 	}
 </script>
 
@@ -51,5 +50,5 @@
 		href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/observer.svelte"
 		>here.</a
 	>
-	<Document {settings} {ast} />
+	<Document {quire} />
 </div>

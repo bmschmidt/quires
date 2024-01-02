@@ -1,0 +1,15 @@
+<script lang="ts">
+	/**
+	 * A component for rendering an image as a figure with caption.
+	 */
+	import type { Image } from '$lib/types/ast';
+	import { getStringContent } from '$lib/djot';
+	export let quire: Quire<Image>;
+	const { destination } = quire.content;
+	const title = quire.content.children.map((inline) => getStringContent(inline)).join('');
+</script>
+
+<figure {...quire.content.attributes}>
+	<img alt={title} src={destination} />
+	<figcaption>{title}</figcaption>
+</figure>

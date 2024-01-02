@@ -1,10 +1,16 @@
 <script>
-	import doc from './code.md';
-	import Document from '$lib/Document.svelte';
-	import 'highlight.js/styles/atom-one-light.css';
+	import quire from './code.md';
+	import Document from '$lib/Doc.svelte';
 	// Overwrite the default CodeBlock with a custom element that wraps it.
-	const ast = doc.document;
-	import CodeBlock from './CodeBlock.svelte';
+	import RCodeBlock from './RCode.svelte';
+	import JSCodeBlock from './JsCode.svelte';
+	import PythonCodeBlock from './PyCode.svelte';
+	const quireComponents = [
+		['code_block.r', RCodeBlock],
+		['code_block.js', JSCodeBlock],
+		['code_block.python', PythonCodeBlock]
+	];
+	quire.quireComponents = quireComponents;
 </script>
 
 This passes the custom codeblock element defined
@@ -17,7 +23,7 @@ on the markdown
 	>here</a
 >
 
-<Document {ast} settings={{ elements: { CodeBlock } }} />
+<Document {quire} />
 
 <style>
 	:global(pre) {

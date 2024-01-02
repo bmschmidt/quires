@@ -1,5 +1,5 @@
 <script lang="ts">
-	/* component boilerplate */
+	/* pandoc-svelte-component boilerplate */
 	export let data;
 	export let settings;
 	settings;

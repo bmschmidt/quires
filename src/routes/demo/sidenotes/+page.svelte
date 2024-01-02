@@ -1,16 +1,14 @@
 <script>
-	import doc from './gibbon.md';
-	import Document from '$lib/Document.svelte';
-	import Sidenote from '$lib/Sidenote.svelte';
-	const settings = {
-		elements: {
-			Note: Sidenote
-		}
-	};
+	import quire from './gibbon.md';
+	import Sidenote from '$lib/custom/Sidenote.svelte';
+
+	quire.quireComponents = [['footnote_reference', Sidenote]];
+
+	import Document from '$lib/Doc.svelte';
 </script>
 
 <div class="document">
-	<Document ast={doc.document} {settings} />
+	<Document {quire} />
 </div>
 
 <style>

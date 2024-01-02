@@ -1,3 +1,4 @@
 <h1>Scrollership</h1>
 
-Scrollership is a model for writing stories where interaction is triggered by a subject-area DSL.
+Scrollership is the practice of writing stories where interaction is triggered by a subject-area
+DSL.

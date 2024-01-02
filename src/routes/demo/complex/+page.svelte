@@ -1,7 +1,6 @@
 <script lang="ts">
-	import raw from './test_file.json?raw';
-	const ast = JSON.parse(raw);
-	import Document from '$lib/Document.svelte';
+	import doc from './complex.md';
+	import Document from '$lib/Doc.svelte';
 </script>
 
-<Document {ast} settings={{}} />
+<Document ast={doc.document} />

@@ -26,7 +26,7 @@ Produced by: David Widger
 **START OF THE PROJECT GUTENBERG EBOOK THE DECLINE AND FALL OF THE
 ROMAN EMPIRE**
 
-## []{#chap30.1} Chapter XXX: Revolt Of The Goths.---Part I.
+## Chapter XXX: Revolt Of The Goths.---Part I.
 
 ```{xml:space="preserve"}
      Revolt Of The Goths.—They Plunder Greece.—Two Great

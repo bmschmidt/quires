@@ -1,9 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import pandoc_plugin from './src/lib/rollup-plugins/pandoc.js';
+import djot_plugin from './src/lib/rollup-plugins/djot.js';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [pandoc_plugin({ cache_loc: '.cache' }), sveltekit()]
+	plugins: [djot_plugin({}), sveltekit()],
+	test: {
+		include: ['src/**/*.{test,spec}.{js,ts}']
+	}
 };
 
 export default config;

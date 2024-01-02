@@ -1,157 +1,112 @@
-# pandoc-svelte-components
+# Quires
 
-This module provides a set of Svelte components that implement (most of) the basic Pandoc document types defined in pandoc's abstract syntax tree. The purpose is to generate rich javascript-enabled applications from pandoc documents in cases where the static-document approach of pandoc is insufficient. Some of my primary use cases for working on are when I'm a number of similar documents in Markdown, but want to:
+Quires is a system for creating reactive and interactive documents, built on top of [svelte](https://svelte.dev)
+and [djot](https://djot.net/).
 
-1. [Create an IntersectionObserver instance at the top level of a document,
-   and then configuring each instance of `<div>` to do something when they scroll into view.](https://bmschmidt.github.io/pandoc-svelte-components/demo/observer)
-2. [Looking at the classes on code blocks to do different things with
-   them depending on the language, such as adding copy buttons that add R-markdown brackets to just R code while js code gets executed in browser.](https://bmschmidt.github.io/pandoc-svelte-components/demo/code)
-3. If the URL for a link in a markdown file ends with 'json',
-   like `![](https://iiif.archivelab.org/iiif/1985-05-compute-magazine$72/info.json)`,
-   check if the JSON is a IIIF manifest. If it is, generate an OpenSeadragon viewer around the json manifest rather than a simple `<img>` tag. ([Demo page](https://bmschmidt.github.io/pandoc-svelte-components/demo/iiif))
-4. **Scrollership**: interactive narratives driven by code. E.g., the scrolly page [here](https://bmschmidt.github.io/pandoc-svelte-components/scrollership/apple) generated directly from [this markdown file](https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/scrollership/apple.md) with code blocks implementing an API that drives Open SeaDragon.
+## Overview
 
-## Why?
+Separation of concerns is 
 
-### What does pandoc offer for svelte projects?
-
-Pandoc is a program that, at its core, defines an abstracted vocabulary for representing the structure of documents intended for display.
-It is by far the most powerful markdown processor out there: it also can directly consume a variety of non-markdown formats, from ipynb notebooks to epub books to docx files. Unless you write files directly as svelte components, it can be hard to use the most powerful elements of svelte--you have to muck around with `document.QuerySelector` and the like, and you lose the isolation of parts that is one of svelte's greatest charms. (This is true if you're importing HTML as well as Markdown.)
-
-It is possible to use pandoc to render straight to flat HTML. But that gives you a static document, without the ability to manipulate individual elements. And what an 'element' is might vary for person to person; some might be adding interactivity to divs based on their classes, while others might want to add event listeners onto each individual word. (Yes, I've done this!).
-
-Pandoc offers an abstracted, rich vocabulary for defining document elements that captures almost all the different levels of documents that tend to be authored nowadays. By adopting the pandoc AST as a document definition, it's possible to add custom behavior at any level of a document while leaving the rest of the HTML rendering the same.
-
-In the examples here, I have files saved that hold pandoc native JSON. You'd almost never want to do this. Instead, it's likely that you'd have an endpoint that invokes pandoc from the command line on a file and outputs it (perhaps with a lua filter or two) as JSON, which you then parse in svelte. I'll post an example from my own workflow soon-ish.
-
-### What does svelte offer for pandoc documents?
-
-Usually, nothing. But sometimes, interactivity without bloat.
-
-Say you want to add a button next to every `pre` block in a document that copies the code.
-Using pandoc, you could manually write some HTML and event listeners inside inside a lua filter,
-but then the resulting code wouldn't have access to any modules you've imported in `node`... etc.
-
-This project is intended to work in much the same way as conventional pandoc filters, written in Haskell or
-Lua, with interventions into normal rendering created by inserting custom definitions of components. But while
-pandoc filters put out more pandoc JSON, this program is a dead end because the kind of interactivity it creates
-are highly browser-specific: while I call it 'HTML', really the svelte components here are rendering each pandoc block and inline elements
-as DOM elements with attached event listeners.
-
-Svelte--to my fairly limited understanding--is better suited for this than React or another web framework because svelte is more of a compiler than a conventional framework.
-It reads `.svelte` files--which are basically like HTML files with reactive templating--and outputs compiled HTML with event listeners,
-styles, etc. So while conceptually every `<li>` and even `Space` is a separate component, at actual render-time all that complexity has been stripped away.
-
-## Overriding components
-
-Although you could use this library to render static HTML from the pandoc AST, that would be a pretty silly thing to do, since you could just use pandoc's HTML instead.
-
-The core uses lie in _overwriting_ select elements.
-For most elements, the assumption is that you'll just want a basic behavior.
-`# Title`, for example, will become
-`<h1>Title</h1>`. But you can wrap or override any individual component to add more complicated behavior.
-
-As an extremely simple example, you can increase the level of
-of each header in a document by wrapping the existing pandoc
-AST definition like so.
-
-```js
-<script>
-  export let settings;
-  export let data;
-  const [level, meta, elems] = data;
-  settings; // silence warning for unused var.
-  import Header from 'pandoc-svelte-components/Header.svelte';
-</script>
-
-<Header data={[level + 1, meta, elems]} {settings} />
-```
-
----
+You write doucments in pandoc-flavored Markdown (or in [raw djot](https://djot.net/), which is almost the same thing). If your document is ordinary, you use the base set of components that comes with the system and get the same behavior as an ordinary Markdown parser. But if you want to *change* the way an element renders, you generate a custom svelte component--a **quire**--that folds 
+in new behavior. For instance, in `djot` markup, a string `*enclosed in asterisks*` is rendered as bold. In markdown, this is rendered in italics, and `**double asterisks**` are required to render bold. To switch to the markdown behavior, we write a custom component that checks to see if a `<strong>` element is double-nested: if so, we render it as strong; otherwise as an emph.
 
 ```html
-<script>
-	import { Document } from 'pandoc-svelte-components';
-	import MyHeader from '$lib/components/Header.svelte';
+<!-- src/lib/MyStrong.svelte -->
+<script lang="ts">
+	import BasicStrong from '$lib/Inlines/Strong.svelte';
+	import BasicEmph from '$lib/Inlines/Emph.svelte';
+	import type { Strong, Emph } from '$lib/types/ast';
+	import type { QuireComponent } from '$lib/types/quire';
 
-	import document from '$lib/pandoc-filtered-text.json?raw';
+	export let quire: Quire<Strong>;
 
-	const settings = {
-		Header: MyHeader // Override the default header.
-	};
+	let component: QuireComponent = BasicStrong;
+	let content: Strong | Emph = quire.content;
+	if (content.children.length === 1 && content.children[0].tag === 'strong') {
+		content = content.children[0];
+		component = BasicEmph;
+	}
 </script>
 
-<Document ast="{document}" settings="{settings}"> </Document>
+<svelte:component this={component} quire={{ ...quire, content }} />
 ```
 
-You probably don't this just for simple, static redefinitions like changing header levels are better handledthrough pandoc filters--I tend to write them in lua because it's fastest and
-cleanest, but ES monoglots can use [https://github.com/mathematic-inc/node-pandoc-filter].
-
-It's more suited for cases where you need to execute javascript code in the browser in a way that depends on the structure or content of markdown blocks.
-
-In these cases you can override the entire behavior for an element, _or_ define
-
-In
-
-```js
-<script>
-  export let settings;
-  export let data;
-  const
-  settings; // silence warning for unused var.
-
-</script>
-
-<div on:mouseover={runalert}> </div>
-```
+To implement this, we define the quire at the top level
 
 ```html
-<script>
-	import { Document } from 'pandoc-svelte-components';
-	import AlertBox from '$lib/components/AlertBox.svelte';
-
-	import document from '$lib/pandoc-filtered-text.json?raw';
-
-	const settings = {
-		Header: MyHeader // Override the default header.
-	};
+<script lang="ts">
+  // src/routes/+page.svelte
+	import index from './index.md';
+	import Doc from '$lib/Doc.svelte';
+	import { document } from '$lib/quire';
+  import Strong from '$lib/MyStrong.svelte';
+  // The quire contains both the document 
+	const quire = document(index, {'strong': Strong});
 </script>
 
-<Document ast="{document}" settings="{settings}"> </Document>
+<Doc {quire} />
+
 ```
 
-# Caveats
+Note a few elements here. 
 
-## Unimplemented classes.
+1. The `quire` contains both the AST and a set of state that is passed down. These can be disassembled 
+   and passed to components lower down the tree, but Quire components should -- as a general rule --
+   pass down all state to children that they don't explicitly alter.
+2. The override set is passed in to the document creator here.
 
-This is early stage: I need this for a few projects but it is incomplete in its implementation. I do not yet have a list of fundamental pandoc types that are not implemented. So far I am awar that `Math` needs a safe implementation.
+## Contingent quires
 
-## Unsafe types.
+You can pass quires contingently. For this quire uses a DSL based on css selectors, parsed by the [css-what](https://github.com/fb55/css-what#readme) repo.
 
-In addition, it does not full for example, it does not reliably assign all attributes and classes on tables, images, etc from pandoc; instead, it silent drops them.
+Most css selectors are not (yet?) supported, but class based ones are.
 
-I'm slowly filling it out as I need things unless I hear that other people need them, too.
+* `code_block`: Replaces 'code_block' elements with the custom component.
+* `code_block.python`: Replaces 'code_block' elements with the language as `python` with the custom component.
+   Note:
+   * the language of a code block is treated as a *class* for the purpose of selectors.
+* `para#intro`: Replaces paragraphs 
 
-## Borrowed code.
+These behaviors can be combined.
 
-For the time this includes type definitions from
-[https://github.com/mathematic-inc/node-pandoc-filter] in `src/types`. Once those have been fully updated to pandoc 1.22, the changes will be pushed back upstream and I may add it as a dependency, or just keep the folder separately.
+* `para.executable code_block.js`: Encloses all `js` codeblocks that are descendants of a para element classed executable.
 
-# Scrollership
+### Quarto compatibility
 
-Included in this repo for the time being are a particular set of components designed to support what I call "Scrollership"; linear narration driven by an API.
+For compatibility with Quarto. 
 
-All special code blocks must consist of well formatted [_yaml_](https://yaml.org/). (Note that JSON is a subset is a subset of yaml, so you can always just use JSON in these cases.)
+## Wrapping default behavior
 
-- Blocks that are classed as 'api' immediately trigger an update to the underlying plot state when they scroll into view. They also present themselves as editable blocks.
-- For `slider` and other input methods, a shorthand notation is allowed in which nested API changes can be declared using dot notation implemented using `lodash.set`. For instance, if a slider is bound to `encoding.filter.a[0]` and updated with the value `3.14` each update will emit a request for an API call of the form `{encoding: {filter: {a: [3.14]}}}`.
-- Code blocks classed as 'slider' present as an
-  `<input type="range" />` element in the HTML. The yaml keys to control this slider include:
+Often you want to do something relatively simple, like put a button below a code block, without altering 
+the basic behavior of the code block itself.
 
-  - `target`: The element in the API call that the slider directly controls.
-  - `transform`: 'linear', 'sqrt', or 'log' transforms to apply to the value.
-  - `label`: Text to display in front of the slider.
+This is handled using the `<slot />` property of the svelte component.
 
-- Code blocks classed as `button` can have two keys:
-  - `label`: The text to appear on the button
-  - `api`: An API call that is dispatched when you click on the associated button.
+For example, take following component:
+
+```html
+<div style="color:red; display:flex;">
+  <slot></slot>
+</div>
+```
+
+This component wraps its child with a red-colored div. It can then be used
+as a wrapper around multiple different components, if desired.
+
+```html
+<script lang="ts">
+	import index from './index.md';
+	import Doc from '$lib/Doc.svelte';
+	import { document } from '$lib/quire';
+  import Warning from 'RedWrapper.svelte';
+  // The quire contains both the document 
+	const quire = document(index, {'div.warning': Warning, 'para.warning': Warning});
+</script>
+
+<h1>{index.metadata.title}</h1>
+
+<Doc {quire} />
+```
+
+
+Classes are (for the time being) *not* inherited. This behavior is likely to change.

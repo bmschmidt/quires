@@ -1,8 +1,9 @@
 <script lang="ts">
-	import doc from './iiif.md';
-	import Document from '$lib/Document.svelte';
+	import quire from './iiif.md';
+	import Document from '$lib/Doc.svelte';
 	// The overwritten image class.
-	import Image from './_Image.svelte';
+	import Image_OSD from './Image_OSD.svelte';
+	quire.quireComponents = [['image', Image_OSD]];
 </script>
 
-<Document ast={doc.document} settings={{ elements: { Image } }} />
+<Document {quire} />
