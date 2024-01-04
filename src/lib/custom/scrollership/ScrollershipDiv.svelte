@@ -1,13 +1,6 @@
 <script lang="ts">
-	export let data;
-	export let settings;
-
-	import Elements from '$lib/Elements.svelte';
-
-	const [[id, classes, kv], elems] = data;
-	const attrs = Object.fromEntries(kv);
+	import type { Div } from '$lib/types/ast';
+	export let quire: Quire<Div>;
 </script>
 
-<div {id} class={classes.join(' ')} {...attrs}>
-	<Elements {settings} {elems} />
-</div>
+<slot />

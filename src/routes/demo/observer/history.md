@@ -3,15 +3,16 @@ title: passing state
 author: Ben Schmidt
 ...
 
-Every component takes two arguments: `data`, which is the de-serialized pandoc json,
-and `settings`, which is an object containing state that is passed to all child components.
-Most of settings is just a blank slate for to use for letting elements communicate with
-each other.
+The most powerful use of quires is for rich reactions to scroll events. This uses the custom Para component
+[here](https://github.com/bmschmidt/quires/blob/main/src/routes/demo/observer/ParaObserver.svelte)
+on the Markdown defined
+[here](https://github.com/bmschmidt/quires/blob/main/src/routes/demo/observer/history.md)
+The IntersectionObserver is created externally to the svelte components,
+[here.](https://github.com/bmschmidt/quires/blob/main/src/routes/demo/observer/+page.md)
 
-One component in `settings` is reserved: `elements` allows you to override any pandoc
-element with a custom element. To redefine the behavior for `CodeBlock`'s, for example,
-you import a custom svelte component called 'MyCodeBlock' pass it into elements;
-any codeblocks in the document wll be rendered in that style.
+The Intersection Observer API reacts to each object. This creates some challenges to scoping, because you often want to deal with events
+both inside a context and outside.    
+
 
 ```json
 settings: {

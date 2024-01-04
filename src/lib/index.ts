@@ -1,4 +1,3 @@
-export { default as Cite } from './Cite.svelte';
 export { default as BulletList } from './Blocks/BulletList.svelte';
 export { default as Link } from './Inlines/Link.svelte';
 export { default as Block } from './Block.svelte';
@@ -12,7 +11,6 @@ export { default as Note } from './Note.svelte';
 export { default as Span } from './Inlines/Span.svelte';
 export { default as Image } from './Inlines/Image.svelte';
 export { default as Code } from './Inlines/Verbatim.svelte';
-export { default as Quoted } from './Quoted.svelte';
 export { default as Emph } from './Inlines/Emph.svelte';
 export { default as Document } from './Doc.svelte';
 export { default as BlockQuote } from './Blocks/BlockQuote.svelte';

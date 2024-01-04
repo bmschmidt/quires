@@ -10,7 +10,7 @@
 	import Section from './Blocks/Section.svelte';
 	import ThematicBreak from './Blocks/ThematicBreak.svelte';
 	import CodeBlock from './Blocks/CodeBlock.svelte';
-	import Table from './Table.svelte';
+	import Table from './Blocks/Table.svelte';
 	import RawBlock from './Blocks/RawBlock.svelte';
 	import BlockQuote from './Blocks/BlockQuote.svelte';
 	import OrderedList from './Blocks/OrderedList.svelte';

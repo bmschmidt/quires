@@ -7,13 +7,15 @@
 	let node: HTMLDivElement;
 
 	$: isVisible = false;
-	function handleIntersection(event: Event) {
-		console.log({ event });
-		isVisible = (event as CustomEvent).detail.isIntersecting;
+	function handleIntersection(entry: IntersectionObserverEntry) {
+		isVisible = entry.isIntersecting;
 	}
+
 	onMount(() => {
-		quire.custom!.observer.observe(node);
-		node.addEventListener('intersection', handleIntersection);
+		// Quire's observer allows us to pass a callback function
+		// to intersection observer. This lets us modify the scope
+		// locally.
+		quire.custom!.observer.observe(node, handleIntersection);
 	});
 </script>
 
@@ -23,9 +25,7 @@
 
 <style>
 	div {
-		margin: 100px;
 		transition: opacity background-color;
-		width: 14em;
 		opacity: 0.33;
 		background-color: #e0e0e0;
 	}

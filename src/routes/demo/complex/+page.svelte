@@ -1,6 +1,9 @@
 <script lang="ts">
-	import doc from './complex.md';
+	import quire from './complex.md';
+	// We use Markdown style strong and italics.
+	import MarkdownStrong from '$lib/custom/MyStrong.svelte';
+	quire.quireComponents = [['strong', MarkdownStrong]];
 	import Document from '$lib/Doc.svelte';
 </script>
 
-<Document ast={doc.document} />
+<Document {quire} />

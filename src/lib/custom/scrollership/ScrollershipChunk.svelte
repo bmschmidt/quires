@@ -1,15 +1,11 @@
 <script lang="ts">
-	export let data;
-	export let settings;
+	import type { Div } from '$lib/types/ast';
+	export let quire: Quire<Div>;
 	import { onMount } from 'svelte';
-	import Elements from '$lib/Elements.svelte';
-
-	const [[id, classes, kv], elems] = data;
-	const attrs = Object.fromEntries(kv);
 	let div = undefined;
 
 	$: active = false;
-
+	quire.custom!.scrollery_apparatus = [];
 	function activate_block() {
 		// To run a block means
 		// to execute the code from each of them.

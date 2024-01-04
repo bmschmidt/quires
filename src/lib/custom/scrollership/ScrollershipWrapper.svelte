@@ -1,4 +1,5 @@
 <script lang="ts">
+	import QuireObserver from '$lib/quireObserver';
 	import type { Doc } from '$lib/types/ast';
 	interface scrollingship {
 		bind: (node: HTMLElement) => void;
@@ -32,7 +33,6 @@
 	import Slider from './Slider.svelte';
 	import Button from './Button.svelte';
 	import Buttonset from './Buttonset.svelte';
-	import ScrollershipDiv from './ScrollershipDiv.svelte';
 	import ScrollershipChunk from './ScrollershipChunk.svelte';
 	import ScrollershipCodeBlock from './ScrollershipCodeBlock.svelte';
 	import BasicDocument from '$lib/Doc.svelte';
@@ -44,22 +44,14 @@
 		['codeblock.button', Button],
 		['codeblock.buttonset', Buttonset],
 		['div.chunk', ScrollershipChunk],
-		['div.scrollership', ScrollershipDiv],
 		['codeblock.api', ScrollershipCodeBlock]
 	];
 	quire.custom = quire.custom || {};
 	quire.custom['code_nodes'] = new Map();
 	quire.custom['controls'] = {};
 	if (browser) {
-		quire.custom['observer'] = new IntersectionObserver((entries) => {
-			for (let entry of entries) {
-				entry.target.dispatchEvent(
-					new CustomEvent('intersection', {
-						detail: entry
-					})
-				);
-			}
-		}, observer_options);
+		// All reactivity is handled in the cells.
+		quire.custom['observer'] = new QuireObserver((entries) => {}, observer_options);
 	}
 	let backdrop = undefined;
 	let plot: scrollingship | undefined = undefined;
@@ -68,17 +60,17 @@
 	let last_plotted_code = undefined;
 
 	onMount(async () => {
-		let api: undefined | Scroller;
+		let api: Scroller;
 		if (browser) {
 			if (API.constructor.name === 'AsyncFunction') {
-				api = (await API()).default;
+				api = ((await API()) as { default: Scroller }).default;
 			} else {
-				api = API;
+				api = API as Scroller;
 			}
 			plot = new api();
 			plot.bind(backdrop);
 			window.plot = plot;
-			settings.controls['_plot'] = plot;
+			(quire.custom as Record<string, any>)['_plot'] = plot;
 
 			for (let [code, call] of settings['code_nodes'].entries()) {
 				// Plot just the first call on load
@@ -172,7 +164,7 @@
 	</div>
 	<div bind:this={scrolling_div} class="narrative {position}" class:slidden={hidden}>
 		<slot />
-		<Document {ast} {settings} />
+		<Document {quire} />
 	</div>
 </div>
 

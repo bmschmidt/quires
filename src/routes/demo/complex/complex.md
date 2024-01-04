@@ -302,11 +302,11 @@ emphasis. Text wrapped with one `*` or `_` will be wrapped with an HTML
 
 *single asterisks*
 
-*single underscores*
+_single underscores_
 
 **double asterisks**
 
-**double underscores**
+__double underscores__
 
 ### Code
 
