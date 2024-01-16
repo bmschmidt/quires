@@ -2,7 +2,7 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-div.quire-document {
+body {
   margin: 0 auto;
   max-width: 40em;
   padding: 0 1em;

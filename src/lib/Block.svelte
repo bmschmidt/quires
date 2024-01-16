@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { QuireComponent, State } from './types/quire';
-	import type { Block, Reference, Footnote } from './types/ast';
+	import type { QuireComponent } from './types/quire';
+	import type { Block } from './types/ast';
 
 	export let quire: Quire<Block>;
 

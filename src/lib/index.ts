@@ -1,8 +1,8 @@
 export { default as BulletList } from './Blocks/BulletList.svelte';
-export { default as Link } from './Inlines/Link.svelte';
 export { default as Block } from './Block.svelte';
 export { default as OrderedList } from './Blocks/OrderedList.svelte';
 export { default as Superscript } from './Superscript.svelte';
+export { default as Link } from './Inlines/Link.svelte';
 export { default as Heading } from './Blocks/Heading.svelte';
 export { default as Strong } from './Inlines/Strong.svelte';
 export { default as Str } from './Inlines/Str.svelte';
@@ -14,7 +14,7 @@ export { default as Code } from './Inlines/Verbatim.svelte';
 export { default as Emph } from './Inlines/Emph.svelte';
 export { default as Document } from './Doc.svelte';
 export { default as BlockQuote } from './Blocks/BlockQuote.svelte';
-export { default as Table } from './Table.svelte';
+export { default as Table } from './Blocks/Table.svelte';
 export { default as Div } from './Blocks/Div.svelte';
 export { default as CodeBlock } from './Blocks/CodeBlock.svelte';
 export { default as Sidenote } from './custom/Sidenote.svelte';

@@ -1,23 +1,22 @@
 <script lang="ts">
-	export let settings;
-	export let api = {};
-	// Existing properties of the API call to keep.
-	export let clone: string | string[] = [];
-	export let hover = null;
-	hover;
-	export let label = null;
-	export let labels = [];
-	labels;
+	import type { CodeBlock } from '$lib/types/ast';
+
+	import { YAMLException, load } from 'js-yaml';
+	export let quire: Quire<CodeBlock>;
+
+	const { api = {}, label = null, clone = [] } = (load(quire.content.text) as ButtonArgs) || {};
+
 	import { set, get } from 'lodash-es';
+	import type { ButtonArgs, UpdateablePlot } from './types';
 
 	function update() {
-		const plot = settings.controls['_plot'];
+		const plot = quire.custom!._plot as UpdateablePlot;
 		if (plot) {
 			const call = {};
-			let clonelist = [];
+			let clonelist: string[] = [];
 			if (typeof clone === 'string') {
 				clonelist = [clone];
-			} else {
+			} else if (Array.isArray(clone)) {
 				clonelist = [...clone];
 			}
 			for (let key of clonelist) {
@@ -32,7 +31,7 @@
 	}
 </script>
 
-<div class="button" on:click={update}>
+<div class="button" on:click={update} on:keyup={update}>
 	{label}
 </div>
 

@@ -1,13 +1,19 @@
 <script lang="ts">
 	import type { CodeBlock } from '$lib/types/ast';
+	import { load } from 'js-yaml';
 	export let quire: Quire<CodeBlock>;
-	export let api = {};
-	export let min = 0;
-	export let max = 1;
-	export let step = 0.01;
-	export let trans: 'linear' | 'log' | 'sqrt' = 'linear';
-	export let label = null;
+
+	const raw = quire.content.text;
+	const {
+		api = {},
+		min = 0,
+		max = 1,
+		target,
+		trans = 'linear',
+		label = null
+	} = (load(raw) as SliderArgs) || {};
 	import { set } from 'lodash-es';
+	import type { SliderArgs } from './types';
 	let value = 0.5;
 	let number = min / 2 + max / 2;
 	$: {
@@ -23,7 +29,8 @@
 	}
 
 	function update() {
-		const plot = settings.controls['_plot'];
+		const plot = quire.custom!._plot;
+		console.log({ quire, plot });
 		if (plot) {
 			const call = {};
 			for (let [key, value] of Object.entries(api)) {

@@ -1,22 +1,22 @@
 # Quires
 
+## Classy documents with Svelte and Djot
+
 Quires is a system for creating reactive and interactive documents, built on top of [svelte](https://svelte.dev)
-and [djot](https://djot.net/).
+and [djot](https://djot.net/). These documents are "classy" because they're 
 
 ## Overview
 
-Separation of concerns is 
-
-You write doucments in pandoc-flavored Markdown (or in [raw djot](https://djot.net/), which is almost the same thing). If your document is ordinary, you use the base set of components that comes with the system and get the same behavior as an ordinary Markdown parser. But if you want to *change* the way an element renders, you generate a custom svelte component--a **quire**--that folds 
+You write documents in pandoc-flavored Markdown (or in [raw djot](https://djot.net/), which is almost the same thing). If your document does not include any reactive elements, you use the base set of components that comes with the system and get the same behavior as an ordinary Markdown parser. The Svelte compiler boils it straight into raw HTML. But if you want to *change* the way an element renders, you generate a custom svelte component that folds 
 in new behavior. For instance, in `djot` markup, a string `*enclosed in asterisks*` is rendered as bold. In markdown, this is rendered in italics, and `**double asterisks**` are required to render bold. To switch to the markdown behavior, we write a custom component that checks to see if a `<strong>` element is double-nested: if so, we render it as strong; otherwise as an emph.
 
 ```html
 <!-- src/lib/MyStrong.svelte -->
 <script lang="ts">
-	import BasicStrong from '$lib/Inlines/Strong.svelte';
-	import BasicEmph from '$lib/Inlines/Emph.svelte';
-	import type { Strong, Emph } from '$lib/types/ast';
-	import type { QuireComponent } from '$lib/types/quire';
+	import BasicStrong from 'quires/Strong.svelte';
+	import BasicEmph from 'quires/Emph.svelte';
+	import type { Strong, Emph } from 'quires/types/ast';
+	import type { QuireComponent } from 'quires/types/quire';
 
 	export let quire: Quire<Strong>;
 
@@ -36,12 +36,13 @@ To implement this, we define the quire at the top level
 ```html
 <script lang="ts">
   // src/routes/+page.svelte
-	import index from './index.md';
+	import quire from './index.md';
 	import Doc from '$lib/Doc.svelte';
-	import { document } from '$lib/quire';
   import Strong from '$lib/MyStrong.svelte';
   // The quire contains both the document 
-	const quire = document(index, {'strong': Strong});
+  quire.quireComponents = [[
+    'strong', Strong
+  ]]
 </script>
 
 <Doc {quire} />
@@ -85,7 +86,7 @@ This is handled using the `<slot />` property of the svelte component.
 For example, take following component:
 
 ```html
-<div style="color:red; display:flex;">
+<div style="color:red;">
   <slot></slot>
 </div>
 ```

@@ -6,7 +6,6 @@
 	const ref = quire.content.text;
 	import Block from '$lib/Block.svelte';
 
-	console.log('footnote', quire.footnotes);
 	const footnote = quire.footnotes![ref] as Footnote;
 
 	$: over_element = false;
@@ -105,7 +104,7 @@
 			clear: both;
 			width: 95%;
 			margin: 1rem 2.5%;
-			vertical-align: baseline;
+			/* vertical-align: baseline; */
 			position: relative;
 		}
 	}

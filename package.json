@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
+		"svelte-check": "svelte-check",
 		"build": "svelte-kit sync && svelte-package",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
 		"test": "playwright test",
@@ -18,9 +19,12 @@
 		"@sveltejs/kit": "^1.0.0-next.587",
 		"@sveltejs/package": "^1.0.0-next.6",
 		"@types/js-yaml": "^4.0.9",
+		"@types/lodash-es": "^4.17.12",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"carbon-icons-svelte": "^12.4.2",
+		"d3-ease": "^3.0.1",
+		"d3-selection": "^3.0.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -29,7 +33,7 @@
 		"openseadragon": "^4.1.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"svelte-check": "^2.9.2",
+		"svelte-check": "^2.10.3",
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.3",
 		"vite": "^4.0.0",
@@ -39,6 +43,7 @@
 	"dependencies": {
 		"@djot/djot": "^0.2.5",
 		"css-what": "^6.1.0",
+		"d3-transition": "^3.0.1",
 		"js-yaml": "^4.1.0",
 		"svelte": "^3.54.0"
 	}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { QuireComponent, State } from '$lib/types/quire';
+	import type { QuireComponent } from '$lib/types/quire';
 
 	export let quire: Quire<Inline>;
 
@@ -28,10 +28,11 @@
 	import Insert from './Inlines/Insert.svelte';
 	import Delete from './Inlines/Delete.svelte';
 	import { matches } from './quire';
+	import Image from './Inlines/Image.svelte';
 
 	const { tag } = quire.content;
 	const { quireComponents } = quire;
-	const components: Record<string, QuireComponent<any>> = {
+	const components = {
 		str: Str,
 		link: Link,
 		soft_break: SoftBreak,
@@ -54,15 +55,20 @@
 		superscript: Superscript,
 		subscript: Subscript,
 		insert: Insert,
-		delete: Delete
-	};
+		delete: Delete,
+		raw_inline: Str, // TODO FIXME
+		image: Image
+	} as const;
 
-	const component: QuireComponent<any> = components[tag];
+	const component = components[tag];
 
 	let overrides: QuireComponent<any>[] = [];
 
 	if (quire.content.attributes?.class) {
-		quire.classes = new Set(...quire.classes, quire.content.attributes.class.split(' '));
+		quire.classes = new Set(
+			...quire.classes.values(),
+			...quire.content.attributes.class.split(' ')
+		);
 	}
 
 	for (const [selector, component] of quireComponents) {

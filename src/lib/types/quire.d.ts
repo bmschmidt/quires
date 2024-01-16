@@ -5,7 +5,8 @@ declare global {
   type Quire<T extends AstNode = AstNode> = {
     content: T,
     quireComponents: [string, QuireComponent][],
-    classes: Set<string>,
+    // Classes is generally stored as a set, but it is serialized as an array.
+    classes: Set<string> | string[],
     metadata: Record<string, any> | undefined,
     footnotes:  Record<string, Footnote> | undefined,
     references:  Record<string, Reference> | undefined,

@@ -33,7 +33,7 @@
 		}
 
 		var promise = navigator.clipboard.writeText(code);
-		promise.then((d) => {
+		promise.then(() => {
 			just_copied = true;
 			setTimeout(() => {
 				just_copied = false;

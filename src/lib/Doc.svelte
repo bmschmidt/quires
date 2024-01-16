@@ -2,12 +2,15 @@
 	import type { Doc } from './types/ast';
 	import Block from './Block.svelte';
 	export let quire: Quire<Doc>;
-
 	quire.footnotes = quire.content.footnotes;
 	quire.references = quire.content.references;
 	if (quire.content.attributes?.class) {
-		quire.classes = new Set(...quire.classes, quire.content.attributes.class.split(' '));
+		quire.classes = new Set(
+			...quire.classes.values(),
+			...quire.content.attributes.class.split(' ')
+		);
 	}
+
 	if (!quire.quireComponents) {
 		throw new Error('Cannot nest Quire components');
 	}

@@ -12,7 +12,7 @@ export function createQuireDocument(document : Doc, metadata : Record<string, an
     content: document,
 		footnotes: {},
 		references: {},
-		classes: new Set(),
+		classes: [],
   }
 }
 
@@ -43,6 +43,9 @@ async function yaml_metadata_with_contents(path: string): Promise<[Record<string
 
 export async function loadQuire(path: string, cache_loc = undefined) {
 	// Create a cache if none exists.
+	if (cache_loc) {
+		throw new Error("Caching is not yet implemented.");
+	}
 	let cache_path : string | null = null;
 	if (cache_loc) {
 		await fs.mkdir(cache_loc).catch((err) => {
@@ -76,6 +79,5 @@ export async function loadQuire(path: string, cache_loc = undefined) {
 		await fs.writeFile(cache_path, JSON.stringify(value, undefined, 2));
 	}
 	const quire = createQuireDocument(content, metadata);
-	console.log({quire})
 	return quire;
 }

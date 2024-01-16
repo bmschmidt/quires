@@ -3,10 +3,13 @@ export default class QuireObserver  {
   private observer:  IntersectionObserver;
   private base_callback : IntersectionObserverCallback;
   private callbacks: Map<Element, (entry: IntersectionObserverEntry) => void> = new Map();
-  constructor(callback: IntersectionObserverCallback | undefined =  (entries : IntersectionObserverEntry[], observer : IntersectionObserver | undefined) => undefined,
-     options : IntersectionObserverInit | undefined) {
-      this.base_callback = callback;
-      this.observer = new IntersectionObserver((entries, observer) => this.run_observe(entries, observer), options);
+  constructor(callback: IntersectionObserverCallback | undefined = (
+    entries : IntersectionObserverEntry[],
+    observer : IntersectionObserver | undefined) => undefined,
+    options : IntersectionObserverInit | undefined
+    ) {
+    this.base_callback = callback;
+    this.observer = new IntersectionObserver((entries, observer) => this.run_observe(entries, observer), options);
   }
   observe(node : Element, callback : (entry: IntersectionObserverEntry) => void) {
     this.callbacks.set(node, callback);

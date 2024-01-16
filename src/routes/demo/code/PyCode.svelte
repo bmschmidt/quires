@@ -1,19 +1,15 @@
 <script lang="ts">
-	/* pandoc-svelte-component boilerplate */
-	export let quire: Quire<Code>;
-	/* end component boilerplate */
+	import type { CodeBlock } from '$lib/types/ast';
+	export let quire: Quire<CodeBlock>;
 
 	import hljs from 'highlight.js/lib/core';
-	import javascript from 'highlight.js/lib/languages/javascript';
-	import r from 'highlight.js/lib/languages/r';
 	import python from 'highlight.js/lib/languages/python';
-	import Run32 from 'carbon-icons-svelte/lib/Run.svelte';
-	import CodeBlock from '$lib/Blocks/CodeBlock.svelte';
-
 	hljs.registerLanguage('python', python);
 
+	console.log(quire.content.text);
 	let html = hljs.highlight(quire.content.text, { language: 'python' }).value;
 
+	console.log({ html });
 	function indent() {
 		html = html
 			.split('\n')
@@ -21,10 +17,13 @@
 			.join('\n');
 	}
 	function unindent() {
-		html = html
-			.split('\n')
-			.map((x) => x.replace(/^  /, ''))
-			.join('\n');
+		const lines = html.split('\n');
+
+		if (lines.filter((x) => !x.startsWith('  ')).length) {
+			// Can't indent any farther!
+			return;
+		}
+		html = lines.map((x) => x.replace(/^  /, '')).join('\n');
 	}
 </script>
 

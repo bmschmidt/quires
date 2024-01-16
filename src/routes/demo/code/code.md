@@ -5,7 +5,14 @@ author: Ben Schmidt
 
 # Custom behavior for classes.
 
+One key element of quires is that they allow you to provide 
+custom behavior on top of *codeblocks*, specifically.
+
+:::code
+
 This code uses class-based selectors to create custom behaviors by language.
+
+:::
 
 All my old R code has `maggritr` style pipes, but new code can use the native
 pipe operator! So we'll add click-to-copy for R code blocks, and swap out the old 
