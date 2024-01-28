@@ -1,18 +1,19 @@
 <script lang="ts">
-	import type { Div } from '$lib/types/ast';
-
+	import type { QuireInScroller, ScrollerDivQuire } from './utils.js';
 	import { onMount } from 'svelte';
 	import Slider from './Slider.svelte';
 	import Button from './Button.svelte';
 	import Buttonset from './Buttonset.svelte';
 	import ScrollershipChunk from './ScrollershipChunk.svelte';
 	import ScrollershipCodeBlock from './ScrollershipCodeBlock.svelte';
-	import { nodeSort } from './utils';
-	import { browser } from '$app/environment';
-	import type { UpdateablePlot, PlotConstructor, PlotImportable } from './types';
-	import QuireObserver from '$lib/quireObserver';
+	import { nodeSort } from './utils.js';
+	import type { UpdateablePlot, PlotConstructor, PlotImportable } from './types.d.ts';
+	import QuireObserver from '$lib/quireObserver.js';
 	import Block from '$lib/Block.svelte';
+	import type { Div } from '$lib/types/ast';
 
+	// These are the core components for a scrollership document.
+	// They get inserted into the tree here.
 	const components = [
 		['div.chunk', ScrollershipChunk],
 		['code_block.api', ScrollershipCodeBlock],
@@ -21,12 +22,21 @@
 		['code_block.buttonset', Buttonset]
 	] as [string, any][];
 
-	export let quire: Quire<Div>;
-	const oldComponents = quire.quireComponents || [];
-	quire = {
+	export let quire: ScrollerDivQuire;
+
+	// The intersection observer we'll create here if it's a browser.
+	let observer: QuireObserver | undefined = undefined;
+	// The list of nodes and their associated code we'll create here if it's a browser.
+	let codeNodes: Map<Node, Record<string, any>> | undefined = undefined;
+
+	let newQuire: QuireInScroller<Div> = {
 		...quire,
-		quireComponents: [...oldComponents, ...components],
-		custom: quire.custom || {}
+		quireComponents: [...quire.quireComponents, ...components],
+		custom: {
+			...quire.custom,
+			codeNodes,
+			observer
+		}
 	};
 
 	let commands: [HTMLElement, () => Promise<void>][] = [];
@@ -46,8 +56,7 @@
 		entries: IntersectionObserverEntry[],
 		observer: IntersectionObserver
 	) {
-		console.log('NODES', quire.custom!.codeNodes);
-		let nodesAndCodes = [...quire.custom!.codeNodes!.entries()].map(([node, code]) => ({
+		let nodesAndCodes = [...codeNodes!].map(([node, code]) => ({
 			node,
 			code
 		}));
@@ -90,19 +99,18 @@
 			let { code } = nodesAndCodes[i];
 			if (i !== currentPlotIndex) {
 			}
-			console.log('CUSTOM', quire.custom);
-			await quire.custom!['_plot']!.plotAPI(code);
+			await (newQuire.custom!['_plot']! as UpdateablePlot).plotAPI(code);
 			lastPlotted = node;
 		}
 	}
 
 	const position = 'left';
 
-	if (browser) {
+	if (typeof window !== 'undefined') {
 		// All reactivity is handled in the cells.
-		quire.custom!['observer'] = new QuireObserver(plotFunction, observer_options);
+		observer = new QuireObserver(plotFunction, observer_options);
 		// a list of all the nodes and their associated
-		quire.custom!['codeNodes'] = new Map<Node, Record<string, any>>();
+		codeNodes = new Map<Node, Record<string, any>>();
 	}
 
 	let error: string | undefined = undefined;
@@ -113,24 +121,22 @@
 		error = 'No scroller-type attribute on scrollership div.';
 	} else {
 		scrollerType = quire.content.attributes['scroller-type'];
-
-		if (!quire.custom!.scrollerAPIs[scrollerType]) {
+		if (!quire.custom.scrollerAPIs['scroller-type']) {
 			error = `No scroller API for ${scrollerType}`;
 		} else {
 		}
 	}
 
-	quire.content!['attributes']!['scroller-type'];
 	let plot: UpdateablePlot;
 	onMount(async () => {
 		// This stuff only works in the browser right now.
-		if (!error && browser) {
+		if (!error && typeof window !== 'undefined') {
 			let api: PlotConstructor;
 			const API = quire.custom!.scrollerAPIs[scrollerType!];
 			if (API.constructor.name === 'AsyncFunction') {
 				api = (await (API as () => Promise<{ default: PlotConstructor }>)()).default;
 			} else {
-				api = API as PlotConstructor;
+				api = API as unknown as PlotConstructor;
 			}
 			plot = new api();
 			plot.bind(backdrop);
@@ -138,11 +144,11 @@
 			// @ts-ignore
 			window.plot = plot;
 
-			(quire.custom as Record<string, any>)['_plot'] = plot;
+			quire.custom['_plot'] = plot;
 		}
 	});
 	let scrolling_div: HTMLDivElement;
-	let hidden = false;
+	let hiddenNarrative = false;
 </script>
 
 {#if error}
@@ -152,9 +158,9 @@
 		<div class="vizpanel">
 			<div bind:this={backdrop} id="panel" />
 		</div>
-		<div bind:this={scrolling_div} class="narrative {position}" class:slidden={hidden}>
+		<div bind:this={scrolling_div} class="narrative {position}" class:slidden={hiddenNarrative}>
 			{#each quire.content.children as child}
-				<Block quire={{ ...quire, content: child }} />
+				<Block quire={{ ...newQuire, content: child }} />
 			{/each}
 		</div>
 	</div>

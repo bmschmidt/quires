@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast';
+	import type { CodeBlock } from '$lib/types/ast.d.ts';
 	export let quire: Quire<CodeBlock>;
 	import BaseCodeBlock from '$lib/Blocks/CodeBlock.svelte';
 	import Copy32 from 'carbon-icons-svelte/lib/Copy.svelte';

@@ -5,7 +5,7 @@ export default class QuireObserver  {
   private callbacks: Map<Element, (entry: IntersectionObserverEntry) => void> = new Map();
   constructor(callback: IntersectionObserverCallback | undefined = (
     entries : IntersectionObserverEntry[],
-    observer : IntersectionObserver | undefined) => undefined,
+    observer : IntersectionObserver | undefined) => (false && entries && observer) || undefined,
     options : IntersectionObserverInit | undefined
     ) {
     this.base_callback = callback;

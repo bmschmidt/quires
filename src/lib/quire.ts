@@ -1,5 +1,5 @@
 import type { Block, Doc, Inline } from "./types/ast"
-import type { QuireComponent, State } from "./types/quire"
+import type { QuireComponent, State } from "./types/quire.d.ts"
 import { parse, type Selector } from "css-what"
 
 /**

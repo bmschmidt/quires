@@ -17,23 +17,25 @@
 {/if}
 
 <table {...attributes}>
-	{#each rows as row}
-		<tr>
-			{#each row.children as cell}
-				{#if cell.head}
-					<th align={cell.align === 'default' ? 'left' : cell.align}>
-						{#each cell.children as child}
-							<Inline quire={{ ...quire, content: child }} />
-						{/each}
-					</th>
-				{:else}
-					<td align={cell.align === 'default' ? 'left' : cell.align}>
-						{#each cell.children as child}
-							<Inline quire={{ ...quire, content: child }} />
-						{/each}
-					</td>
-				{/if}
-			{/each}
-		</tr>
-	{/each}
+	<tbody>
+		{#each rows as row}
+			<tr>
+				{#each row.children as cell}
+					{#if cell.head}
+						<th align={cell.align === 'default' ? 'left' : cell.align}>
+							{#each cell.children as child}
+								<Inline quire={{ ...quire, content: child }} />
+							{/each}
+						</th>
+					{:else}
+						<td align={cell.align === 'default' ? 'left' : cell.align}>
+							{#each cell.children as child}
+								<Inline quire={{ ...quire, content: child }} />
+							{/each}
+						</td>
+					{/if}
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
 </table>

@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { Doc } from '$lib/types/ast';
+	import type { AstNode, Doc } from '$lib/types/ast.d.ts';
 	import Document from '$lib/Doc.svelte';
-
 	import type { PlotImportable } from './types';
 	export let quire: Quire<Doc>;
 	export let title_features: string[] = ['copy'];
-	const title = 'scrollership';
 	import ScrollershipDiv from './ScrollershipDiv.svelte';
+	import type { ScrollershipDocQuire } from './utils';
 
 	export let scrollerAPIs: Record<string, PlotImportable> = {};
 
@@ -17,10 +16,10 @@
 			scrollerAPIs
 		},
 		quireComponents: [
-			...(quire.quireComponents || []),
-			['div.scrollership', ScrollershipDiv] as const
+			['div.scrollership', ScrollershipDiv] as const,
+			...(quire.quireComponents || [])
 		]
-	} as Quire<Doc>;
+	} as ScrollershipDocQuire;
 
 	// The location of the text components on the screen.
 
@@ -39,6 +38,8 @@
 
 <div class="bignavbar">
 	<div
+		role="button"
+		tabindex="0"
 		class="action"
 		on:click={() => {
 			hidden = !hidden;
@@ -54,12 +55,19 @@
 		<slot name="custom-navbar">
 			<div class="flex-navbar">
 				{#if title_features.indexOf('copy') > -1}
-					<div class="action" on:click={get_api} on:keyup={get_api}>Copy API</div>
+					<div
+						role="button"
+						tabindex="0"
+						aria-roledescription="copy"
+						class="action"
+						on:click={get_api}
+						on:keyup={get_api}
+					>
+						Copy API
+					</div>
 				{/if}
 				<div>
-					<div style="margin-left: 100px">
-						{title}
-					</div>
+					<div style="margin-left: 100px">TITLE GOES HERE</div>
 				</div>
 			</div></slot
 		>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Inline from '$lib/Inline.svelte';
-	import type { Heading } from '$lib/types/ast';
+	import type { Heading } from '$lib/types/ast.d.ts';
 	export let quire: Quire<Heading>;
 	const { level, children } = quire.content;
 	const Tag = `h${level}`;

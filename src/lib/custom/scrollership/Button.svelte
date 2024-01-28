@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast';
+	import type { CodeBlock } from '$lib/types/ast.d.ts';
 
 	import { YAMLException, load } from 'js-yaml';
 	export let quire: Quire<CodeBlock>;
@@ -31,7 +31,7 @@
 	}
 </script>
 
-<div class="button" on:click={update} on:keyup={update}>
+<div tabindex="0" role="button" class="button" on:click={update} on:keyup={update}>
 	{label}
 </div>
 

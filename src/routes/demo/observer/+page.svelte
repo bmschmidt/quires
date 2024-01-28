@@ -1,12 +1,9 @@
 <script lang="ts">
 	// Get the AST JSON.
 	import quire from './history.md';
-	import { browser } from '$app/environment';
 	import Document from '$lib/Doc.svelte';
-	import type { Para as ParaType } from '$lib/types/ast';
 	import Para from './ParaObserver.svelte';
-	import QuireObserver from '$lib/quireObserver';
-	import { getStringContent } from '$lib/djot';
+	import QuireObserver from '$lib/quireObserver.js';
 	quire.quireComponents = [['para', Para]];
 
 	$: observed_paragraphs = 0;
@@ -26,7 +23,7 @@
 		letter_counts = { ...letter_counts };
 	}
 
-	if (browser) {
+	if (typeof window !== 'undefined') {
 		let options = {
 			root: document.querySelector('#scrollArea'),
 			rootMargin: '0px',
@@ -36,12 +33,12 @@
 		const observe: IntersectionObserverCallback = (entries, observer) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
-					updateLetterCounts(entry.target);
+					updateLetterCounts(entry.target as HTMLParagraphElement);
 					observed_paragraphs += 1;
 				}
 			});
 		};
-		quire.custom.observer = new QuireObserver(observe, options);
+		quire.custom!.observer = new QuireObserver(observe, options);
 	}
 </script>
 
@@ -49,11 +46,14 @@
 	<div style="font-size:64px;">{observed_paragraphs}</div>
 	<div>Paragraphs read so far.</div>
 	<div>
-		{#each Object.entries(letter_counts).sort() as [letter, count]}
-			<div>
-				{letter}: {count}
-			</div>
-		{/each}
+		<h3>Running count <br /> of letters</h3>
+		<div>
+			{#each Object.entries(letter_counts).sort() as [letter, count]}
+				<div>
+					{letter}: {count}
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>
 <div class="indented">

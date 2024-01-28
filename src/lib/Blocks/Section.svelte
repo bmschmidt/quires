@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Block from '$lib/Block.svelte';
-	import type { Section } from '../types/ast';
+	import type { Section } from '../types/ast.d.ts';
 	export let quire: Quire<Section>;
 	const { attributes, children } = quire.content;
 </script>

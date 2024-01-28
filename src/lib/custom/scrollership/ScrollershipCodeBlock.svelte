@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast';
-
-	export let quire: Quire<CodeBlock>;
-
 	import yaml from 'js-yaml';
 
-	let code = quire.content.text;
+	import type { CodeBlock } from '$lib/types/ast.d.ts';
+	import type { QuireInScroller } from './utils';
 
+	export let quire: QuireInScroller<CodeBlock>;
+
+	let code = quire.content.text;
 	let args: Record<string, any> | null = null;
 
 	$: {
@@ -18,17 +18,13 @@
 	}
 
 	let div: Node;
+
 	// keep call up-to-date with the code
-	//	let triggerNode: Node;
 	$: {
 		if (div) {
-			quire.custom = quire.custom ?? {};
-			quire.custom['codeNodes'] =
-				quire.custom['codeNodes'] ?? new Map<string, Record<string, any>>();
+			quire.custom['codeNodes'] = quire.custom['codeNodes'] ?? new Map<Node, Record<string, any>>();
 			quire.custom['codeNodes'].set(div, args || {});
 		}
-
-		//		triggerNode = quire.custom?.triggerNode || div;
 	}
 
 	$: editmode = false;
@@ -43,6 +39,7 @@
 <details bind:this={div}>
 	<summary style="user-select:none;"> Edit Code </summary>
 
+	<!-- TODO -- pre click violates A11y rules, fix -->
 	<pre on:click={enter_editmode} class:hidden={editmode} {...quire.content.attributes}><code
 			>{code}</code
 		></pre>

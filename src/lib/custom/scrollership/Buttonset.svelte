@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast';
+	import type { CodeBlock } from '$lib/types/ast.d.ts';
 	import { load } from 'js-yaml';
 
 	export let quire: Quire<CodeBlock>;

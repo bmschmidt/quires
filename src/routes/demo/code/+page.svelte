@@ -1,15 +1,17 @@
-<script>
+<script lang="ts">
 	import quire from './code.md';
 	import Document from '$lib/Doc.svelte';
 	// Overwrite the default CodeBlock with a custom element that wraps it.
 	import RCodeBlock from './RCode.svelte';
 	import JSCodeBlock from './JsCode.svelte';
 	import PythonCodeBlock from './PyCode.svelte';
+	import type { QuireComponent } from '$lib/types/quire.d.ts';
+	import type { AstNode } from '$lib/types/ast';
 	const quireComponents = [
 		['code_block.r', RCodeBlock],
 		['code_block.js', JSCodeBlock],
 		['code_block.python', PythonCodeBlock]
-	];
+	] as [string, QuireComponent<AstNode>][];
 	quire.quireComponents = quireComponents;
 </script>
 

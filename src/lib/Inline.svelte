@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { QuireComponent } from '$lib/types/quire';
+	import type { QuireComponent } from '$lib/types/quire.d.ts';
 
 	export let quire: Quire<Inline>;
 
-	import type { Inline } from '$lib/types/ast';
+	import type { Inline } from '$lib/types/ast.d.ts';
 	import Str from './Inlines/Str.svelte';
 	import Link from './Inlines/Link.svelte';
 	import Span from './Inlines/Span.svelte';

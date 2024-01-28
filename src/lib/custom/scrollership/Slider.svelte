@@ -1,7 +1,10 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast';
+	import type { CodeBlock } from '$lib/types/ast.d.ts';
+	import type { SliderArgs } from './types.d.ts';
+	import type { QuireInScroller } from './utils.js';
+
 	import { load } from 'js-yaml';
-	export let quire: Quire<CodeBlock>;
+	export let quire: QuireInScroller<CodeBlock>;
 
 	const raw = quire.content.text;
 	const {
@@ -13,7 +16,6 @@
 		label = null
 	} = (load(raw) as SliderArgs) || {};
 	import { set } from 'lodash-es';
-	import type { SliderArgs } from './types';
 	let value = 0.5;
 	let number = min / 2 + max / 2;
 	$: {
@@ -43,7 +45,8 @@
 </script>
 
 <div>
-	{#if label}{label}: {/if}
+	{#if label}{label}:
+	{/if}
 	<input type="range" bind:value min="0" max="1" step=".001" on:input={update} />
 	{Math.floor(number)}
 </div>

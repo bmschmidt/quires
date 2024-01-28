@@ -1,8 +1,8 @@
 <script lang="ts">
 	import BasicStrong from '$lib/Inlines/Strong.svelte';
 	import BasicEmph from '$lib/Inlines/Emph.svelte';
-	import type { Strong, Emph } from '$lib/types/ast';
-	import type { QuireComponent } from '$lib/types/quire';
+	import type { Strong, Emph } from '$lib/types/ast.d.ts';
+	import type { QuireComponent } from '$lib/types/quire.d.ts';
 
 	export let quire: Quire<Strong>;
 

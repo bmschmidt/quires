@@ -1,16 +1,17 @@
 <script lang="ts">
 	import Block from '$lib/Block.svelte';
-	import type QuireObserver from '$lib/quireObserver';
-	import type { Div } from '$lib/types/ast';
-	export let quire: Quire<Div>;
+	import type QuireObserver from '$lib/quireObserver.ts';
+	import type { Div } from '$lib/types/ast.d.ts';
+
+	export let quire: QuireInScroller<Div>;
 	import { onMount } from 'svelte';
+	import type { QuireInScroller } from './utils';
 	let div: HTMLDivElement;
 
 	$: active = false;
 
 	onMount(() => {
-		const observer = quire.custom!.observer as QuireObserver;
-
+		const observer = quire.custom.observer;
 		if (observer === undefined) {
 			throw new Error('observer is undefined');
 		}

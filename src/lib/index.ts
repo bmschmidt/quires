@@ -1,13 +1,11 @@
 export { default as BulletList } from './Blocks/BulletList.svelte';
 export { default as Block } from './Block.svelte';
 export { default as OrderedList } from './Blocks/OrderedList.svelte';
-export { default as Superscript } from './Superscript.svelte';
 export { default as Link } from './Inlines/Link.svelte';
 export { default as Heading } from './Blocks/Heading.svelte';
 export { default as Strong } from './Inlines/Strong.svelte';
 export { default as Str } from './Inlines/Str.svelte';
 export { default as Para } from './Blocks/Para.svelte';
-export { default as Note } from './Note.svelte';
 export { default as Span } from './Inlines/Span.svelte';
 export { default as Image } from './Inlines/Image.svelte';
 export { default as Code } from './Inlines/Verbatim.svelte';

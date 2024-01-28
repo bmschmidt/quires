@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { setup_osd } from './iiif';
+	import { setup_osd } from './iiif.js';
 	import Inline from '$lib/Inline.svelte';
-	import type { Image as ImageType } from '$lib/types/ast';
+	import type { Image as ImageType } from '$lib/types/ast.d.ts';
 	import Image from '$lib/Inlines/Image.svelte';
-	import { getStringContent } from '$lib/djot';
+	import { getStringContent } from '$lib/djot.js';
 	export let quire: Quire<ImageType>;
 
 	const div_id = 'd' + Math.random().toString(36).slice(2);
 
 	let use_simple_image = false;
-	const use_iiif = quire.content.destination.endsWith('info.json');
+	const use_iiif = quire.content.destination?.endsWith('info.json');
 	const url = quire.content.destination;
 	if (url === undefined) {
 		throw new Error('Image must have a destination');
@@ -20,7 +20,7 @@
 			return;
 		}
 		// This returns a promise to a function that generates an OSD viewer with annotorious.
-		if (!quire.content.destination.endsWith('info.json')) {
+		if (!quire.content.destination?.endsWith('info.json')) {
 			use_simple_image = true;
 			return;
 		}

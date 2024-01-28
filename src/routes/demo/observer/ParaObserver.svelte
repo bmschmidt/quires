@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Para } from '$lib/types/ast';
+	import type QuireObserver from '$lib/quireObserver';
+	import type { Para } from '$lib/types/ast.d.ts';
 	import { onMount } from 'svelte';
 
 	export let quire: Quire<Para>;
@@ -15,7 +16,7 @@
 		// Quire's observer allows us to pass a callback function
 		// to intersection observer. This lets us modify the scope
 		// locally.
-		quire.custom!.observer.observe(node, handleIntersection);
+		(quire.custom!.observer as QuireObserver).observe(node, handleIntersection);
 	});
 </script>
 

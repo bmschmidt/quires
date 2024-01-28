@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { SmartPunctuation } from '$lib/types/ast';
+	import type { SmartPunctuation } from '$lib/types/ast.d.ts';
 	export let quire: Quire<SmartPunctuation>;
 	const { attributes, type } = quire.content;
 	const fancyQuotes = {

@@ -3,7 +3,7 @@
 // old code, not checking.
 
 import { default as OpenSeadragon, Rect, Point } from 'openseadragon';
-import { select, selectAll } from 'd3-selection';
+import { select } from 'd3-selection';
 import 'd3-transition';
 import { easePolyOut } from 'd3-ease';
 //import merge from 'scrollership/src/merge.js'

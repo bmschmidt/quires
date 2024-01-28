@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { QuireComponent } from './types/quire';
+	import type { QuireComponent } from './types/quire.d.ts';
 	import type { Block } from './types/ast';
 
 	export let quire: Quire<Block>;
