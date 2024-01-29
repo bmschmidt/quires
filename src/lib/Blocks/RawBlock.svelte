@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RawBlock } from 'src/types/ast';
+	import type { RawBlock } from '$lib/types/ast';
 	export let quire: Quire<RawBlock>;
 	const { format, text, attributes, pos } = quire.content;
 </script>

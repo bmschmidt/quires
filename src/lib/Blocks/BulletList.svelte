@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BulletList } from 'src/types/ast';
+	import type { BulletList } from '$lib/types/ast.d.ts';
 	import Block from '$lib/Block.svelte';
 	export let quire: Quire<BulletList>;
 	const { attributes, children, pos } = quire.content;

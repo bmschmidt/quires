@@ -38,11 +38,10 @@
 
 <details bind:this={div}>
 	<summary style="user-select:none;"> Edit Code </summary>
+	<button style="width:100%" on:click={enter_editmode} class:hidden={editmode}>Edit Code</button>
 
 	<!-- TODO -- pre click violates A11y rules, fix -->
-	<pre on:click={enter_editmode} class:hidden={editmode} {...quire.content.attributes}><code
-			>{code}</code
-		></pre>
+	<pre class:hidden={editmode} {...quire.content.attributes}><code>{code}</code></pre>
 
 	<textarea bind:value={editcode} class:hidden={!editmode} />
 	<button

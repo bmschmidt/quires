@@ -24,20 +24,11 @@
 
 	export let quire: ScrollerDivQuire;
 
+	console.log({ quire });
 	// The intersection observer we'll create here if it's a browser.
 	let observer: QuireObserver | undefined = undefined;
 	// The list of nodes and their associated code we'll create here if it's a browser.
 	let codeNodes: Map<Node, Record<string, any>> | undefined = undefined;
-
-	let newQuire: QuireInScroller<Div> = {
-		...quire,
-		quireComponents: [...quire.quireComponents, ...components],
-		custom: {
-			...quire.custom,
-			codeNodes,
-			observer
-		}
-	};
 
 	let commands: [HTMLElement, () => Promise<void>][] = [];
 	let backdrop: HTMLDivElement;
@@ -52,6 +43,23 @@
 
 	let lastPlotted: Node | undefined = undefined;
 
+	if (typeof window !== 'undefined') {
+		// All reactivity is handled in the cells.
+		observer = new QuireObserver(plotFunction, observer_options);
+		// a list of all the nodes and their associated
+		codeNodes = new Map<Node, Record<string, any>>();
+	}
+
+	let newQuire: QuireInScroller<Div> = {
+		...quire,
+		quireComponents: [...quire.quireComponents, ...components],
+		custom: {
+			...quire.custom,
+			codeNodes,
+			observer
+		}
+	};
+
 	async function plotFunction(
 		entries: IntersectionObserverEntry[],
 		observer: IntersectionObserver
@@ -60,6 +68,10 @@
 			node,
 			code
 		}));
+		if (!newQuire.custom!['_plot']) {
+			console.warn('No plot API found.');
+			return;
+		}
 		let needs_plotting: Node[] = [];
 		if (nodesAndCodes.length === 0) {
 			return;
@@ -92,13 +104,14 @@
 			.reverse()[0];
 
 		const direction = currentPlotIndex > lastNodeIndex ? 1 : -1;
-		console.log({ currentPlotIndex });
+
 		for (let i = lastNodeIndex + direction; i !== currentPlotIndex + direction; i += direction) {
-			console.log({ i });
 			const { node } = nodesAndCodes[i];
 			let { code } = nodesAndCodes[i];
 			if (i !== currentPlotIndex) {
+				// reduce transition times or something???
 			}
+			console.log({ node, code });
 			await (newQuire.custom!['_plot']! as UpdateablePlot).plotAPI(code);
 			lastPlotted = node;
 		}
@@ -106,23 +119,17 @@
 
 	const position = 'left';
 
-	if (typeof window !== 'undefined') {
-		// All reactivity is handled in the cells.
-		observer = new QuireObserver(plotFunction, observer_options);
-		// a list of all the nodes and their associated
-		codeNodes = new Map<Node, Record<string, any>>();
-	}
-
 	let error: string | undefined = undefined;
 	let scrollerType: string | undefined = undefined;
 	if (!quire.content.attributes) {
 		error = 'No attributes on scrollership div.';
-	} else if (!quire.content.attributes!['scroller-type']) {
+	} else if (!newQuire.content.attributes!['scroller-type']) {
 		error = 'No scroller-type attribute on scrollership div.';
 	} else {
 		scrollerType = quire.content.attributes['scroller-type'];
-		if (!quire.custom.scrollerAPIs['scroller-type']) {
-			error = `No scroller API for ${scrollerType}`;
+		console.log(quire.custom.scrollerAPIs);
+		if (!quire.custom.scrollerAPIs[scrollerType]) {
+			error = `No scroller API for ${scrollerType}: ${JSON.stringify(quire.custom.scrollerAPIs)}`;
 		} else {
 		}
 	}
@@ -143,10 +150,13 @@
 
 			// @ts-ignore
 			window.plot = plot;
-
-			quire.custom['_plot'] = plot;
+			console.log('MOUNTING');
+			newQuire.custom['_plot'] = plot;
+			// Overwrite for regeneration.
+			newQuire = newQuire;
 		}
 	});
+
 	let scrolling_div: HTMLDivElement;
 	let hiddenNarrative = false;
 </script>

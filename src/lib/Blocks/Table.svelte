@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Table } from 'src/types/ast';
+	import type { Table } from '$lib/types/ast';
 	export let quire: Quire<Table>;
 	import Inline from '$lib/Inline.svelte';
 	const { attributes, children, pos } = quire.content;

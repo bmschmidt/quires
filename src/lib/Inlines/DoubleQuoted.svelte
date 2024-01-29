@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DoubleQuoted } from '@djot/djot/types/ast';
+	import type { DoubleQuoted } from '$lib/types/ast';
 	import Inline from '$lib/Inline.svelte';
 	export let quire: Quire<DoubleQuoted>;
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Block from '$lib/Block.svelte';
-	import type { Div } from 'src/types/ast';
+	import type { Div } from '$lib/types/ast';
 	export let quire: Quire<Div>;
 	const { attributes, children, pos } = quire.content;
 </script>

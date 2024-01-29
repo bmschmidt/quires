@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Para } from 'src/types/ast';
+	import type { Para } from '$lib/types/ast';
 	import Inline from '$lib/Inline.svelte';
 	export let quire: Quire<Para>;
 </script>

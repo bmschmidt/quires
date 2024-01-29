@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Emph } from 'src/types/ast';
+	import type { Emph } from '$lib/types/ast';
 
 	export let quire: Quire<Emph>;
 	import Inline from '$lib/Inline.svelte';

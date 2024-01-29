@@ -3,5 +3,5 @@ import { defineConfig } from 'vite';
 import djot_plugin from './src/lib/rollup-plugins/djot';
 
 export default defineConfig({
-	plugins: [djot_plugin({}), sveltekit()]
+	plugins: [djot_plugin({pandoc: false}), sveltekit()]
 });

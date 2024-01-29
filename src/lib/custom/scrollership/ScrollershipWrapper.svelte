@@ -7,8 +7,8 @@
 	import ScrollershipDiv from './ScrollershipDiv.svelte';
 	import type { ScrollershipDocQuire } from './utils';
 
-	export let scrollerAPIs: Record<string, PlotImportable> = {};
-
+	export let scrollerAPIs: Record<string, PlotImportable>;
+	console.log({ scrollerAPIs });
 	const scrollerQuire = {
 		...quire,
 		custom: {

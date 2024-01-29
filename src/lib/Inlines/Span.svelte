@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Span } from 'src/types/ast';
+	import type { Span } from '$lib/types/ast';
 	export let quire: Quire<Span>;
 	import Inline from '$lib/Inline.svelte';
 	const { attributes, children, pos } = quire.content;

@@ -1,4 +1,4 @@
-import type { AstNode } from "src/types/ast";
+import type { AstNode } from "$lib/types/ast";
 
 /*
 
