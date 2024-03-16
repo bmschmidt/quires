@@ -1,10 +1,15 @@
 import type { ComponentType, SvelteComponentTyped } from "svelte";
-import type { AstNode, Doc, Footnote, Reference } from "./ast";
+import type { AstNode, Block, Doc, Footnote, Inline, Reference } from "./ast";
 
+export type QuireOverride<T extends Block | Inline> = {
+  tag: T['tag'],
+  selector: string,
+  component: QuireComponent<T>
+}
 declare global {
   type Quire<T extends AstNode> = {
     content: T,
-    quireComponents: [string, QuireComponent][],
+    quireComponents: QuireOverride[],
     // Classes is generally stored as a set, but it is serialized as an array.
     classes: Set<string> | string[],
     metadata: Record<string, unknown> | undefined,

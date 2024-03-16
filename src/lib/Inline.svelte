@@ -62,7 +62,7 @@
 
 	const component = components[tag];
 
-	let overrides: QuireComponent<any>[] = [];
+	let overrides: QuireComponent<Inline>[] = [];
 
 	if (quire.content.attributes?.class) {
 		quire.classes = new Set(
@@ -71,20 +71,18 @@
 		);
 	}
 
-	for (const [selector, component] of quireComponents) {
-		if (matches(selector, quire.content)) {
-			overrides.push(component);
+	for (const { selector, tag, component } of quireComponents) {
+		if (tag === quire.content.tag && matches(selector, quire.content)) {
+			overrides.push(component as QuireComponent<Inline>);
 		}
 	}
 </script>
 
 {#if overrides.length > 0}
-	{#each overrides as override}
-		<svelte:component this={override} {quire}>
-			<!--The original type can be created through the <slot> element in any child.-->
-			<svelte:component this={component} {quire} />
-		</svelte:component>
-	{/each}
+	<svelte:component this={overrides[0]} {quire}>
+		<!--The original type can be created through the <slot> element in any child.-->
+		<svelte:component this={component} {quire} />
+	</svelte:component>
 {:else}
 	<svelte:component this={component} {quire} />
 {/if}

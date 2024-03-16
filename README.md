@@ -41,7 +41,7 @@ To implement this, we define the quire at the top level
   import Strong from '$lib/MyStrong.svelte';
   // The quire contains both the document 
   quire.quireComponents = [[
-    'strong', Strong
+    {tag: 'strong', component: Strong}
   ]]
 </script>
 

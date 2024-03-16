@@ -38,8 +38,8 @@
 	const component: QuireComponent<Block | Inline> = components[tag];
 
 	let overrides: QuireComponent<Block | Inline>[] = [];
-	for (const [selector, component] of quireComponents) {
-		if (matches(selector, quire.content)) {
+	for (const { tag, selector, component } of quireComponents) {
+		if (tag === quire.content.tag && matches(selector, quire.content)) {
 			overrides.push(component);
 		}
 	}

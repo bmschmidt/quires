@@ -1,12 +1,14 @@
+
 import { promises as fs } from 'fs';
 import { parse } from '@djot/djot';
 import yaml from 'js-yaml';
-import type { Doc } from '$lib/types/ast.d.ts';
+import type { Block, Doc, Inline } from '$lib/types/ast.d.ts';
+import type { QuireOverride } from '$lib/types/quire';
 
 
 export function createQuireDocument(document : Doc, metadata : Record<string, any>) : Quire<Doc> {
   return {
-		quireComponents: [],
+		quireComponents: [] as QuireOverride<Block | Inline>[],
 		metadata: metadata || {},
 		custom: {},
     content: document,
@@ -58,10 +60,10 @@ export async function loadQuire(path: string, pandoc: boolean | undefined, cache
 		let mtime = new Date(0);
 		await fs
 			.stat(cache_path)
-			.then((d) => (mtime = d.mtime))
+			.then((d : fs.Stats) => (mtime = d.mtime))
 			.catch(() => ({}));
 
-		const doctime = await fs.stat(path).then((d) => d.mtime);
+		const doctime = await fs.stat(path).then((d : fs.Stats) => d.mtime);
 		if (mtime > doctime) {
 			const f = await fs.readFile(cache_path, 'utf-8');
 			return JSON.parse(f);

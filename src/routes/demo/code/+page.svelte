@@ -5,13 +5,13 @@
 	import RCodeBlock from './RCode.svelte';
 	import JSCodeBlock from './JsCode.svelte';
 	import PythonCodeBlock from './PyCode.svelte';
-	import type { QuireComponent } from '$lib/types/quire.d.ts';
-	import type { AstNode } from '$lib/types/ast';
+	import type { QuireComponent, QuireOverride } from '$lib/types/quire.d.ts';
+	import type { AstNode, Block, Inline } from '$lib/types/ast';
 	const quireComponents = [
-		['code_block.r', RCodeBlock],
-		['code_block.js', JSCodeBlock],
-		['code_block.python', PythonCodeBlock]
-	] as [string, QuireComponent<AstNode>][];
+		{ tag: 'code_block', selector: '.r', component: RCodeBlock },
+		{ tag: 'code_block', selector: '.js', component: JSCodeBlock },
+		{ tag: 'code_block', selector: '.python', component: PythonCodeBlock }
+	] as QuireOverride<Block | Inline>[];
 	quire.quireComponents = quireComponents;
 </script>
 
