@@ -100,7 +100,7 @@ as a wrapper around multiple different components, if desired.
 	import Doc from '$lib/Doc.svelte';
 	import { document } from '$lib/quire';
   import Warning from 'RedWrapper.svelte';
-  // The quire contains both the document 
+  // The quire contains both the document and the settings.
 	const quire = document(index, {'div.warning': Warning, 'para.warning': Warning});
 </script>
 

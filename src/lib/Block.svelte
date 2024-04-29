@@ -1,8 +1,8 @@
-<script lang="ts">
-	import type { QuireComponent } from './types/quire';
-	import type { AstNode, Block, Inline } from './types/ast';
+<script lang="ts" generics="BlockType extends Block">
+	import type { QuireComponent, QuireOverride, QuireOverrideComponent } from './types/quire';
+	import type { Block } from './types/ast';
 
-	export let quire: Quire<Block>;
+	export let quire: Quire<BlockType>;
 
 	import Para from './Blocks/Para.svelte';
 	import Heading from './Blocks/Heading.svelte';
@@ -19,7 +19,7 @@
 
 	const { tag } = quire.content;
 	const { quireComponents } = quire;
-	const components: Record<string, QuireComponent<any>> = {
+	const components = {
 		para: Para,
 		div: Div,
 		code_block: CodeBlock,
@@ -35,23 +35,18 @@
 		definition_list: BulletList // TODO FIXME
 	} as const;
 
-	const component: QuireComponent<Block | Inline> = components[tag];
+	const component = components[tag] as QuireComponent<BlockType>;
 
-	let overrides: QuireComponent<Block | Inline>[] = [];
-	for (const { tag, selector, component } of quireComponents) {
-		if (tag === quire.content.tag && matches(selector, quire.content)) {
-			overrides.push(component);
-		}
-	}
+	const firstOverride = quireComponents.find(
+		({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
+	) as QuireOverride<BlockType> | undefined;
 </script>
 
-{#if overrides.length > 0}
-	{#each overrides as override}
-		<svelte:component this={override} {quire}>
-			<!--The original type can be created through the <slot> element in any child.-->
-			<svelte:component this={component} {quire} />
-		</svelte:component>
-	{/each}
+{#if firstOverride !== undefined}
+	<svelte:component this={firstOverride.component} {quire}>
+		<!--The original type can be created through the <slot> element in any child.-->
+		<svelte:component this={component} {quire} />
+	</svelte:component>
 {:else}
 	<svelte:component this={component} {quire} />
 {/if}

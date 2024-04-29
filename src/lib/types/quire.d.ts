@@ -6,10 +6,11 @@ export type QuireOverride<T extends Block | Inline> = {
   selector: string,
   component: QuireComponent<T>
 }
+
 declare global {
   type Quire<T extends AstNode> = {
     content: T,
-    quireComponents: QuireOverride[],
+    quireComponents: QuireOverride<Block | Inline>[],
     // Classes is generally stored as a set, but it is serialized as an array.
     classes: Set<string> | string[],
     metadata: Record<string, unknown> | undefined,
@@ -24,4 +25,21 @@ declare global {
 }
 
 export type QuireComponent<T extends AstNode> =
- ComponentType<SvelteComponentTyped<{ quire: Quire<T> }>>;
+ ComponentType<SvelteComponentTyped<{ 
+   quire: Quire<T>
+ }>>;
+
+ // The override components must also accept a children in slots
+ // event if they don't use it.
+ export type QuireOverrideComponent<T extends Block | Inline> =
+  ComponentType<
+  SvelteComponentTyped<{ 
+    quire: Quire<T>,
+    // The slot is required, even if it is not used.
+    // This is because the override components are expected to be
+    // used as a wrapper around the original component.
+    },
+    Record<string, unknown>,
+    QuireComponent<T>?
+    >>;
+ 

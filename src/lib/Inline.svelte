@@ -1,7 +1,11 @@
-<script lang="ts">
-	import type { QuireComponent } from '$lib/types/quire.d.ts';
+<script lang="ts" generics="InlineType extends Inline">
+	import type {
+		QuireComponent,
+		QuireOverride,
+		QuireOverrideComponent
+	} from '$lib/types/quire.d.ts';
 
-	export let quire: Quire<Inline>;
+	export let quire: Quire<InlineType>;
 
 	import type { Inline } from '$lib/types/ast.d.ts';
 	import Str from './Inlines/Str.svelte';
@@ -60,26 +64,15 @@
 		image: Image
 	} as const;
 
-	const component = components[tag];
+	const component = components[tag] as QuireComponent<InlineType>;
 
-	let overrides: QuireComponent<Inline>[] = [];
-
-	if (quire.content.attributes?.class) {
-		quire.classes = new Set(
-			...quire.classes.values(),
-			...quire.content.attributes.class.split(' ')
-		);
-	}
-
-	for (const { selector, tag, component } of quireComponents) {
-		if (tag === quire.content.tag && matches(selector, quire.content)) {
-			overrides.push(component as QuireComponent<Inline>);
-		}
-	}
+	const firstOverride = quireComponents.find(
+		({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
+	) as QuireOverride<InlineType> | undefined;
 </script>
 
-{#if overrides.length > 0}
-	<svelte:component this={overrides[0]} {quire}>
+{#if firstOverride !== undefined}
+	<svelte:component this={firstOverride.component} {quire}>
 		<!--The original type can be created through the <slot> element in any child.-->
 		<svelte:component this={component} {quire} />
 	</svelte:component>

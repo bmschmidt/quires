@@ -1,5 +1,5 @@
 {
-	"name": "quire2",
+	"name": "quires",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
@@ -24,13 +24,13 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.68"
+		"svelte": "^5.0.0-next.115"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.1.1",
-		"@sveltejs/kit": "^2.5.1",
+		"@sveltejs/adapter-auto": "^3.2.0",
+		"@sveltejs/kit": "^2.5.7",
 		"@sveltejs/package": "^2.2.7",
-		"@sveltejs/vite-plugin-svelte": "^3.0.2",
+		"@sveltejs/vite-plugin-svelte": "^3.1.0",
 		"@types/eslint": "8.56.3",
 		"@types/js-yaml": "^4.0.9",
 		"@types/lodash-es": "^4.17.12",
@@ -47,11 +47,10 @@
 		"prettier": "^3.2.5",
 		"prettier-plugin-svelte": "^3.2.1",
 		"publint": "^0.2.7",
-		"svelte": "^5.0.0-next.69",
-		"svelte-check": "^3.6.4",
+		"svelte-check": "^3.7.0",
 		"tslib": "^2.6.2",
-		"typescript": "^5.3.3",
-		"vite": "^5.1.4"
+		"typescript": "^5.4.5",
+		"vite": "^5.2.10"
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",

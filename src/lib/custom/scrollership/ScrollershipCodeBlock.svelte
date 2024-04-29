@@ -43,7 +43,7 @@
 	<!-- TODO -- pre click violates A11y rules, fix -->
 	<pre class:hidden={editmode} {...quire.content.attributes}><code>{code}</code></pre>
 
-	<textarea bind:value={editcode} class:hidden={!editmode} />
+	<textarea bind:value={editcode} class:hidden={!editmode}></textarea>
 	<button
 		class:hidden={!editmode}
 		on:click={() => {

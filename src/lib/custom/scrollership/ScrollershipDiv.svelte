@@ -166,7 +166,7 @@
 {:else}
 	<div class="scrollership">
 		<div class="vizpanel">
-			<div bind:this={backdrop} id="panel" />
+			<div bind:this={backdrop} id="panel"></div>
 		</div>
 		<div bind:this={scrolling_div} class="narrative {position}" class:slidden={hiddenNarrative}>
 			{#each quire.content.children as child}

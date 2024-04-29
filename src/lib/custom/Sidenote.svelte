@@ -23,7 +23,7 @@
 			over_note = false;
 		}}
 		for="fn{ref}"
-	/>
+	></label>
 </sup>
 
 <input type="checkbox" class="note-toggle" id="fn{ref}" name="fn_{ref}" />

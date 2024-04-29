@@ -5,6 +5,7 @@
 	import type { Image as ImageType } from '$lib/types/ast.d.ts';
 	import Image from '$lib/Inlines/Image.svelte';
 	import { getStringContent } from '$lib/djot.js';
+	import { browser } from '$app/environment';
 	export let quire: Quire<ImageType>;
 
 	const div_id = 'd' + Math.random().toString(36).slice(2);
@@ -16,7 +17,7 @@
 		throw new Error('Image must have a destination');
 	}
 	onMount(() => {
-		if (!use_iiif) {
+		if (!use_iiif || !browser) {
 			return;
 		}
 		// This returns a promise to a function that generates an OSD viewer with annotorious.
@@ -56,7 +57,7 @@
 		/>
 	{:else}
 		<figure>
-			<div id={div_id} {...quire.content.attributes} />
+			<div id={div_id} {...quire.content.attributes}></div>
 			<figcaption>
 				{#each quire.content.children as child}
 					<Inline quire={{ ...quire, content: child }} />
