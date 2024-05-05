@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
 	import quire from './gibbon.md';
 	import Sidenote from '$lib/custom/Sidenote.svelte';
+	import type { QuireOverride } from '$lib/types/quire';
+	import type { Inline, Block } from '@djot/djot';
 
-	quire.quireComponents = [['footnote_reference', Sidenote]];
+	quire.quireComponents = [
+		{ selector: 'footnote_reference', tag: 'footnote_reference', component: Sidenote }
+	] as QuireOverride<Inline | Block>[];
 
 	import Document from '$lib/Doc.svelte';
 </script>
