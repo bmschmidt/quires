@@ -1,3 +1,7 @@
+
+{.details summary="Gutenberg text"}
+::: 
+
 Excerpted from:
 
 The Project Gutenberg eBook of The History Of The Decline And Fall Of
@@ -25,6 +29,10 @@ Produced by: David Widger
 
 **START OF THE PROJECT GUTENBERG EBOOK THE DECLINE AND FALL OF THE
 ROMAN EMPIRE**
+
+
+:::
+
 
 ## Chapter XXX: Revolt Of The Goths.---Part I.
 
@@ -92,13 +100,13 @@ escaped the ravages of war.[^5]
 
 [^2]:
 
-> Alii per toga ferocis
-> Danubii solidata ruunt; expertaque remis
-> Frangunt stagna rotis.
-
-Claudian and Ovid often amuse their fancy by interchanging the metaphors
-and properties of liquid water, and solid ice. Much false wit has been
-expended in this easy exercise.
+    > Alii per toga ferocis
+    > Danubii solidata ruunt; expertaque remis
+    > Frangunt stagna rotis.
+    
+    Claudian and Ovid often amuse their fancy by interchanging the metaphors
+    and properties of liquid water, and solid ice. Much false wit has been
+    expended in this easy exercise.
 
 [^3]:
     Jerom, tom. i. p. 26. He endeavors to comfort his friend Heliodorus,
@@ -178,29 +186,25 @@ successfully defended a temporary intrenchment of five or six miles from
 the Ionian to the Aegean Sea. The confidence of the cities of
 Peloponnesus in their natural rampart, had tempted them to neglect the
 care of their antique walls; and the avarice of the Roman governors had
-exhausted and betrayed the unhappy province.
-[^10] Corinth, Argos, Sparta,
+exhausted and betrayed the unhappy province.[^10] Corinth, Argos, Sparta,
 yielded without resistance to the arms of the Goths; and the most
 fortunate of the inhabitants were saved, by death, from beholding the
-slavery of their families and the conflagration of their cities.
-[^11] The vases and statues were
+slavery of their families and the conflagration of their cities.[^11] The vases and statues were
 distributed among the Barbarians, with more regard to the value of the
 materials, than to the elegance of the workmanship; the female captives
 submitted to the laws of war; the enjoyment of beauty was the reward of
 valor; and the Greeks could not reasonably complain of an abuse which
-was justified by the example of the heroic times.
-[^12] The descendants of that
+was justified by the example of the heroic times.[^12] The descendants of that
 extraordinary people, who had considered valor and discipline as the
 walls of Sparta, no longer remembered the generous reply of their
 ancestors to an invader more formidable than Alaric. "If thou art a god,
 thou wilt not hurt those who have never injured thee; if thou art a man,
-advance:---and thou wilt find men equal to thyself."
-[^13] From Thermopylae to Sparta,
+advance:---and thou wilt find men equal to thyself."[^13] From Thermopylae to Sparta,
 the leader of the Goths pursued his victorious march without
 encountering any mortal antagonists: but one of the advocates of
 expiring Paganism has confidently asserted, that the walls of Athens
 were guarded by the goddess Minerva, with her formidable Aegis, and by
-the angry phantom of Achilles; [^14]
+the angry phantom of Achilles;[^14]
 and that the conqueror was dismayed by the presence of the hostile
 deities of Greece. In an age of miracles, it would perhaps be unjust to
 dispute the claim of the historian Zosimus to the common benefit: yet it
@@ -213,8 +217,7 @@ imaginary deities of Rome and Athens. The invasion of the Goths, instead
 of vindicating the honor, contributed, at least accidentally, to
 extirpate the last remains of Paganism: and the mysteries of Ceres,
 which had subsisted eighteen hundred years, did not survive the
-destruction of Eleusis, and the calamities of Greece.
-[^15]
+destruction of Eleusis, and the calamities of Greece.[^15]
 
 [^6]:
     Compare Herodotus (l. vii. c. 176) and Livy, (xxxvi. 15.) The narrow
@@ -290,10 +293,8 @@ other. The skill and perseverance of the Roman at length prevailed; and
 the Goths, after sustaining a considerable loss from disease and
 desertion, gradually retreated to the lofty mountain of Pholoe, near the
 sources of the Peneus, and on the frontiers of Elis; a sacred country,
-which had formerly been exempted from the calamities of war.
-[^17] The camp of the Barbarians was
-immediately besieged; the waters of the river
-[^18] were diverted into another
+which had formerly been exempted from the calamities of war.[^17] The camp of the Barbarians was
+immediately besieged; the waters of the river[^18] were diverted into another
 channel; and while they labored under the intolerable pressure of thirst
 and hunger, a strong line of circumvallation was formed to prevent their
 escape. After these precautions, Stilicho, too confident of victory,
@@ -354,7 +355,7 @@ character of the ally and servant of the emperor of the East.
     Chandler, p. 275. They measured from different points the distance
     between the two lands.
 
-A Grecian philosopher, [^20] who
+A Grecian philosopher,[^20] who
 visited Constantinople soon after the death of Theodosius, published his
 liberal opinions concerning the duties of kings, and the state of the
 Roman republic. Synesius observes, and deplores, the fatal abuse, which
@@ -409,14 +410,12 @@ defensive arms, Margus, Ratiaria, Naissus, and Thessalonica, to provide
 his troops with an extraordinary supply of shields, helmets, swords, and
 spears; the unhappy provincials were compelled to forge the instruments
 of their own destruction; and the Barbarians removed the only defect
-which had sometimes disappointed the efforts of their courage.
-[^22] The birth of Alaric, the glory
+which had sometimes disappointed the efforts of their courage.[^22] The birth of Alaric, the glory
 of his past exploits, and the confidence in his future designs,
 insensibly united the body of the nation under his victorious standard;
 and, with the unanimous consent of the Barbarian chieftains, the
 master-general of Illyricum was elevated, according to ancient custom,
-on a shield, and solemnly proclaimed king of the Visigoths.
-[^23] Armed with this double power,
+on a shield, and solemnly proclaimed king of the Visigoths.[^23] Armed with this double power,
 seated on the verge of the two empires, he alternately sold his
 deceitful promises to the courts of Arcadius and Honorius; till he
 declared and executed his resolution of invading the dominions of the

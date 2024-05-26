@@ -24,12 +24,12 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.115"
+		"svelte": "^5.0.0-next.131"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.0",
-		"@sveltejs/kit": "^2.5.7",
-		"@sveltejs/package": "^2.2.7",
+		"@sveltejs/kit": "^2.5.8",
+		"@sveltejs/package": "^2.3.1",
 		"@sveltejs/vite-plugin-svelte": "^3.1.0",
 		"@types/eslint": "8.56.3",
 		"@types/js-yaml": "^4.0.9",
@@ -38,26 +38,27 @@
 		"@types/openseadragon": "^3.0.10",
 		"@typescript-eslint/eslint-plugin": "^7.0.2",
 		"@typescript-eslint/parser": "^7.0.2",
+		"carbon-icons-svelte": "^12.6.0",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.36.0-next.4",
+		"eslint-plugin-svelte": "^2.39.0",
 		"highlight.js": "^11.9.0",
 		"lodash-es": "^4.17.21",
 		"openseadragon": "^4.1.0",
 		"prettier": "^3.2.5",
-		"prettier-plugin-svelte": "^3.2.1",
+		"prettier-plugin-svelte": "^3.2.3",
 		"publint": "^0.2.7",
-		"svelte-check": "^3.7.0",
+		"svelte": "^5.0.0-next.132",
+		"svelte-check": "^3.7.1",
 		"tslib": "^2.6.2",
 		"typescript": "^5.4.5",
-		"vite": "^5.2.10"
+		"vite": "^5.2.11"
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
 		"@djot/djot": "^0.3.1",
-		"carbon-icons-svelte": "^12.5.0",
 		"css-what": "^6.1.0",
 		"d3-transition": "^3.0.1",
 		"js-yaml": "^4.1.0"

@@ -1,9 +1,8 @@
 <script lang="ts" generics="BlockType extends Block">
+	import DefinitionList from './Blocks/DefinitionList.svelte';
+
 	import type { QuireComponent, QuireOverride, QuireOverrideComponent } from './types/quire';
 	import type { Block } from './types/ast';
-
-	export let quire: Quire<BlockType>;
-
 	import Para from './Blocks/Para.svelte';
 	import Heading from './Blocks/Heading.svelte';
 	import Div from './Blocks/Div.svelte';
@@ -17,8 +16,10 @@
 	import BulletList from './Blocks/BulletList.svelte';
 	import { matches } from './quire';
 
-	const { tag } = quire.content;
-	const { quireComponents } = quire;
+	let { quire }: { quire: Quire<BlockType> } = $props();
+
+	let { tag } = $derived(quire.content);
+	let { quireComponents } = $derived(quire);
 	const components = {
 		para: Para,
 		div: Div,
@@ -32,13 +33,15 @@
 		ordered_list: OrderedList,
 		bullet_list: BulletList,
 		task_list: BulletList, // TODO FIXME
-		definition_list: BulletList // TODO FIXME
+		definition_list: DefinitionList
 	} as const;
 
-	const component = components[tag] as QuireComponent<BlockType>;
+	let component = $derived(components[tag] as QuireComponent<BlockType>);
 
-	const firstOverride = quireComponents.find(
-		({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
+	let firstOverride = $derived(
+		quireComponents.find(
+			({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
+		)
 	) as QuireOverride<BlockType> | undefined;
 </script>
 

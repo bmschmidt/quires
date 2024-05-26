@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { FootnoteReference } from '$lib/types/ast.d.ts';
-	export let quire: Quire<FootnoteReference>;
+	const { quire }: { quire: Quire<FootnoteReference> } = $props();
 	const { attributes } = quire.content;
 </script>
 

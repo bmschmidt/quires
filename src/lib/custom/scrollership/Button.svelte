@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CodeBlock } from '$lib/types/ast.d.ts';
 
-	import { YAMLException, load } from 'js-yaml';
+	import { load } from 'js-yaml';
 	export let quire: Quire<CodeBlock>;
 
 	const { api = {}, label = null, clone = [] } = (load(quire.content.text) as ButtonArgs) || {};
@@ -21,7 +21,6 @@
 			}
 			for (let key of clonelist) {
 				set(call, key, get(plot.query, key));
-				console.log('cloning', key);
 			}
 			for (let [key, value] of Object.entries(api)) {
 				set(call, key, value);

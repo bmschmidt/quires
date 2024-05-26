@@ -6,16 +6,18 @@
 	import Inline from '$lib/Inline.svelte';
 	import { getStringContent } from '$lib/djot.js';
 
-	export let quire: Quire<Image>;
+	let { quire }: { quire: Quire<Image> } = $props();
 
-	const { destination } = quire.content;
-	const title = quire.content.children.map((inline) => getStringContent(inline)).join('');
+	const { destination } = $derived(quire.content);
+	const title = $derived(
+		[...quire.content.children].map((inline) => getStringContent(inline)).join('')
+	);
 </script>
 
 <figure {...quire.content.attributes}>
 	<img alt={title} src={destination} />
 	<figcaption>
-		{#each quire.content.children as child}
+		{#each [...quire.content.children] as child}
 			<Inline quire={{ ...quire, content: child }} />
 		{/each}
 	</figcaption>

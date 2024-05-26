@@ -15,7 +15,5 @@ date: 2023-02-02
 
 5. [Scrollership through a IIIF image](/quires/scrollership/apple)
 
-6. [Chapter from Gibbon's _Decline and Fall_ to show inline footnotes as toggleable details.](/quires/demo/footnotes)
-
-7. [Chapter from Gibbon's _Decline and Fall_ to show inline footnotes as sidenotes.](/quires/demo/sidenotes)
+7. [Chapter from Gibbon's _Decline and Fall_ toggling between footnotes and sidenotes.](/quires/demo/sidenotes)
 

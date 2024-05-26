@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Block from '$lib/Block.svelte';
 	import type { Div } from '$lib/types/ast';
-	export let quire: Quire<Div>;
-	const { attributes, children, pos } = quire.content;
+	let { quire }: { quire: Quire<Div> } = $props();
+	let { attributes, children } = $derived(quire.content);
 </script>
 
 <div {...attributes}>
-	{#each children as child}
+	{#each [...children] as child}
 		<Block quire={{ ...quire, content: child }} />
 	{/each}
 </div>
