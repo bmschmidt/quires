@@ -10,28 +10,27 @@
 	import type { UpdateablePlot, PlotConstructor, PlotImportable } from './types.d.ts';
 	import QuireObserver from '$lib/quireObserver.js';
 	import Block from '$lib/Block.svelte';
-	import type { Div } from '$lib/types/ast';
+	import Div from '$lib/Blocks/Div.svelte';
 
 	// These are the core components for a scrollership document.
 	// They get inserted into the tree here.
 	const components = [
-		['div.chunk', ScrollershipChunk],
-		['code_block.api', ScrollershipCodeBlock],
-		['code_block.slider', Slider],
-		['code_block.button', Button],
-		['code_block.buttonset', Buttonset]
-	] as [string, any][];
+		{ tag: 'div', selector: '.chunk', component: ScrollershipChunk },
+		{ tag: 'code_block', selector: '.api', component: ScrollershipCodeBlock },
+		{ tag: 'code_block', selector: '.slider', component: Slider },
+		{ tag: 'code_block', selector: '.button', component: Button },
+		{ tag: 'code_block', selector: '.buttonset', component: Buttonset }
+	] as const;
 
-	export let quire: ScrollerDivQuire;
+	let { quire }: { quire: ScrollerDivQuire } = $props();
 
-	console.log({ quire });
 	// The intersection observer we'll create here if it's a browser.
-	let observer: QuireObserver | undefined = undefined;
-	// The list of nodes and their associated code we'll create here if it's a browser.
-	let codeNodes: Map<Node, Record<string, any>> | undefined = undefined;
 
-	let commands: [HTMLElement, () => Promise<void>][] = [];
+	// The list of nodes and their associated code we'll create here if it's a browser.
+	let codeNodes: Map<Node, Record<string, any>> = $state(new Map());
+
 	let backdrop: HTMLDivElement;
+	let scrolling_div: HTMLDivElement;
 
 	// TODO: Make configurable
 	const observer_options = {
@@ -41,123 +40,130 @@
 		threshold: 0.01 // visible amount of item shown in relation to root
 	};
 
-	let lastPlotted: Node | undefined = undefined;
+	let lastPlotted: Node | undefined = $state(undefined);
+	let observer: QuireObserver | undefined = $state(undefined);
+	let _plot: UpdateablePlot | undefined = $state(undefined);
 
-	if (typeof window !== 'undefined') {
-		// All reactivity is handled in the cells.
-		observer = new QuireObserver(plotFunction, observer_options);
-		// a list of all the nodes and their associated
-		codeNodes = new Map<Node, Record<string, any>>();
-	}
-
-	let newQuire: QuireInScroller<Div> = {
+	let newQuire: QuireInScroller<Div> = $derived({
 		...quire,
 		quireComponents: [...quire.quireComponents, ...components],
 		custom: {
 			...quire.custom,
 			codeNodes,
-			observer
-		}
-	};
-
-	async function plotFunction(
-		entries: IntersectionObserverEntry[],
-		observer: IntersectionObserver
-	) {
-		let nodesAndCodes = [...codeNodes!].map(([node, code]) => ({
-			node,
-			code
-		}));
-		if (!newQuire.custom!['_plot']) {
-			console.warn('No plot API found.');
-			return;
-		}
-		let needs_plotting: Node[] = [];
-		if (nodesAndCodes.length === 0) {
-			return;
-		}
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				if (entry.target !== lastPlotted) {
-					needs_plotting.push(entry.target);
-				}
-			}
-		});
-
-		// Recalculate the index in case the list of nodes has changed.
-		let lastNodeIndex =
-			lastPlotted !== undefined ? nodesAndCodes.findIndex((n) => n.node === lastPlotted) : -1;
-		nodesAndCodes = nodeSort(nodesAndCodes);
-
-		if (needs_plotting.length === 0) {
-			return;
-		}
-		console.log({ nodesAndCodes, needs_plotting });
-		// If multiple nodes have become visible, it's the last one
-		// that determines what's plotted.
-
-		let currentPlotIndex = needs_plotting
-			// n is the div node, but nodes and codes is the `details` created
-			// from the code plot.
-			.map((n) => nodesAndCodes.findIndex((nc) => n.contains(nc.node)))
-			.sort()
-			.reverse()[0];
-
-		const direction = currentPlotIndex > lastNodeIndex ? 1 : -1;
-
-		for (let i = lastNodeIndex + direction; i !== currentPlotIndex + direction; i += direction) {
-			const { node } = nodesAndCodes[i];
-			let { code } = nodesAndCodes[i];
-			if (i !== currentPlotIndex) {
-				// reduce transition times or something???
-			}
-			console.log({ node, code });
-			await (newQuire.custom!['_plot']! as UpdateablePlot).plotAPI(code);
-			lastPlotted = node;
-		}
-	}
-
-	const position = 'left';
-
-	let error: string | undefined = undefined;
-	let scrollerType: string | undefined = undefined;
-	if (!quire.content.attributes) {
-		error = 'No attributes on scrollership div.';
-	} else if (!newQuire.content.attributes!['scroller-type']) {
-		error = 'No scroller-type attribute on scrollership div.';
-	} else {
-		scrollerType = quire.content.attributes['scroller-type'];
-		console.log(quire.custom.scrollerAPIs);
-		if (!quire.custom.scrollerAPIs[scrollerType]) {
-			error = `No scroller API for ${scrollerType}: ${JSON.stringify(quire.custom.scrollerAPIs)}`;
-		} else {
-		}
-	}
-
-	let plot: UpdateablePlot;
-	onMount(async () => {
-		// This stuff only works in the browser right now.
-		if (!error && typeof window !== 'undefined') {
-			let api: PlotConstructor;
-			const API = quire.custom!.scrollerAPIs[scrollerType!];
-			if (API.constructor.name === 'AsyncFunction') {
-				api = (await (API as () => Promise<{ default: PlotConstructor }>)()).default;
-			} else {
-				api = API as unknown as PlotConstructor;
-			}
-			plot = new api();
-			plot.bind(backdrop);
-
-			// @ts-ignore
-			window.plot = plot;
-			console.log('MOUNTING');
-			newQuire.custom['_plot'] = plot;
-			// Overwrite for regeneration.
-			newQuire = newQuire;
+			observer,
+			_plot
 		}
 	});
 
-	let scrolling_div: HTMLDivElement;
+	const plotFunction = $derived(
+		async (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+			const quire = newQuire;
+			let nodesAndCodes = [...codeNodes!].map(([node, code]) => ({
+				node,
+				code
+			}));
+			if (!quire.custom!['_plot']) {
+				console.warn('No plot API found.');
+				return;
+			}
+			let needs_plotting: Node[] = [];
+			if (nodesAndCodes.length === 0) {
+				return;
+			}
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					if (entry.target !== lastPlotted) {
+						needs_plotting.push(entry.target);
+					}
+				}
+			});
+
+			// Recalculate the index in case the list of nodes has changed.
+			let lastNodeIndex =
+				lastPlotted !== undefined ? nodesAndCodes.findIndex((n) => n.node === lastPlotted) : -1;
+			nodesAndCodes = nodeSort(nodesAndCodes);
+
+			if (needs_plotting.length === 0) {
+				return;
+			}
+			// If multiple nodes have become visible, it's the last one
+			// that determines what's plotted.
+
+			let currentPlotIndex = needs_plotting
+				// n is the div node, but nodes and codes is the `details` created
+				// from the code plot.
+				.map((n) => nodesAndCodes.findIndex((nc) => n.contains(nc.node)))
+				.sort()
+				.reverse()[0];
+
+			const direction = currentPlotIndex > lastNodeIndex ? 1 : -1;
+
+			for (let i = lastNodeIndex + direction; i !== currentPlotIndex + direction; i += direction) {
+				const { node } = nodesAndCodes[i];
+				let { code } = nodesAndCodes[i];
+				if (i !== currentPlotIndex) {
+					// reduce transition times or something???
+				}
+				console.log({ node, code });
+				await (quire.custom!['_plot']! as UpdateablePlot).plotAPI(code);
+				lastPlotted = node;
+			}
+			console.log('Done here');
+		}
+	);
+
+	const position = 'left';
+
+	let error: string | undefined = $state(undefined);
+	let scrollerType = $derived(quire.content.attributes!['scroller-type']);
+	$inspect(scrollerType);
+	// $inspect({
+	// 	with: function () {
+	// 		if (!quire.content.attributes) {
+	// 			error = 'No attributes on scrollership div.';
+	// 		} else if (!quire.content.attributes!['scroller-type']) {
+	// 			error = 'No scroller-type attribute on scrollership div.';
+	// 		} else {
+	// 			scrollerType = quire.content.attributes['scroller-type'];
+	// 			console.log(quire.custom.scrollerAPIs);
+	// 			if (!quire.custom.scrollerAPIs[scrollerType]) {
+	// 				error = `No scroller API for ${scrollerType}: ${JSON.stringify(quire.custom.scrollerAPIs)}`;
+	// 			} else {
+	// 			}
+	// 		}
+	// 	}
+	// });
+	let plot: UpdateablePlot;
+	$effect(() => {
+		console.log('EFFECT');
+		// This stuff only works in the browser right now.
+		if (!error && typeof window !== 'undefined' && scrollerType) {
+			let api: PlotConstructor;
+			const API = quire.custom!.scrollerAPIs[scrollerType!];
+			console.log({ API, customs: quire.custom!.scrollerAPIs, scrollerType });
+			async function run() {
+				if (API.constructor.name === 'AsyncFunction') {
+					api = await (API as () => Promise<{ default: PlotConstructor }>)().then((d) => d.default);
+				} else {
+					api = API as unknown as PlotConstructor;
+				}
+				plot = new api();
+				plot.bind(backdrop);
+
+				// @ts-ignore
+				window.plot = plot;
+				_plot = plot;
+			}
+			run().then((d) => {
+				console.log('ATTACHING');
+				// All reactivity is handled in the cells.
+				observer = new QuireObserver(plotFunction, observer_options);
+				// a list of all the nodes and their associated
+			});
+			// Overwrite for regeneration.
+		}
+	});
+
 	let hiddenNarrative = false;
 </script>
 

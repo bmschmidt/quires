@@ -161,6 +161,7 @@ export default class Dragon {
 	}
 
 	async plotAPI(query) {
+		console.log({query})
 		this.create_annotation_layer();
 		if (!query.zoom) {
 			this._query.zoom = undefined;

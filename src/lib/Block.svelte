@@ -43,6 +43,15 @@
 			({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
 		)
 	) as QuireOverride<BlockType> | undefined;
+	// console.log({ quireComponents });
+	$inspect(firstOverride).with((d) => {
+		if (tag === 'div' && quire.content?.attributes?.class?.includes('scrollership')) {
+			// console.log(quireComponents);
+			// console.log(tag);
+			console.log(quireComponents[0]);
+			console.log(tag, quire.content.attributes);
+		}
+	});
 </script>
 
 {#if firstOverride !== undefined}

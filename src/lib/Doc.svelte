@@ -17,6 +17,7 @@
 </script>
 
 <div class="quire-document" {...attributes}>
+	<!-- TODO: find a way to force regeneration on change that doesn't key on the object itself. -->
 	{#each children as child (child)}
 		<Block quire={{ ...quire, content: child }} />
 	{/each}

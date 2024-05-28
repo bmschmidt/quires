@@ -22,8 +22,8 @@
 	// keep call up-to-date with the code
 	$: {
 		if (div) {
-			quire.custom['codeNodes'] = quire.custom['codeNodes'] ?? new Map<Node, Record<string, any>>();
-			quire.custom['codeNodes'].set(div, args || {});
+			//quire.custom['codeNodes'] = quire.custom['codeNodes'] ?? new Map<Node, Record<string, any>>();
+			quire.custom['codeNodes']?.set(div, args || {});
 		}
 	}
 

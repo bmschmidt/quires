@@ -3,16 +3,20 @@
 	import type QuireObserver from '$lib/quireObserver.ts';
 	import type { Div } from '$lib/types/ast.d.ts';
 
-	export let quire: QuireInScroller<Div>;
-	import { onMount } from 'svelte';
+	let { quire }: { quire: QuireInScroller<Div> } = $props();
+
 	import type { QuireInScroller } from './utils';
+
 	let div: HTMLDivElement;
 
-	$: active = false;
+	let active = $state(false);
 
-	onMount(() => {
+	let custom: Record<string, unknown> = $state({ ...quire.custom });
+
+	$effect(() => {
 		const observer = quire.custom.observer;
 		if (observer === undefined) {
+			return;
 			throw new Error('observer is undefined');
 		}
 		// We use this callback only to adjust styles. The
@@ -25,15 +29,13 @@
 				active = false;
 			}
 		});
+		custom = {
+			...quire.custom,
+			triggerNode: div
+		};
 	});
 
-	let classes = quire.content.attributes?.class ?? '';
-	classes += ' chunk scroll-mt-36';
-
-	$: custom = {
-		...quire.custom,
-		triggerNode: div
-	};
+	let classes = $derived((quire.content.attributes?.class ?? '') + ' chunk scroll-mt-36');
 </script>
 
 <div class:active bind:this={div} {...quire.content.attributes} class={classes}>

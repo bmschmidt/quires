@@ -16,7 +16,7 @@
 			scrollerAPIs
 		},
 		quireComponents: [
-			['div.scrollership', ScrollershipDiv] as const,
+			{ tag: 'div', selector: '.scrollership', component: ScrollershipDiv } as const,
 			...(quire.quireComponents || [])
 		]
 	} as ScrollershipDocQuire;

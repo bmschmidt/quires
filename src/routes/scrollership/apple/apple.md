@@ -21,6 +21,7 @@ this ad is the Vermeer of the history of personal computing; a
 meticulously arranged, light-filled domestic setting, dusted throughout with gently hidden meanings.
 
 ```api
+
 source_url: "https://iiif.archivelab.org/iiif/Byte_1977-The_Apple_II_System_Description_by_Stephen_Wozniak$8/info.json"
 zoom:
   - 0.5
@@ -36,7 +37,7 @@ callouts:
 
 :::
 
-::: chunk
+:::chunk
 But first a word on the product. Although it\'s the Apple \"II\", the
 Apple barely existed. For practical purposes, the Apple I was a
 prototype that never experienced mass production; it was a built-at-home
@@ -59,7 +60,7 @@ callouts:
 
 :::
 
-::: chunk
+:::chunk
 The Apple II, by contrast, was beautiful; the keyboard was embedded in a
 box that was well-made and small enough that the fiction someone would
 lug it to their kitchen table to work is just barely believable.
