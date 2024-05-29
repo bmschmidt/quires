@@ -2,6 +2,13 @@
 // @ts-nocheck
 // old code, not checking.
 
+/**
+ * This is a simple example of a scrollership plugin.
+ * It implements a single export class, 'Dragon', which is a wrapper
+ * around OpenSeadragon.
+ */
+
+
 import { default as OpenSeadragon, Rect, Point } from 'openseadragon';
 import { select } from 'd3-selection';
 import 'd3-transition';

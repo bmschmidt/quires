@@ -26,9 +26,11 @@
 
 	// The intersection observer we'll create here if it's a browser.
 
-	// The list of nodes and their associated code we'll create here if it's a browser.
+	// The list of nodes and their associated code to dispatch when they appear
+	// we'll create here if it's a browser.
 	let codeNodes: Map<Node, Record<string, any>> = $state(new Map());
 
+	// This element holds
 	let backdrop: HTMLDivElement;
 	let scrolling_div: HTMLDivElement;
 
