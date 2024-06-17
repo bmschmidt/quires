@@ -15,4 +15,5 @@ export { default as BlockQuote } from './Blocks/BlockQuote.svelte';
 export { default as Table } from './Blocks/Table.svelte';
 export { default as Div } from './Blocks/Div.svelte';
 export { default as CodeBlock } from './Blocks/CodeBlock.svelte';
-export { default as Sidenote } from './custom/Sidenote.svelte';
+export { default as Sidenote } from './custom/AsideNote.svelte';
+

@@ -4,9 +4,10 @@
 
 	let { quire }: { quire: Quire<Div> } = $props();
 
-	const ref = quire.content.attributes!.ref as string;
+	console.log('quire', quire);
+	let ref = $derived(quire.content.attributes!.ref) as string;
+	$inspect(quire.content);
 	import Block from '$lib/Block.svelte';
-	$inspect('asidenote', quire);
 </script>
 
 <aside
