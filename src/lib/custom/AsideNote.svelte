@@ -1,13 +1,11 @@
 <script lang="ts">
+	import Block from '$lib/Block.svelte';
 	import { footnoteState } from './footnoteState.svelte';
-	import type { Div } from '$lib/types/ast.d.ts';
+	import type { Div } from '@djot/djot';
 
 	let { quire }: { quire: Quire<Div> } = $props();
 
-	console.log('quire', quire);
 	let ref = $derived(quire.content.attributes!.ref) as string;
-	$inspect(quire.content);
-	import Block from '$lib/Block.svelte';
 </script>
 
 <aside

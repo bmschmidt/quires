@@ -1,15 +1,13 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
-	export let quire: Quire<CodeBlock>;
+	import type { CodeBlock } from '@djot/djot';
+	let { quire }: { quire: Quire<CodeBlock> } = $props();
 
 	import hljs from 'highlight.js/lib/core';
 	import python from 'highlight.js/lib/languages/python';
 	hljs.registerLanguage('python', python);
 
-	console.log(quire.content.text);
-	let html = hljs.highlight(quire.content.text, { language: 'python' }).value;
+	let html = $state(hljs.highlight(quire.content.text, { language: 'python' }).value);
 
-	console.log({ html });
 	function indent() {
 		html = html
 			.split('\n')
@@ -29,8 +27,8 @@
 
 <div style="display:flex;">
 	<div style="display:flex;flex-direction: column;">
-		<button on:click={indent}> {'>'} </button>
-		<button on:click={unindent}>
+		<button onclick={indent}> {'>'} </button>
+		<button onclick={unindent}>
 			{'<'}
 		</button>
 	</div>

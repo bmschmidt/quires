@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
-	export let quire: Quire<CodeBlock>;
+	import type { CodeBlock } from '@djot/djot';
+	let { quire }: { quire: Quire<CodeBlock> } = $props();
 
 	import hljs from 'highlight.js/lib/core';
 	import javascript from 'highlight.js/lib/languages/javascript';
@@ -17,7 +17,7 @@
 	<pre {...quire.content.attributes}>
     {@html html}
   </pre>
-	<button on:click={() => eval(quire.content.text)}>
+	<button onclick={() => eval(quire.content.text)}>
 		<Run32 />
 	</button>
 </div>

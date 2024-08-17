@@ -1,13 +1,6 @@
 <script lang="ts" generics="InlineType extends Inline">
-	import type {
-		QuireComponent,
-		QuireOverride,
-		QuireOverrideComponent
-	} from '$lib/types/quire.d.ts';
-
-	export let quire: Quire<InlineType>;
-
-	import type { Inline } from '$lib/types/ast.d.ts';
+	import type { InlineOverride } from '$lib/types/quire.d.ts';
+	import type { Inline } from '@djot/djot';
 	import Str from './Inlines/Str.svelte';
 	import Link from './Inlines/Link.svelte';
 	import Span from './Inlines/Span.svelte';
@@ -33,9 +26,11 @@
 	import Delete from './Inlines/Delete.svelte';
 	import { matches } from './quire';
 	import Image from './Inlines/Image.svelte';
+	import type { Component } from 'svelte';
 
-	const { tag } = quire.content;
-	const { quireComponents } = quire;
+	let { quire }: { quire: Quire<InlineType> } = $props();
+	let { tag } = $derived(quire.content);
+	let { quireComponents } = $derived(quire);
 	const components = {
 		str: Str,
 		link: Link,
@@ -64,16 +59,18 @@
 		image: Image
 	} as const;
 
-	const component = components[tag] as QuireComponent<InlineType>;
+	let component = $derived(components[tag] as Component<{ quire: Quire<InlineType> }>);
 
-	const firstOverride = quireComponents.find(
-		({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
-	) as QuireOverride<InlineType> | undefined;
+	let firstOverride = $derived(
+		quireComponents?.find(
+			({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
+		) as InlineOverride<InlineType> | undefined
+	);
 </script>
 
 {#if firstOverride !== undefined}
 	<svelte:component this={firstOverride.component} {quire}>
-		<!--The original type can be created through the <slot> element in any child.-->
+		<!--The original component may optionally be created through the <slot> element in any child.-->
 		<svelte:component this={component} {quire} />
 	</svelte:component>
 {:else}

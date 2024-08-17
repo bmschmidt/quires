@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Url } from '../types/ast';
-	export let quire: Quire<Url>;
+	import type { Url } from '@djot/djot';
+	let { quire }: { quire: Quire<Url> } = $props();
 	const { attributes, text } = quire.content;
 </script>
 

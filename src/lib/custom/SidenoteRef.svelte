@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { footnoteState } from './footnoteState.svelte';
-	import type { FootnoteReference, Footnote } from '$lib/types/ast';
+	import type { FootnoteReference, Footnote } from '@djot/djot';
 	// This replaces the *reference*, not the full footnote.
 	let { quire }: { quire: Quire<FootnoteReference> } = $props();
 

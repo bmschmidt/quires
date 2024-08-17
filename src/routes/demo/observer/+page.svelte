@@ -3,13 +3,13 @@
 	import quire from './history.md';
 	import Document from '$lib/Doc.svelte';
 	import Para from './ParaObserver.svelte';
-	import QuireObserver from '$lib/quireObserver.js';
-	quire.quireComponents = [['para', Para]];
+	import { QuireObserver } from '$lib/quireObserver.svelte';
+	import type { QuireOverride } from '$lib/types/quire';
+	quire.quireComponents = [{ tag: 'para', component: Para, selector: 'para' }] as QuireOverride[];
 
-	$: observed_paragraphs = 0;
+	let observed_paragraphs = $state(0);
 
-	let letter_counts: Record<string, number> = {};
-	$: max_letter_count = Math.max(...Object.values(letter_counts), 1);
+	let letter_counts: Record<string, number> = $state({});
 	function updateLetterCounts(div: HTMLParagraphElement) {
 		const text = div.innerText.toLocaleLowerCase().replaceAll(/[^a-z]/g, '');
 		for (let letter of text) {
@@ -38,7 +38,7 @@
 				}
 			});
 		};
-		quire.custom!.observer = new QuireObserver(observe, options);
+		quire.custom!.observer = new QuireObserver({ callback: observe, observer_options: options });
 	}
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { DoubleQuoted } from '$lib/types/ast';
+	import type { DoubleQuoted } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<DoubleQuoted>;
+	let { quire }: { quire: Quire<DoubleQuoted> } = $props();
 </script>
 
 “{#each quire.content.children as child}

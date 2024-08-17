@@ -2,7 +2,7 @@
 	/**
 	 * A component for rendering an image as a figure with caption.
 	 */
-	import type { Image } from '$lib/types/ast.d.ts';
+	import type { Image } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
 	import { getStringContent } from '$lib/djot.js';
 

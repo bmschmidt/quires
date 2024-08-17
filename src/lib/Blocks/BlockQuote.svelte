@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BlockQuote } from '$lib/types/ast';
+	import type { BlockQuote } from '@djot/djot';
 	import Block from '$lib/Block.svelte';
 	let { quire }: { quire: Quire<BlockQuote> } = $props();
 	let { attributes, children, pos } = $derived(quire.content);

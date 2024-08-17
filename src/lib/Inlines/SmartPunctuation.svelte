@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { SmartPunctuation } from '$lib/types/ast.d.ts';
-	export let quire: Quire<SmartPunctuation>;
+	import type { SmartPunctuation } from '@djot/djot';
+	let { quire }: { quire: Quire<SmartPunctuation> } = $props();
 	const { attributes, type } = quire.content;
 	const fancyQuotes = {
 		left_single_quote: '‘',

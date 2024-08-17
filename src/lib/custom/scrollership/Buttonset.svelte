@@ -1,17 +1,8 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
+	import type { CodeBlock } from '@djot/djot';
 	import { load } from 'js-yaml';
 
-	export let quire: Quire<CodeBlock>;
-	// export let api = {};
-	// export let settings;
-	// // Existing properties of the API call to keep.
-	// export let target;
-	// export let pattern = '${value}';
-	// export let values = [];
-	// export let clone: string | string[] = [];
-	// export let hover = null;
-	// export let label = null;
+	let { quire }: { quire: Quire<CodeBlock> } = $props();
 	import { set, cloneDeep } from 'lodash-es';
 	import Button from './Button.svelte';
 	import type { ButtonArgs, ButtonsetArgs } from './types';

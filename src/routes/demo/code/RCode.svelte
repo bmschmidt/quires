@@ -1,10 +1,11 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
-	export let quire: Quire<CodeBlock>;
+	import type { CodeBlock as TCodeBlock } from '@djot/djot';
+	let { quire, children }: QuireArgs<TCodeBlock> = $props();
 	import BaseCodeBlock from '$lib/Blocks/CodeBlock.svelte';
 	import Copy32 from 'carbon-icons-svelte/lib/Copy.svelte';
+	import type { QuireArgs } from '$lib/types/quire';
 
-	let just_copied = false;
+	let just_copied = $state(false);
 
 	let code = quire.content.text.replaceAll(' %>%', ' |>'); // R pipe
 	function copy() {
@@ -19,9 +20,11 @@
 </script>
 
 <div style="display:flex; align-items:center; margin-bottom:1em;">
-	<slot />
+	{#if children}
+		{@render children()}
+	{/if}
 	<div>
-		<button on:click={copy}>
+		<button onclick={copy}>
 			<Copy32 />
 		</button>
 	</div>

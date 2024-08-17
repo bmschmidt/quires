@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Para } from '$lib/types/ast';
+	import type { Para } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<Para>;
+	let { quire }: { quire: Quire<Para> } = $props();
 </script>
 
 <p>

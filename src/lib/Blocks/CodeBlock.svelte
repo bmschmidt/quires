@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast';
-	export let quire: Quire<CodeBlock>;
+	import type { CodeBlock } from '@djot/djot';
+	let { quire }: { quire: Quire<CodeBlock> } = $props();
 	const { attributes, text, pos } = quire.content;
 </script>
 

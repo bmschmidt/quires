@@ -2,7 +2,7 @@
 	import quire from './complex.md';
 	// We use Markdown style strong and italics.
 	import MarkdownStrong from '$lib/custom/MyStrong.svelte';
-	quire.quireComponents = [['strong', MarkdownStrong]];
+	quire.quireComponents = [{ selector: 'strong', tag: 'strong', component: MarkdownStrong }];
 	import Document from '$lib/Doc.svelte';
 </script>
 

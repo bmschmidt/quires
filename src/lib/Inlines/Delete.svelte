@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Delete } from '../types/ast';
+	import type { Delete } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<Delete>;
+	let { quire }: { quire: Quire<Delete> } = $props();
 	const { attributes, children } = quire.content;
 </script>
 

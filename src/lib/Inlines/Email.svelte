@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Email } from '../types/ast';
-	export let quire: Quire<Email>;
+	import type { Email } from '@djot/djot';
+	let { quire }: { quire: Quire<Email> } = $props();
 	const { attributes, text } = quire.content;
 </script>
 

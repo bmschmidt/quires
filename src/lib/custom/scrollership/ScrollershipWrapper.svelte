@@ -1,14 +1,18 @@
 <script lang="ts">
-	import type { AstNode, Doc } from '$lib/types/ast.d.ts';
+	import type { AstNode, Doc } from '@djot/djot';
 	import Document from '$lib/Doc.svelte';
 	import type { PlotImportable } from './types';
-	export let quire: Quire<Doc>;
-	export let title_features: string[] = ['copy'];
+	let {
+		quire,
+		scrollerAPIs,
+		title_features = ['copy']
+	}: {
+		quire: Quire<Doc>;
+		title_features?: string[];
+		scrollerAPIs: Record<string, PlotImportable>;
+	} = $props();
 	import ScrollershipDiv from './ScrollershipDiv.svelte';
 	import type { ScrollershipDocQuire } from './utils';
-
-	export let scrollerAPIs: Record<string, PlotImportable>;
-	console.log({ scrollerAPIs });
 	const scrollerQuire = {
 		...quire,
 		custom: {
@@ -33,7 +37,7 @@
 	const get_api = function () {
 		console.error('TODO: Implement this.');
 	};
-	let hidden = false;
+	let hidden = $state(false);
 </script>
 
 <div class="bignavbar">
@@ -41,10 +45,10 @@
 		role="button"
 		tabindex="0"
 		class="action"
-		on:click={() => {
+		onclick={() => {
 			hidden = !hidden;
 		}}
-		on:keyup={() => {
+		onkeyup={() => {
 			hidden = !hidden;
 		}}
 	>
@@ -60,8 +64,8 @@
 						tabindex="0"
 						aria-roledescription="copy"
 						class="action"
-						on:click={get_api}
-						on:keyup={get_api}
+						onclick={get_api}
+						onkeyup={get_api}
 					>
 						Copy API
 					</div>

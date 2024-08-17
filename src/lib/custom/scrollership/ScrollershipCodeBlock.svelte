@@ -1,7 +1,7 @@
 <script lang="ts">
 	import yaml from 'js-yaml';
 
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
+	import type { CodeBlock } from '@djot/djot';
 	import type { QuireInScroller } from './utils';
 
 	export let quire: QuireInScroller<CodeBlock>;
@@ -38,7 +38,7 @@
 
 <details bind:this={div}>
 	<summary style="user-select:none;"> Edit Code </summary>
-	<button style="width:100%" on:click={enter_editmode} class:hidden={editmode}>Edit Code</button>
+	<button style="width:100%" onclick={enter_editmode} class:hidden={editmode}>Edit Code</button>
 
 	<!-- TODO -- pre click violates A11y rules, fix -->
 	<pre class:hidden={editmode} {...quire.content.attributes}><code>{code}</code></pre>
@@ -46,7 +46,7 @@
 	<textarea bind:value={editcode} class:hidden={!editmode}></textarea>
 	<button
 		class:hidden={!editmode}
-		on:click={() => {
+		onclick={() => {
 			// code = editcode;
 			editmode = false;
 			code = editcode;

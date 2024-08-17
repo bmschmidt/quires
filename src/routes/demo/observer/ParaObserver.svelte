@@ -1,13 +1,14 @@
 <script lang="ts">
-	import type QuireObserver from '$lib/quireObserver';
-	import type { Para } from '$lib/types/ast.d.ts';
+	import type { QuireObserver } from '$lib/quireObserver.svelte';
+	import type { QuireArgs } from '$lib/types/quire';
+	import type { Para } from '@djot/djot';
 	import { onMount } from 'svelte';
 
-	export let quire: Quire<Para>;
+	let { quire, children }: QuireArgs<Para> = $props();
 
 	let node: HTMLDivElement;
+	let isVisible = $state(false);
 
-	$: isVisible = false;
 	function handleIntersection(entry: IntersectionObserverEntry) {
 		isVisible = entry.isIntersecting;
 	}
@@ -21,7 +22,7 @@
 </script>
 
 <div bind:this={node} class:observed={isVisible}>
-	<slot />
+	{@render children()}
 </div>
 
 <style>

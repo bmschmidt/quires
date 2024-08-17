@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Insert } from '../types/ast';
+	import type { Insert } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<Insert>;
+	let { quire }: { quire: Quire<Insert> } = $props();
 	const { attributes, children } = quire.content;
 </script>
 

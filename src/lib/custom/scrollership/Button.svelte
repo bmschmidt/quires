@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
+	import type { CodeBlock } from '@djot/djot';
 
 	import { load } from 'js-yaml';
-	export let quire: Quire<CodeBlock>;
+	let { quire }: { quire: Quire<CodeBlock> } = $props();
 
 	const { api = {}, label = null, clone = [] } = (load(quire.content.text) as ButtonArgs) || {};
 
@@ -30,7 +30,7 @@
 	}
 </script>
 
-<div tabindex="0" role="button" class="button" on:click={update} on:keyup={update}>
+<div tabindex="0" role="button" class="button" onclick={update} onkeyup={update}>
 	{label}
 </div>
 

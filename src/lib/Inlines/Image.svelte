@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Image } from '$lib/types/ast.d.ts';
+	import type { Image } from '@djot/djot';
 	import { getStringContent } from '$lib/djot';
-	export let quire: Quire<Image>;
+	let { quire }: { quire: Quire<Image> } = $props();
 	const { destination } = quire.content;
 	const title = quire.content.children.map((inline) => getStringContent(inline)).join('');
 </script>

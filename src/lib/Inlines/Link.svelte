@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Link } from '$lib/types/ast.d.ts';
+	import type { Link } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<Link>;
+	let { quire }: { quire: Quire<Link> } = $props();
 
 	const { attributes, destination, reference, children } = quire.content;
 	if (reference) {

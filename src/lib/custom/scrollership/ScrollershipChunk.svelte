@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Block from '$lib/Block.svelte';
-	import type QuireObserver from '$lib/quireObserver.ts';
-	import type { Div } from '$lib/types/ast.d.ts';
+	import type QuireObserver from '$lib/quireObserver.svelte';
+	import type { Div } from '@djot/djot';
 
 	let { quire }: { quire: QuireInScroller<Div> } = $props();
 

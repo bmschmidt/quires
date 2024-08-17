@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { RawBlock } from '$lib/types/ast';
-	export let quire: Quire<RawBlock>;
+	import type { RawBlock } from '@djot/djot';
+	let { quire }: { quire: Quire<RawBlock> } = $props();
 	const { format, text, attributes, pos } = quire.content;
 </script>
 

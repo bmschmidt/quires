@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DefinitionList } from '$lib/types/ast.d.ts';
+	import type { DefinitionList } from '@djot/djot';
 	import Block from '$lib/Block.svelte';
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<DefinitionList> } = $props();

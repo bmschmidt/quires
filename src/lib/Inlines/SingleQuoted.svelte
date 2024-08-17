@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { SingleQuoted } from '$lib/types/ast';
+	import type { SingleQuoted } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<SingleQuoted>;
+	let { quire }: { quire: Quire<SingleQuoted> } = $props();
 </script>
 
 ‘

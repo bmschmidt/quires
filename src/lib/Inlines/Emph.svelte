@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Emph } from '$lib/types/ast';
+	import type { Emph } from '@djot/djot';
 
-	export let quire: Quire<Emph>;
+	let { quire }: { quire: Quire<Emph> } = $props();
 	import Inline from '$lib/Inline.svelte';
 </script>
 

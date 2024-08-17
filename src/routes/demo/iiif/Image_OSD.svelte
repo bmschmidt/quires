@@ -1,22 +1,28 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import { setup_osd } from './iiif.js';
 	import Inline from '$lib/Inline.svelte';
-	import type { Image as ImageType } from '$lib/types/ast.d.ts';
+	import type { Image as TImage } from '@djot/djot';
 	import Image from '$lib/Inlines/Image.svelte';
 	import { getStringContent } from '$lib/djot.js';
 	import { browser } from '$app/environment';
-	export let quire: Quire<ImageType>;
+	import type { QuireArgs } from '$lib/types/quire.js';
+
+	let { quire }: QuireArgs<TImage> = $props();
 
 	const div_id = 'd' + Math.random().toString(36).slice(2);
 
-	let use_simple_image = false;
+	let use_simple_image = $state(false);
 	const use_iiif = quire.content.destination?.endsWith('info.json');
 	const url = quire.content.destination;
 	if (url === undefined) {
 		throw new Error('Image must have a destination');
 	}
-	onMount(() => {
+
+	// This makes a little thumbnail image.
+	const imgurl = url.replace('info.json', 'full/256,/0/default.jpg');
+
+	$effect(() => {
 		if (!use_iiif || !browser) {
 			return;
 		}
@@ -42,9 +48,6 @@
 			});
 		});
 	});
-
-	// This makes a little thumbnail image.
-	const imgurl = url.replace('info.json', 'full/256,/0/default.jpg');
 </script>
 
 {#if use_iiif}

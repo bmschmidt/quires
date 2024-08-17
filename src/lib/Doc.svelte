@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Doc } from './types/ast';
+	import type { Doc } from '@djot/djot';
 	import Block from './Block.svelte';
 	import { materializeFootnotes } from './djot';
 	import AsideNote from './custom/AsideNote.svelte';
 	import SidenoteRef from './custom/SidenoteRef.svelte';
-	import type { QuireComponent, QuireOverride } from './types/quire';
+	import type { BlockOverride, QuireOverride } from './types/quire';
 	import type { Div } from '@djot/djot';
 	let {
 		quire,
@@ -22,13 +22,13 @@
 						selector: 'div.footnote-aside',
 						tag: 'div',
 						component: AsideNote
-					} as QuireOverride<Div>,
+					} as BlockOverride<Div>,
 					{
 						selector: 'footnote_reference',
 						tag: 'footnote_reference',
 						component: SidenoteRef
 					}
-				] as QuireOverride<unknown>[])
+				] as QuireOverride[])
 	);
 
 	let content = $derived(materializeFootnotes(quire.content, notes));
@@ -46,7 +46,7 @@
 				content: child,
 				quireComponents: [...quire.quireComponents, ...overrides]
 			}}
-		/>
+		></Block>
 	{/each}
 </div>
 

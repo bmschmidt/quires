@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { NonBreakingSpace } from '../types/ast';
-	export let quire: Quire<NonBreakingSpace>;
+	import type { NonBreakingSpace } from '@djot/djot';
+	let { quire }: { quire: Quire<NonBreakingSpace> } = $props();
 	const { attributes } = quire.content;
 </script>
 

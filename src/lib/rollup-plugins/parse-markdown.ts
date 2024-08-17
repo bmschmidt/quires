@@ -1,21 +1,19 @@
-
 import { promises as fs } from 'fs';
 import { parse } from '@djot/djot';
 import yaml from 'js-yaml';
-import type { Block, Doc, Inline } from '$lib/types/ast.d.ts';
+import type { Block, Doc, Inline } from '@djot/djot';
 import type { QuireOverride } from '$lib/types/quire';
 
-
-export function createQuireDocument(document : Doc, metadata : Record<string, any>) : Quire<Doc> {
-  return {
-		quireComponents: [] as QuireOverride<Block | Inline>[],
+export function createQuireDocument(document: Doc, metadata: Record<string, any>): Quire<Doc> {
+	return {
+		quireComponents: [] as QuireOverride[],
 		metadata: metadata || {},
 		custom: {},
-    content: document,
+		content: document,
 		footnotes: {},
 		references: {},
-		classes: [],
-  }
+		classes: []
+	};
 }
 
 async function yaml_metadata_with_contents(path: string): Promise<[Record<string, any>, string]> {
@@ -40,16 +38,20 @@ async function yaml_metadata_with_contents(path: string): Promise<[Record<string
 		return [{}, raw];
 	}
 	const attributes = yaml.load(candidate) as Record<string, any>;
-	return [attributes, remainder] || [{}, remainder]
+	return [attributes, remainder] || [{}, remainder];
 }
 
-export async function loadQuire(path: string, pandoc: boolean | undefined, cache_loc = undefined) : Promise<Quire<Doc>> {
+export async function loadQuire(
+	path: string,
+	pandoc: boolean | undefined,
+	cache_loc = undefined
+): Promise<Quire<Doc>> {
 	// Create a cache if none exists.
 	if (cache_loc) {
-		throw new Error("Caching is not yet implemented.");
+		throw new Error('Caching is not yet implemented.');
 	}
-	
-	let cache_path : string | null = null;
+
+	let cache_path: string | null = null;
 	if (cache_loc) {
 		await fs.mkdir(cache_loc).catch((err) => {
 			if (err.code !== 'EEXIST') {
@@ -60,10 +62,10 @@ export async function loadQuire(path: string, pandoc: boolean | undefined, cache
 		let mtime = new Date(0);
 		await fs
 			.stat(cache_path)
-			.then((d : fs.Stats) => (mtime = d.mtime))
+			.then((d: fs.Stats) => (mtime = d.mtime))
 			.catch(() => ({}));
 
-		const doctime = await fs.stat(path).then((d : fs.Stats) => d.mtime);
+		const doctime = await fs.stat(path).then((d: fs.Stats) => d.mtime);
 		if (mtime > doctime) {
 			const f = await fs.readFile(cache_path, 'utf-8');
 			return JSON.parse(f);

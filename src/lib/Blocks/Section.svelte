@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Block from '$lib/Block.svelte';
-	import type { Section } from '../types/ast.d.ts';
-	export let quire: Quire<Section>;
+	import type { Section } from '@djot/djot';
+	let { quire }: { quire: Quire<Section> } = $props();
 	const { attributes, children } = quire.content;
 </script>
 

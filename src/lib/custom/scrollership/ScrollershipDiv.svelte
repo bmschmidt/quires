@@ -1,17 +1,14 @@
 <script lang="ts">
 	import type { QuireInScroller, ScrollerDivQuire } from './utils.js';
-	import { onMount } from 'svelte';
 	import Slider from './Slider.svelte';
 	import Button from './Button.svelte';
 	import Buttonset from './Buttonset.svelte';
 	import ScrollershipChunk from './ScrollershipChunk.svelte';
 	import ScrollershipCodeBlock from './ScrollershipCodeBlock.svelte';
-	import { nodeSort } from './utils.js';
-	import type { UpdateablePlot, PlotConstructor, PlotImportable } from './types.d.ts';
-	import QuireObserver from '$lib/quireObserver.js';
+	import { QuireObserver } from '$lib/quireObserver.svelte.js';
 	import Block from '$lib/Block.svelte';
-	import Div from '$lib/Blocks/Div.svelte';
-
+	import type { Div as TDiv } from '@djot/djot';
+	import type { QuireOverride } from '$lib/types/quire.js';
 	// These are the core components for a scrollership document.
 	// They get inserted into the tree here.
 	const components = [
@@ -24,144 +21,38 @@
 
 	let { quire }: { quire: ScrollerDivQuire } = $props();
 
-	// The intersection observer we'll create here if it's a browser.
-
-	// The list of nodes and their associated code to dispatch when they appear
-	// we'll create here if it's a browser.
-	let codeNodes: Map<Node, Record<string, any>> = $state(new Map());
-
-	// This element holds
-	let backdrop: HTMLDivElement;
-	let scrolling_div: HTMLDivElement;
-
-	// TODO: Make configurable
-	const observer_options = {
-		// from https://webdesign.tutsplus.com/tutorials/how-to-intersection-observer--cms-30250
-		root: null, // relative to document viewport
-		rootMargin: '-20% 20px -40% 40px', // Must intersect near-ish the top.
-		threshold: 0.01 // visible amount of item shown in relation to root
-	};
-
-	let lastPlotted: Node | undefined = $state(undefined);
+	// Elements that will be populated in the browser.
+	let backdrop: HTMLDivElement | undefined = $state(undefined);
+	let scrolling_div: HTMLDivElement | undefined = $state(undefined);
 	let observer: QuireObserver | undefined = $state(undefined);
-	let _plot: UpdateablePlot | undefined = $state(undefined);
-
-	let newQuire: QuireInScroller<Div> = $derived({
+	let newQuire: QuireInScroller<TDiv> | undefined = $state({
 		...quire,
-		quireComponents: [...quire.quireComponents, ...components],
-		custom: {
-			...quire.custom,
-			codeNodes,
-			observer,
-			_plot
-		}
+		quireComponents: [...quire.quireComponents, ...components] as QuireOverride[]
 	});
-
-	const plotFunction = $derived(
-		async (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-			const quire = newQuire;
-			let nodesAndCodes = [...codeNodes!].map(([node, code]) => ({
-				node,
-				code
-			}));
-			if (!quire.custom!['_plot']) {
-				console.warn('No plot API found.');
-				return;
-			}
-			let needs_plotting: Node[] = [];
-			if (nodesAndCodes.length === 0) {
-				return;
-			}
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					if (entry.target !== lastPlotted) {
-						needs_plotting.push(entry.target);
-					}
-				}
-			});
-
-			// Recalculate the index in case the list of nodes has changed.
-			let lastNodeIndex =
-				lastPlotted !== undefined ? nodesAndCodes.findIndex((n) => n.node === lastPlotted) : -1;
-			nodesAndCodes = nodeSort(nodesAndCodes);
-
-			if (needs_plotting.length === 0) {
-				return;
-			}
-			// If multiple nodes have become visible, it's the last one
-			// that determines what's plotted.
-
-			let currentPlotIndex = needs_plotting
-				// n is the div node, but nodes and codes is the `details` created
-				// from the code plot.
-				.map((n) => nodesAndCodes.findIndex((nc) => n.contains(nc.node)))
-				.sort()
-				.reverse()[0];
-
-			const direction = currentPlotIndex > lastNodeIndex ? 1 : -1;
-
-			for (let i = lastNodeIndex + direction; i !== currentPlotIndex + direction; i += direction) {
-				const { node } = nodesAndCodes[i];
-				let { code } = nodesAndCodes[i];
-				if (i !== currentPlotIndex) {
-					// reduce transition times or something???
-				}
-				console.log({ node, code });
-				await (quire.custom!['_plot']! as UpdateablePlot).plotAPI(code);
-				lastPlotted = node;
-			}
-			console.log('Done here');
-		}
-	);
 
 	const position = 'left';
 
 	let error: string | undefined = $state(undefined);
 	let scrollerType = $derived(quire.content.attributes!['scroller-type']);
-	$inspect(scrollerType);
-	// $inspect({
-	// 	with: function () {
-	// 		if (!quire.content.attributes) {
-	// 			error = 'No attributes on scrollership div.';
-	// 		} else if (!quire.content.attributes!['scroller-type']) {
-	// 			error = 'No scroller-type attribute on scrollership div.';
-	// 		} else {
-	// 			scrollerType = quire.content.attributes['scroller-type'];
-	// 			console.log(quire.custom.scrollerAPIs);
-	// 			if (!quire.custom.scrollerAPIs[scrollerType]) {
-	// 				error = `No scroller API for ${scrollerType}: ${JSON.stringify(quire.custom.scrollerAPIs)}`;
-	// 			} else {
-	// 			}
-	// 		}
-	// 	}
-	// });
-	let plot: UpdateablePlot;
 	$effect(() => {
-		console.log('EFFECT');
 		// This stuff only works in the browser right now.
+		return;
 		if (!error && typeof window !== 'undefined' && scrollerType) {
-			let api: PlotConstructor;
 			const API = quire.custom!.scrollerAPIs[scrollerType!];
-			console.log({ API, customs: quire.custom!.scrollerAPIs, scrollerType });
-			async function run() {
-				if (API.constructor.name === 'AsyncFunction') {
-					api = await (API as () => Promise<{ default: PlotConstructor }>)().then((d) => d.default);
-				} else {
-					api = API as unknown as PlotConstructor;
-				}
-				plot = new api();
-				plot.bind(backdrop);
-
-				// @ts-ignore
-				window.plot = plot;
-				_plot = plot;
+			if (backdrop === undefined) {
+				throw new Error('huh');
 			}
-			run().then((d) => {
-				console.log('ATTACHING');
-				// All reactivity is handled in the cells.
-				observer = new QuireObserver(plotFunction, observer_options);
-				// a list of all the nodes and their associated
-			});
+			// All reactivity is handled in the cells.
+			observer = new QuireObserver({ api: API, backdrop });
+			// a list of all the nodes and their associated
+			newQuire = {
+				...quire,
+				quireComponents: [...quire.quireComponents, ...components] as QuireOverride[],
+				custom: {
+					...quire.custom,
+					observer
+				}
+			};
 			// Overwrite for regeneration.
 		}
 	});
@@ -178,7 +69,7 @@
 		</div>
 		<div bind:this={scrolling_div} class="narrative {position}" class:slidden={hiddenNarrative}>
 			{#each quire.content.children as child}
-				<Block quire={{ ...newQuire, content: child }} />
+				<Block quire={{ ...newQuire, content: child }}></Block>
 			{/each}
 		</div>
 	</div>

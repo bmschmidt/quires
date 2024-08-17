@@ -1,9 +1,10 @@
 <script lang="ts">
-	import type { CodeBlock } from '$lib/types/ast.d.ts';
+	import type { CodeBlock } from '@djot/djot';
 	import type { SliderArgs } from './types.d.ts';
 	import type { QuireInScroller } from './utils.js';
 
 	import { load } from 'js-yaml';
+
 	export let quire: QuireInScroller<CodeBlock>;
 
 	const raw = quire.content.text;
@@ -32,7 +33,6 @@
 
 	function update() {
 		const plot = quire.custom!._plot;
-		console.log({ quire, plot });
 		if (plot) {
 			const call = {};
 			for (let [key, value] of Object.entries(api)) {

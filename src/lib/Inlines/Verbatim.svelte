@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Footnote, Reference, Verbatim } from '$lib/types/ast.d.ts';
-	export let quire: Quire<Verbatim>;
+	import type { Footnote, Reference, Verbatim } from '@djot/djot';
+	let { quire }: { quire: Quire<Verbatim> } = $props();
 	const { attributes, text } = quire.content;
 </script>
 

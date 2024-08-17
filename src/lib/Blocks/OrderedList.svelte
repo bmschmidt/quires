@@ -2,10 +2,10 @@
 	// TODO: List parentheses handling
 	// TODO: List tightness
 
-	import type { OrderedList } from '../types/ast';
+	import type { OrderedList } from '@djot/djot';
 	import Block from '$lib/Block.svelte';
 
-	export let quire: Quire<OrderedList>;
+	let { quire }: { quire: Quire<OrderedList> } = $props();
 	const list = quire.content;
 	const start = quire.content.start || 1;
 	const typeLookup = {

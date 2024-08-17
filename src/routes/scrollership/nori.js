@@ -8,7 +8,6 @@
  * around OpenSeadragon.
  */
 
-
 import { default as OpenSeadragon, Rect, Point } from 'openseadragon';
 import { select } from 'd3-selection';
 import 'd3-transition';
@@ -168,7 +167,6 @@ export default class Dragon {
 	}
 
 	async plotAPI(query) {
-		console.log({query})
 		this.create_annotation_layer();
 		if (!query.zoom) {
 			this._query.zoom = undefined;

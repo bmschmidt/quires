@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Subscript } from '../types/ast.d.ts';
+	import type { Subscript } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
-	export let quire: Quire<Subscript>;
+	let { quire }: { quire: Quire<Subscript> } = $props();
 	const { attributes, children } = quire.content;
 </script>
 
