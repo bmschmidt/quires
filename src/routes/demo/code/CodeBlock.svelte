@@ -1,5 +1,5 @@
 <script lang="ts">
-	/* component boilerplate */
+	/* pandoc-svelte-component boilerplate */
 	export let data;
 	export let settings;
 	settings;
@@ -33,7 +33,7 @@
 		}
 
 		var promise = navigator.clipboard.writeText(code);
-		promise.then((d) => {
+		promise.then(() => {
 			just_copied = true;
 			setTimeout(() => {
 				just_copied = false;
@@ -56,23 +56,23 @@
 
 <div style="display:flex;">
 	{#if language == 'r'}
-		<button on:click={copy}>
+		<button onclick={copy}>
 			<Copy32 />
 		</button>
 	{/if}
 	{#if language == 'python'}
 		<div style="display:flex;flex-direction: column;">
-			<button on:click={indent}> > </button>
-			<button on:click={unindent}>
+			<button onclick={indent}> > </button>
+			<button onclick={unindent}>
 				{'<'}
 			</button>
 		</div>
 	{/if}
 	{#if language == 'R'}
-		<button on:click={() => copy()}>Copy</button>
+		<button onclick={() => copy()}>Copy</button>
 	{/if}
 	{#if language === 'js'}
-		<button on:click={() => eval(elems)}>
+		<button onclick={() => eval(elems)}>
 			<Run32 />
 		</button>
 	{/if}

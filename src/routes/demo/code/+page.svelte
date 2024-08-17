@@ -1,10 +1,17 @@
-<script>
-	import doc from './code.md';
-	import Document from '$lib/Document.svelte';
-	import 'highlight.js/styles/atom-one-light.css';
+<script lang="ts">
+	import quire from './code.md';
+	import Document from '$lib/Doc.svelte';
 	// Overwrite the default CodeBlock with a custom element that wraps it.
-	const ast = doc.document;
-	import CodeBlock from './CodeBlock.svelte';
+	import RCodeBlock from './RCode.svelte';
+	import JSCodeBlock from './JsCode.svelte';
+	import PythonCodeBlock from './PyCode.svelte';
+	import type { QuireOverride } from '$lib/types/quire.d.ts';
+	const quireComponents = [
+		{ tag: 'code_block', selector: '.r', component: RCodeBlock },
+		{ tag: 'code_block', selector: '.js', component: JSCodeBlock },
+		{ tag: 'code_block', selector: '.python', component: PythonCodeBlock }
+	] as QuireOverride[];
+	quire.quireComponents = quireComponents;
 </script>
 
 This passes the custom codeblock element defined
@@ -17,7 +24,7 @@ on the markdown
 	>here</a
 >
 
-<Document {ast} settings={{ elements: { CodeBlock } }} />
+<Document {quire} />
 
 <style>
 	:global(pre) {

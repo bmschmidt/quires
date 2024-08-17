@@ -1,55 +1,78 @@
 <script lang="ts">
 	// Get the AST JSON.
-	import raw_doc from './observe.json?raw';
-	const ast = JSON.parse(raw_doc);
+	import quire from './history.md';
+	import Document from '$lib/Doc.svelte';
+	import Para from './ParaObserver.svelte';
+	import { QuireObserver } from '$lib/quireObserver.svelte';
+	import type { QuireOverride } from '$lib/types/quire';
+	quire.quireComponents = [{ tag: 'para', component: Para, selector: 'para' }] as QuireOverride[];
 
-	import { browser } from '$app/environment';
-	import Document from '$lib/Document.svelte';
-	import Para from '../_ObservedParagraph.svelte';
+	let observed_paragraphs = $state(0);
 
-	$: observed_paragraphs = 0;
-
-	let observe = (entries, observer) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				observed_paragraphs++;
-				entry.target.__svandoc.visible();
+	let letter_counts: Record<string, number> = $state({});
+	function updateLetterCounts(div: HTMLParagraphElement) {
+		const text = div.innerText.toLocaleLowerCase().replaceAll(/[^a-z]/g, '');
+		for (let letter of text) {
+			if (letter_counts[letter]) {
+				letter_counts[letter] += 1;
 			} else {
-				entry.target.__svandoc.hidden();
+				letter_counts[letter] = 1;
 			}
-		});
-	};
+		}
 
-	const settings = { elements: { Para }, observer: undefined };
+		letter_counts = { ...letter_counts };
+	}
 
-	if (browser) {
+	if (typeof window !== 'undefined') {
 		let options = {
 			root: document.querySelector('#scrollArea'),
 			rootMargin: '0px',
 			threshold: 1.0
 		};
-		settings.observer = new IntersectionObserver(observe, options);
+		// This will be handled by runs, eventually.
+		const observe: IntersectionObserverCallback = (entries, observer) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					updateLetterCounts(entry.target as HTMLParagraphElement);
+					observed_paragraphs += 1;
+				}
+			});
+		};
+		quire.custom!.observer = new QuireObserver({ callback: observe, observer_options: options });
 	}
+	let maxx: number = $derived(Object.values(letter_counts).reduce((a, b) => Math.max(a, b), 0));
 </script>
 
 <div style="position:fixed;font-family:sans-serif;">
 	<div style="font-size:64px;">{observed_paragraphs}</div>
 	<div>Paragraphs read so far.</div>
+	<div>
+		<h3>Running count <br /> of letters</h3>
+		<div>
+			<div style="display: grid; grid-template-columns: 1fr 2fr;">
+				{#each Object.entries(letter_counts).sort() as [letter, count]}
+					<div class="f">
+						{letter}: {count}
+					</div>
+					<div
+						style="background-color: hsl({(count / maxx) * 120}, 100%, 50%); width: {(count /
+							maxx) *
+							100}%; height: 1em;"
+					>
+						&nbsp;
+					</div>
+				{/each}
+			</div>
+		</div>
+	</div>
 </div>
-<div style="margin-left:15%;margin-right:15%;">
-	This uses the custom Para component
-	<a
-		href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/_ObservedParagraph.svelte"
-		>here</a
-	>
-	on the Markdown defined
-	<a href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/demo_data/history.md"
-		>here</a
-	>
-	The IntersectionObserver is created externally to the svelte components,
-	<a
-		href="https://github.com/bmschmidt/pandoc-svelte-components/blob/main/src/routes/demo/observer.svelte"
-		>here.</a
-	>
-	<Document {settings} {ast} />
+<div class="indented">
+	<Document {quire} />
 </div>
+
+<style>
+	.indented {
+		margin-left: 200px;
+		width: 20em;
+	}
+</style>

@@ -1,19 +1,61 @@
-<script>
-	import doc from './gibbon.md';
-	import Document from '$lib/Document.svelte';
-	import Sidenote from '$lib/Sidenote.svelte';
-	const settings = {
-		elements: {
-			Note: Sidenote
-		}
-	};
+<script lang="ts">
+	import quire from './gibbon.md';
+	import Document from '$lib/Doc.svelte';
+	import DetailsDiv from './DetailsDiv.svelte';
+	import AsideNote from '$lib/custom/AsideNote.svelte';
+	import SidenoteRef from '$lib/custom/SidenoteRef.svelte';
+
+	let notes: 'sidenotes' | 'footnotes' = $state('footnotes');
+
+	let overrides = $derived(
+		notes === 'footnotes'
+			? []
+			: ([
+					{
+						selector: 'div.footnote-aside',
+						tag: 'div',
+						component: AsideNote
+					},
+					{
+						selector: 'footnote_reference',
+						tag: 'footnote_reference',
+						component: SidenoteRef
+					}
+				] as const)
+	);
+
+	let q = $derived({
+		...quire,
+		// Wrap div components with a selective details element.
+		quireComponents: [
+			{
+				selector: 'div.details',
+				tag: 'div',
+				component: DetailsDiv
+			},
+			...overrides
+		]
+	});
 </script>
 
+<div class="header">
+	<button onclick={() => (notes = 'sidenotes')} disabled={notes === 'sidenotes'}>Sidenotes</button>
+	<button onclick={() => (notes = 'footnotes')} disabled={notes === 'footnotes'}>Footnotes</button>
+</div>
+
 <div class="document">
-	<Document ast={doc.document} {settings} />
+	<Document quire={q} {notes} />
 </div>
 
 <style>
+	div.header {
+		left: 10px;
+		top: 10px;
+		display: flex;
+		justify-content: center;
+		position: fixed;
+	}
+
 	div.document {
 		max-width: 40em;
 		margin-left: auto;
