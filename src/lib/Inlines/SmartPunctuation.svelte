@@ -12,5 +12,3 @@
 		en_dash: '–'
 	};
 </script>
-
-{fancyQuotes[quire.content.type]}

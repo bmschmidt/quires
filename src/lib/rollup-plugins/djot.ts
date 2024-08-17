@@ -2,9 +2,8 @@ import { loadQuire } from './parse-markdown';
 
 const fileRegex = /\.(md|dj|djot)$/;
 
-
 type DjotOptions = {
-	pandoc: boolean | undefined;
+	pandoc?: boolean;
 }
 
 /**
