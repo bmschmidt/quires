@@ -24,7 +24,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.131"
+		"svelte": "^5.0.0-next.224"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.3",
@@ -60,7 +60,6 @@
 	"dependencies": {
 		"@djot/djot": "^0.3.1",
 		"css-what": "^6.1.0",
-		"d3-transition": "^3.0.1",
 		"js-yaml": "^4.1.0"
 	}
 }

@@ -1,5 +1,7 @@
 # 1.0.0
 
+Rename package to 'quires.'
+
 Removed scrollership, which belongs in a second repo.
 
 # 0.4.0
