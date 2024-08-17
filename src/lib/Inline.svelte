@@ -20,6 +20,7 @@
 	import Url from './Inlines/Url.svelte';
 	import Email from './Inlines/Email.svelte';
 	import Mark from './Inlines/Mark.svelte';
+	import RawInline from './Inlines/RawInline.svelte';
 	import Superscript from './Inlines/Superscript.svelte';
 	import Subscript from './Inlines/Subscript.svelte';
 	import Insert from './Inlines/Insert.svelte';
@@ -55,24 +56,24 @@
 		subscript: Subscript,
 		insert: Insert,
 		delete: Delete,
-		raw_inline: Str, // TODO FIXME
+		raw_inline: RawInline,
 		image: Image
 	} as const;
 
-	let component = $derived(components[tag] as Component<{ quire: Quire<InlineType> }>);
+	let Component = $derived(components[tag] as Component<{ quire: Quire<InlineType> }>);
 
-	let firstOverride = $derived(
+	let FirstOverride = $derived(
 		quireComponents?.find(
 			({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
-		) as InlineOverride<InlineType> | undefined
+		)?.component
 	);
 </script>
 
-{#if firstOverride !== undefined}
-	<svelte:component this={firstOverride.component} {quire}>
+{#if FirstOverride !== undefined}
+	<FirstOverride {quire}>
 		<!--The original component may optionally be created through the <slot> element in any child.-->
-		<svelte:component this={component} {quire} />
-	</svelte:component>
+		<Component {quire} />
+	</FirstOverride>
 {:else}
-	<svelte:component this={component} {quire} />
+	<Component {quire} />
 {/if}

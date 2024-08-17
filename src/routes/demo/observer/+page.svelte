@@ -40,6 +40,7 @@
 		};
 		quire.custom!.observer = new QuireObserver({ callback: observe, observer_options: options });
 	}
+	let maxx: number = $derived(Object.values(letter_counts).reduce((a, b) => Math.max(a, b), 0));
 </script>
 
 <div style="position:fixed;font-family:sans-serif;">
@@ -48,11 +49,20 @@
 	<div>
 		<h3>Running count <br /> of letters</h3>
 		<div>
-			{#each Object.entries(letter_counts).sort() as [letter, count]}
-				<div>
-					{letter}: {count}
-				</div>
-			{/each}
+			<div style="display: grid; grid-template-columns: 1fr 2fr;">
+				{#each Object.entries(letter_counts).sort() as [letter, count]}
+					<div class="f">
+						{letter}: {count}
+					</div>
+					<div
+						style="background-color: hsl({(count / maxx) * 120}, 100%, 50%); width: {(count /
+							maxx) *
+							100}%; height: 1em;"
+					>
+						&nbsp;
+					</div>
+				{/each}
+			</div>
 		</div>
 	</div>
 </div>

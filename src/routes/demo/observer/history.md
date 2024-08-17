@@ -1,5 +1,5 @@
 ---
-title: passing state
+title: Intersection Observer
 author: Ben Schmidt
 ...
 
@@ -10,19 +10,9 @@ on the Markdown defined
 The IntersectionObserver is created externally to the svelte components,
 [here.](https://github.com/bmschmidt/quires/blob/main/src/routes/demo/observer/+page.md)
 
-The Intersection Observer API reacts to each object. This creates some challenges to scoping, because you often want to deal with events
-both inside a context and outside.    
+The Intersection Observer API reacts to each object passed in. This creates some challenges to scoping with svelte component, because you often want to deal with events both inside a context and outside.    
 
-
-```json
-settings: {
-  elements: {
-    CodeBlock: MyCodeBlock
-  }
-}
-```
-
-But you can pass anything else that you want through.
+But you can pass anything else that you want through. Here I define a bare-bones class called QuireObserver that wraps intersection just a little bit.
 
 It can be mutated, altered, and changed by any component. As a rule it's probably
 wide to not create changes in state that are passed to siblings, but there's

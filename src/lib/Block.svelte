@@ -1,6 +1,6 @@
 <script lang="ts" generics="BlockType extends Block">
 	import DefinitionList from './Blocks/DefinitionList.svelte';
-	import type { BlockOverride, QuireArgs } from './types/quire';
+	import type { BlockOverride, QuireArgs, QuireOverrideComponent } from './types/quire';
 	import type { Block } from '@djot/djot';
 	import Para from './Blocks/Para.svelte';
 	import Heading from './Blocks/Heading.svelte';
@@ -15,6 +15,8 @@
 	import BulletList from './Blocks/BulletList.svelte';
 	import { matches } from './quire';
 	import type { Component } from 'svelte';
+	import TaskList from './Blocks/TaskList.svelte';
+	import ListItem from './Blocks/ListItem.svelte';
 
 	let { quire }: QuireArgs<Block> = $props();
 	let { tag } = $derived(quire.content);
@@ -31,24 +33,26 @@
 		block_quote: BlockQuote,
 		ordered_list: OrderedList,
 		bullet_list: BulletList,
-		task_list: BulletList, // TODO FIXME
-		definition_list: DefinitionList
+		task_list: TaskList,
+		definition_list: DefinitionList,
+		list_item: ListItem
 	} as const;
 
-	let component = $derived(components[tag] as Component<{ quire: Quire<BlockType> }>);
+	let Component = $derived(components[tag] as Component<{ quire: Quire<BlockType> }>);
 
-	let firstOverride = $derived(
+	// TODO: It should be possible to override multiple times recursively.
+	let FirstOverride = $derived(
 		quireComponents?.find(
 			({ tag, selector }) => tag === quire.content.tag && matches(selector, quire.content)
-		) as BlockOverride<BlockType> | undefined
+		)?.component as QuireOverrideComponent<BlockType> | undefined
 	);
 </script>
 
-{#if firstOverride !== undefined}
-	<svelte:component this={firstOverride.component} {quire}>
+{#if FirstOverride !== undefined}
+	<FirstOverride {quire}>
 		<!--The original type can be created through the <slot> element in any child.-->
-		<svelte:component this={component} {quire} />
-	</svelte:component>
+		<Component {quire} />
+	</FirstOverride>
 {:else}
-	<svelte:component this={component} {quire} />
+	<Component {quire} />
 {/if}

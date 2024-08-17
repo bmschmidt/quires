@@ -25,15 +25,16 @@
 		'I)': 'I',
 		'(I)': 'I'
 	} as const;
+	// @ts-expect-error A list item *is* a block, but the compiler
+	// doesn't want me broadening the type here even though the
+	// inside the block they will indeed get treated as list items.
+	// This is necessary because the block type doesn't like the specificity here
+	const { attributes, children }: { attributes?: Attributes; children: TBlock[] } = quire.content;
 	const type = typeLookup[list.style];
 </script>
 
-<ol {start} {type}>
-	{#each list.children as li}
-		<li>
-			{#each li.children as block}
-				<Block quire={{ ...quire, content: block }} />
-			{/each}
-		</li>
+<ol {...attributes} {start} {type}>
+	{#each children as li}
+		<Block quire={{ ...quire, content: li }} />
 	{/each}
 </ol>

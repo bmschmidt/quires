@@ -6,6 +6,7 @@
 	import SidenoteRef from './custom/SidenoteRef.svelte';
 	import type { BlockOverride, QuireOverride } from './types/quire';
 	import type { Div } from '@djot/djot';
+	import Footnote from './custom/Footnote.svelte';
 	let {
 		quire,
 		notes = 'footnotes'
@@ -16,7 +17,13 @@
 
 	let overrides = $derived(
 		notes === 'footnotes'
-			? []
+			? [
+					{
+						selector: 'list_item.footnote',
+						tag: 'list_item',
+						component: Footnote
+					}
+				]
 			: ([
 					{
 						selector: 'div.footnote-aside',

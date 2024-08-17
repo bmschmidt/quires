@@ -1,9 +1,10 @@
 # Quires
 
-## Classy documents with Svelte and Djot
+## Classy web documents with Svelte and Djot
 
-Quires is a system for creating reactive and interactive documents, built on top of [svelte](https://svelte.dev)
-and [djot](https://djot.net/). These documents are "classy" because they're
+Quires is a system for creating reactive and interactive documents from Markdown, built on top of [svelte](https://svelte.dev)
+and [djot](https://djot.net/). These documents are "classy" because they allow defining
+overriding elements based on class and other attributes; any custom behavior can 
 
 ## Overview
 
@@ -65,15 +66,12 @@ Most css selectors are not (yet?) supported, but class based ones are.
 - `code_block.python`: Replaces 'code_block' elements with the language as `python` with the custom component.
   Note:
   - the language of a code block is treated as a _class_ for the purpose of selectors.
-- `para#intro`: Replaces paragraphs
+- `para#intro`: Replaces paragraphs with the id "#intro"
 
 These behaviors can be combined.
 
 - `para.executable code_block.js`: Encloses all `js` codeblocks that are descendants of a para element classed executable.
 
-### Quarto compatibility
-
-For compatibility with Quarto.
 
 ## Wrapping default behavior
 

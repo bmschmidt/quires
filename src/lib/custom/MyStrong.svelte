@@ -16,5 +16,5 @@
 {#if dtype === 'strong'}
 	<BasicStrong quire={{ ...quire, content: quire.content.children[0] as Strong }} />
 {:else}
-	<BasicEmph quire={{ ...quire, content: { ...quire.content, tag: 'emph' } }} />
+	<BasicEmph quire={{ ...quire, content: { ...quire.content, tag: 'emph' } as Emph }} />
 {/if}

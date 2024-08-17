@@ -22,7 +22,9 @@
 </script>
 
 <div bind:this={node} class:observed={isVisible}>
-	{@render children()}
+	{#if children}
+		{@render children()}
+	{/if}
 </div>
 
 <style>

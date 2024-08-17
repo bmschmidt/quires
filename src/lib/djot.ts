@@ -35,7 +35,7 @@ export function materializeFootnotes(doc: Doc, strategy: 'footnotes' | 'sidenote
 		for (const [key, note] of Object.entries(doc.footnotes)) {
 			notes.children.push({
 				tag: 'list_item',
-				attributes: { ref: key },
+				attributes: { ref: key, id: `fn-${key}`, class: 'footnote' },
 				children: note.children
 			});
 		}

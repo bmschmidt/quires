@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Div } from '@djot/djot';
-	import type { Attributes } from '@djot/djot';
 	import type { Snippet } from 'svelte';
 	const { quire, children }: { quire: Quire<Div>; children: Snippet } = $props();
 	const { attributes } = { attributes: {}, ...quire.content };

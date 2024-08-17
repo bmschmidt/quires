@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount, type Snippet } from 'svelte';
 	import { setup_osd } from './iiif.js';
 	import Inline from '$lib/Inline.svelte';
 	import type { Image as TImage } from '@djot/djot';
@@ -7,6 +6,7 @@
 	import { getStringContent } from '$lib/djot.js';
 	import { browser } from '$app/environment';
 	import type { QuireArgs } from '$lib/types/quire.js';
+	import type OpenSeadragon from 'openseadragon';
 
 	let { quire }: QuireArgs<TImage> = $props();
 
@@ -21,11 +21,13 @@
 
 	// This makes a little thumbnail image.
 	const imgurl = url.replace('info.json', 'full/256,/0/default.jpg');
+	let OSD: undefined | typeof OpenSeadragon = $state(undefined);
 
 	$effect(() => {
 		if (!use_iiif || !browser) {
 			return;
 		}
+
 		// This returns a promise to a function that generates an OSD viewer with annotorious.
 		if (!quire.content.destination?.endsWith('info.json')) {
 			use_simple_image = true;
@@ -35,15 +37,15 @@
 			use_simple_image = true;
 			return;
 		}
-		const viewer = setup_osd({
+		const setup = setup_osd({
 			id: div_id,
 			sequenceMode: false,
 			collectionMode: false,
 			prefixUrl: `/quires/assets/openseadragon/images/`
 		});
 		const source = fetch(url).then((d) => d.json());
-		Promise.all([viewer, source]).then(([osd, manifest]) => {
-			osd.open({
+		Promise.all([setup, source]).then(([{ OSDModule, viewer }, manifest]) => {
+			viewer.open({
 				tileSource: url
 			});
 		});

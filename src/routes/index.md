@@ -13,7 +13,5 @@ date: 2023-02-02
 
 4. [Demo of using markdown image tags for IIIF manifests. (`![alt-text](https://demo.edu/demo_iiif_id/info.json)`)](/quires/demo/iiif)
 
-5. [Scrollership through a IIIF image](/quires/scrollership/apple)
-
 7. [Chapter from Gibbon's _Decline and Fall_ toggling between footnotes and sidenotes.](/quires/demo/sidenotes)
 

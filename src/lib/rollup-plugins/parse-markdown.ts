@@ -62,10 +62,10 @@ export async function loadQuire(
 		let mtime = new Date(0);
 		await fs
 			.stat(cache_path)
-			.then((d: fs.Stats) => (mtime = d.mtime))
+			.then((d) => (mtime = d.mtime))
 			.catch(() => ({}));
 
-		const doctime = await fs.stat(path).then((d: fs.Stats) => d.mtime);
+		const doctime = await fs.stat(path).then((d) => d.mtime);
 		if (mtime > doctime) {
 			const f = await fs.readFile(cache_path, 'utf-8');
 			return JSON.parse(f);

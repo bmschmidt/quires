@@ -1,13 +1,13 @@
 import type { Component, Snippet } from 'svelte';
 import type { AstNode, Block, Doc, Footnote, Inline, Reference } from '@djot/djot';
 
-export type InlineOverride<T extends Inline = Inline> = {
+export type InlineOverride<T extends Inline> = {
 	tag: T['tag'];
 	selector: string;
 	component: QuireOverrideComponent<T>;
 };
 
-export type BlockOverride<T extends Block = Block> = {
+export type BlockOverride<T extends Block> = {
 	tag: T['tag'];
 	selector: string;
 	component: QuireOverrideComponent<T>;
@@ -40,3 +40,6 @@ export type QuireComponent<T extends AstNode> = Component<QuireArgs<T>>;
 // The override components must also accept a children in slots
 // event if they don't use it.
 export type QuireOverrideComponent<T extends Block | Inline> = Component<{ quire: Quire<T> }>;
+
+export type InlineOverrideComponent<T extends Inline> = Component<{ quire: Quire<T> }>;
+export type BlockOverrideComponent<T extends Block> = Component<{ quire: Quire<T> }>;
