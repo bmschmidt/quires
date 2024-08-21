@@ -6,4 +6,4 @@
 
 <h1>{quire.metadata!.title}</h1>
 
-<Doc {quire} />
+<Doc {quire} notes="sidenotes" />
