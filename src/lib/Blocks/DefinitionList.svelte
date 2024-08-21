@@ -3,7 +3,7 @@
 	import Block from '$lib/Block.svelte';
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<DefinitionList> } = $props();
-	const { attributes, children } = quire.content;
+	let { attributes, children } = $derived(quire.content);
 </script>
 
 <dl {...attributes}>

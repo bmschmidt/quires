@@ -2,9 +2,9 @@
 	import Block from '$lib/Block.svelte';
 	import type { TaskListItem } from '@djot/djot';
 	let { quire }: { quire: Quire<TaskListItem> } = $props();
-	const { attributes, children } = quire.content;
+	let { attributes, children } = $derived(quire.content);
 	let checkbox = $derived(quire.content.checkbox);
-	const classes = attributes?.class;
+	const classes = $derived(attributes?.class);
 </script>
 
 <li {...attributes} class={classes + ` ${checkbox} custom-checkbox`}>

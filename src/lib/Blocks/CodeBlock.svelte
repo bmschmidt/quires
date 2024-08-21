@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CodeBlock } from '@djot/djot';
 	let { quire }: { quire: Quire<CodeBlock> } = $props();
-	const { attributes, text, pos } = quire.content;
+	let { attributes, text } = $derived(quire.content);
 </script>
 
 <pre {...attributes}><code>{text}</code></pre>

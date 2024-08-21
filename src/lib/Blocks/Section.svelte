@@ -2,7 +2,7 @@
 	import Block from '$lib/Block.svelte';
 	import type { Section } from '@djot/djot';
 	let { quire }: { quire: Quire<Section> } = $props();
-	const { attributes, children } = quire.content;
+	let { attributes, children } = $derived(quire.content);
 </script>
 
 <section {...attributes}>

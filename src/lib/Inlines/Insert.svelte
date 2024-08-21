@@ -2,7 +2,7 @@
 	import type { Insert } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<Insert> } = $props();
-	const { attributes, children } = quire.content;
+	let { attributes, children } = $derived(quire.content);
 </script>
 
 <ins {...attributes}>

@@ -2,8 +2,8 @@
 	import type { Table } from '@djot/djot';
 	let { quire }: { quire: Quire<Table> } = $props();
 	import Inline from '$lib/Inline.svelte';
-	const { attributes, children, pos } = quire.content;
-	const [caption, ...rows] = children;
+	let { attributes, children } = $derived(quire.content);
+	let [caption, ...rows] = $derived(children);
 
 	//TODO: table alignment.
 </script>

@@ -2,7 +2,7 @@
 	import type { Delete } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<Delete> } = $props();
-	const { attributes, children } = quire.content;
+	let { attributes, children } = $derived(quire.content);
 </script>
 
 <del {...attributes}>
