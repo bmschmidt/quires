@@ -1,13 +1,20 @@
 <script lang="ts">
+	import { getStringContent } from '$lib/djot';
 	import Inline from '$lib/Inline.svelte';
 	import type { Heading } from '@djot/djot';
 	let { quire }: { quire: Quire<Heading> } = $props();
-	const { level, children } = quire.content;
-	const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+	let { level, children } = $derived(quire.content);
+	let Tag = $derived(`h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6');
+	let id = $derived(
+		quire.content?.attributes?.id ??
+			getStringContent(quire.content).toLocaleLowerCase().replace(/\s+/g, '-')
+	);
 </script>
 
-<svelte:element this={Tag}>
-	{#each children as child}
-		<Inline quire={{ ...quire, content: child }} />
-	{/each}
-</svelte:element>
+<section {id}>
+	<svelte:element this={Tag}>
+		{#each children as child}
+			<Inline quire={{ ...quire, content: child }} />
+		{/each}
+	</svelte:element>
+</section>
