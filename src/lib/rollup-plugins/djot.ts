@@ -1,4 +1,4 @@
-import { loadQuire } from './parse-markdown';
+import { loadQuire } from './parse-markdown.js';
 
 const fileRegex = /\.(md|dj|djot)$/;
 

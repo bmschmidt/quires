@@ -1,8 +1,8 @@
 import { promises as fs } from 'fs';
 import { parse } from '@djot/djot';
 import yaml from 'js-yaml';
-import type { Block, Doc, Inline } from '@djot/djot';
-import type { QuireOverride } from '$lib/types/quire';
+import type { Doc } from '@djot/djot';
+import type { QuireOverride } from '../types/quire';
 
 export function createQuireDocument(document: Doc, metadata: Record<string, any>): Quire<Doc> {
 	return {

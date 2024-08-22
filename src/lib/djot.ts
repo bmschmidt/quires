@@ -1,15 +1,15 @@
 import {
+	applyFilter,
 	isBlock,
 	type AstNode,
 	type Block,
 	type Div,
 	type OrderedList,
 	type Section,
-	type Str
+	type Str,
+	type HasChildren, type Footnote, type Doc, type Para
 } from '@djot/djot';
-import { type HasChildren, type Footnote, type Doc } from '@djot/djot';
-import { applyFilter } from '@djot/djot';
-import type { Para } from '@djot/djot';
+
 /**Code in this section by Ben Schmidt */
 
 /**
