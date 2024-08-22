@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FootnoteReference } from '@djot/djot';
-	const { quire }: { quire: Quire<FootnoteReference> } = $props();
-	const { attributes } = quire.content;
+	let { quire }: { quire: Quire<FootnoteReference> } = $props();
+	let { attributes } = $derived(quire.content);
 </script>
 
 <a id="fnref-{quire.content.text}" href="#fn-{quire.content.text}"

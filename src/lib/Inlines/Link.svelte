@@ -3,10 +3,13 @@
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<Link> } = $props();
 
-	const { attributes, destination, reference, children } = quire.content;
-	if (reference) {
-		console.warn('Dropping link reference', reference);
-	}
+	let { attributes, destination, reference, children } = $derived(quire.content);
+	// TODO: Support link references
+	$effect(() => {
+		if (reference) {
+			console.warn('Dropping link reference', reference);
+		}
+	});
 </script>
 
 <a {...attributes} href={destination}>

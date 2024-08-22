@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SmartPunctuation } from '@djot/djot';
 	let { quire }: { quire: Quire<SmartPunctuation> } = $props();
-	const { attributes, type } = quire.content;
+	// TODO atrributes?
 	const fancyQuotes = {
 		left_single_quote: '‘',
 		right_single_quote: '’',
@@ -12,3 +12,5 @@
 		en_dash: '–'
 	};
 </script>
+
+{fancyQuotes[quire.content.type]}

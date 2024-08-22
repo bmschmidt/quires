@@ -2,7 +2,7 @@
 	import type { Subscript } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<Subscript> } = $props();
-	const { attributes, children } = quire.content;
+	let { attributes, children } = $derived(quire.content);
 </script>
 
 <sub {...attributes}>

@@ -7,7 +7,9 @@
 	// doesn't want me broadening the type here even though the
 	// inside the block they will indeed get treated as list items.
 	// This is necessary because the block type doesn't like the specificity here
-	const { attributes, children }: { attributes?: Attributes; children: TBlock[] } = quire.content;
+	let { attributes, children }: { attributes?: Attributes; children: TBlock[] } = $derived(
+		quire.content
+	);
 </script>
 
 <ul {...attributes}>

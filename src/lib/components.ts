@@ -1,3 +1,4 @@
+
 export { default as Block } from './Block.svelte';
 // ls src/lib/Blocks | sed 's/.svelte//' | perl -ne 'chomp; print "export { default as $_ } from \x27./Blocks/$_.svelte\x27;\n"'
 export { default as BlockQuote } from './Blocks/BlockQuote.svelte';
@@ -52,4 +53,4 @@ export { default as MarkdownStrong } from './custom/MarkdownStrong.svelte';
 export { default as MyStrong } from './custom/MyStrong.svelte';
 export { default as SidenoteRef } from './custom/SidenoteRef.svelte';
 
-export  * as utils from './djot';
+export { default as Document } from './Doc.svelte';

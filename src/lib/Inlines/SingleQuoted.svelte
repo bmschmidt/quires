@@ -2,6 +2,7 @@
 	import type { SingleQuoted } from '@djot/djot';
 	import Inline from '$lib/Inline.svelte';
 	let { quire }: { quire: Quire<SingleQuoted> } = $props();
+	// TODO atrributes?
 </script>
 
 ‘

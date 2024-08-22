@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { RawBlock } from '@djot/djot';
 	let { quire }: { quire: Quire<RawBlock> } = $props();
-	const { format, text, attributes, pos } = quire.content;
+	let { format, text, attributes, pos } = $derived(quire.content);
 </script>
 
 {#if format === 'html'}
-	<div>
+	<div {...attributes}>
 		{@html text}
 	</div>
 {:else}
-	<!--{text}-->
+	<pre {...attributes} class:{format}={true}>
+		{text}
+	</pre>
 {/if}

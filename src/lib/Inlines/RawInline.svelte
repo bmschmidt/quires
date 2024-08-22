@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { RawInline } from '@djot/djot';
 	let { quire }: { quire: Quire<RawInline> } = $props();
-	const { attributes, text } = quire.content;
-	const classes = attributes?.class;
+	let { attributes, text } = $derived(quire.content);
 </script>
 
-<code {...attributes} class={classes}>{text}</code>
+<code {...attributes}>{text}</code>

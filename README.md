@@ -106,7 +106,7 @@ as a wrapper around multiple different components, if desired.
 ```html
 <script lang="ts">
 	import index from './index.md';
-	import Doc from '$lib/Doc.svelte';
+	import { Document } from 'quires/';
 	import { document } from '$lib/quire';
 	import Warning from 'RedWrapper.svelte';
 	// The quire contains both the document and the settings.
