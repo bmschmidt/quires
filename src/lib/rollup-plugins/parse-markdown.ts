@@ -41,6 +41,13 @@ async function yaml_metadata_with_contents(path: string): Promise<[Record<string
 	return [attributes, remainder] || [{}, remainder];
 }
 
+/**
+ * Loads a Markdown file (optionally including a yaml header block) as a Quire Docuent element
+ * @param path The path to the file.
+ * @param pandoc Whether to fall back to pandoc for parsing. Not currently implemented.
+ * @param cache_loc A location to cache the parsed document.
+ * @returns 
+ */
 export async function loadQuire(
 	path: string,
 	pandoc: boolean | undefined,
@@ -50,7 +57,9 @@ export async function loadQuire(
 	if (cache_loc) {
 		throw new Error('Caching is not yet implemented.');
 	}
-
+	if (pandoc) {
+		throw new Error('Pandoc is not yet implemented.');
+	}
 	let cache_path: string | null = null;
 	if (cache_loc) {
 		await fs.mkdir(cache_loc).catch((err) => {

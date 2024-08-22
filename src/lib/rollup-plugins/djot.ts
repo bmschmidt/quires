@@ -11,7 +11,7 @@ type DjotOptions = {
  * @param {Object} options - The options for the plugin.
  * @returns {import('vite').PluginOption} - The Rollup plugin object.
  */
-export default function djot_plugin(options: DjotOptions) {
+export default function quire_plugin(options: DjotOptions) {
 	return {
 		name: 'quire-plugin',
 		async transform(src : string, id: string) {

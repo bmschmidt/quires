@@ -2,10 +2,11 @@
 	import type { Str } from '@djot/djot';
 
 	let { quire }: { quire: Quire<Str> } = $props();
-	const { attributes, pos, text } = quire.content;
-	if (attributes) {
-		console.warn('Dropping text attributes', attributes);
-	}
+	let { attributes, text } = $derived(quire.content);
 </script>
 
-{text}
+{#if attributes}
+	<span {...attributes}>{text}</span>
+{:else}
+	{text}
+{/if}

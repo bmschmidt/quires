@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Footnote, Reference, Verbatim } from '@djot/djot';
+	import type { Verbatim } from '@djot/djot';
 	let { quire }: { quire: Quire<Verbatim> } = $props();
-	const { attributes, text } = quire.content;
+	let { attributes, text } = $derived(quire.content);
 </script>
 
 <code {...attributes}>
