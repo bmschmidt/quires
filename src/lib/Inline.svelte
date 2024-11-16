@@ -60,7 +60,7 @@
 		image: Image
 	} as const;
 
-	let Component = $derived(components[tag] as Component<{ quire: Quire<InlineType> }>);
+	let MyComponent = $derived(components[tag] as Component<{ quire: Quire<InlineType> }>);
 
 	let FirstOverride = $derived(
 		quireComponents?.find(
@@ -72,8 +72,8 @@
 {#if FirstOverride !== undefined}
 	<FirstOverride {quire}>
 		<!--The original component may optionally be created through the <slot> element in any child.-->
-		<Component {quire} />
+		<MyComponent {quire} />
 	</FirstOverride>
 {:else}
-	<Component {quire} />
+	<MyComponent {quire} />
 {/if}

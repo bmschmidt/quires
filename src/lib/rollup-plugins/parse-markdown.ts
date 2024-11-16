@@ -37,8 +37,8 @@ async function yaml_metadata_with_contents(path: string): Promise<[Record<string
 	if (candidate === undefined || candidate.length >= raw.length - 5) {
 		return [{}, raw];
 	}
-	const attributes = yaml.load(candidate) as Record<string, any>;
-	return [attributes, remainder] || [{}, remainder];
+	const attributes = (yaml.load(candidate) || {}) as Record<string, any>;
+	return [attributes, remainder];
 }
 
 /**

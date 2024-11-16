@@ -4,7 +4,6 @@
 	let { quire }: { quire: Quire<ListItem> } = $props();
 	const { attributes, children } = quire.content;
 	const ref = attributes?.ref;
-	let classy = $derived('block-container' + attributes?.class ?? '');
 </script>
 
 <li {...attributes} class="block-container">
@@ -19,10 +18,6 @@
 <style>
 	.block-container {
 		position: relative;
-	}
-
-	.block-container > div:last-of-type {
-		display: inline-block;
 	}
 
 	.footnote-ref {

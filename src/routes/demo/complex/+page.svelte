@@ -2,6 +2,8 @@
 	import quire from './complex.md';
 	// We use Markdown style strong and italics.
 	import MarkdownStrong from '$lib/custom/MyStrong.svelte';
+	import type { InlineOverride, InlineOverrideComponent } from '$lib/types/quire';
+
 	quire.quireComponents = [
 		{
 			selector: 'strong',
@@ -10,7 +12,6 @@
 		} as InlineOverride<Strong>
 	];
 	import Document from '$lib/Doc.svelte';
-	import type { InlineOverride, InlineOverrideComponent, QuireOverride } from '$lib/types/quire';
 	import type { Strong } from '@djot/djot';
 </script>
 
