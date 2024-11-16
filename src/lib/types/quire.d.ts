@@ -39,7 +39,7 @@ export type QuireComponent<T extends AstNode> = Component<QuireArgs<T>>;
 
 // The override components must also accept a children in slots
 // event if they don't use it.
-export type QuireOverrideComponent<T extends Block | Inline> = Component<{ quire: Quire<T> }>;
+export type QuireOverrideComponent<T extends Block | Inline> = Component<{ quire: Quire<T>, children: any }>;
 
-export type InlineOverrideComponent<T extends Inline> = Component<{ quire: Quire<T> }>;
-export type BlockOverrideComponent<T extends Block> = Component<{ quire: Quire<T> }>;
+export type InlineOverrideComponent<T extends Inline> = Component<{ quire: Quire<T>, children: any }>;
+export type BlockOverrideComponent<T extends Block> = Component<{ quire: Quire<T>, children: any }>;
