@@ -19,7 +19,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.224"
+		"svelte": "^5.2.7"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.3.1",
@@ -43,8 +43,7 @@
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.8",
 		"publint": "^0.2.12",
-		"svelte": "^5.2.2",
-		"svelte-check": "^4.0.8",
+		"svelte-check": "^4.1.0",
 		"tslib": "^2.8.1",
 		"typescript": "^5.6.3",
 		"vite": "^5.4.11"

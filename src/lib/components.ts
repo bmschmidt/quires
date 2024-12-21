@@ -17,7 +17,7 @@ export { default as TaskList } from './Blocks/TaskList.svelte';
 export { default as TaskListItem } from './Blocks/TaskListItem.svelte';
 export { default as ThematicBreak } from './Blocks/ThematicBreak.svelte';
 
-export { default as Inline } from './Block.svelte';
+export { default as Inline } from './Inline.svelte';
 // ls src/lib/Inlines | sed 's/.svelte//' | perl -ne 'chomp; print "export { default as $_ } from \x27./Inlines/$_.svelte\x27;\n"'
 export { default as Delete } from './Inlines/Delete.svelte';
 export { default as DisplayMath } from './Inlines/DisplayMath.svelte';
